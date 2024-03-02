@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace ParkingSystemGUI
 {
-    public partial class ParkinForm : UserControl
+    public partial class ResultsForm : UserControl
     {
-        public ParkinForm()
+        public ResultsForm()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void parkoutButton_Click(object sender, EventArgs e)
         {
 
         }

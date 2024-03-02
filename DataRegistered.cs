@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace ParkingSystemGUI
 {
-    public partial class ParkinForm : UserControl
+    public partial class DataRegistered : UserControl
     {
-        public ParkinForm()
+        public DataRegistered()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

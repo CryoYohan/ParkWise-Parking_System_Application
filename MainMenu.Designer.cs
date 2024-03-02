@@ -20,6 +20,8 @@
             base.Dispose(disposing);
         }
 
+
+
         #region Component Designer generated code
 
         /// <summary> 
@@ -30,7 +32,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             pictureBox1 = new PictureBox();
-            proceedButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -44,30 +45,14 @@
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
-            // proceedButton
-            // 
-            proceedButton.BackColor = Color.FromArgb(32, 105, 158);
-            proceedButton.Cursor = Cursors.Hand;
-            proceedButton.FlatAppearance.BorderSize = 0;
-            proceedButton.FlatStyle = FlatStyle.Flat;
-            proceedButton.Font = new Font("STXihei", 21F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            proceedButton.ForeColor = Color.FromArgb(238, 231, 231);
-            proceedButton.Location = new Point(357, 516);
-            proceedButton.Name = "proceedButton";
-            proceedButton.Size = new Size(251, 70);
-            proceedButton.TabIndex = 1;
-            proceedButton.Text = "PROCEED";
-            proceedButton.UseVisualStyleBackColor = false;
-            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(126, 216, 253);
-            Controls.Add(proceedButton);
             Controls.Add(pictureBox1);
             Name = "MainMenu";
-            Size = new Size(939, 695);
+            Size = new Size(928, 676);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
@@ -75,6 +60,5 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private Button proceedButton;
     }
 }

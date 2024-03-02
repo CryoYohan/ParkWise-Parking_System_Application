@@ -21,5 +21,16 @@ namespace ParkingSystemGUI
         {
 
         }
+
+        private void proceedButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+        }
+
+        private void parkinForm1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

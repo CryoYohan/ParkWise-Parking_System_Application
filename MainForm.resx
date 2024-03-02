@@ -117,4 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="parkoutBackButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACkAAAAoCAYAAABjPNNTAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAMRJREFUWEftl7ERAiEQRSnBEizBEkiYOYjswBK8EuzEUizhSrAES9C/usHJnNGu
+        wwb/zfwAfvJgSUhe5Jx3tdbzNE0n3YqFCi7IU1JKOWgVg15Qgtvcaz2eH4IXrcdDQSsUtEJBKxS0QkEr
+        FLRCQStbgsgDuY1Oa+0qfgmLGVkLRsucMNa8UYQJ/D5/Jnl/XSnjPsoBRgbj/v4rYbMXXd7vIRoU9Yai
+        3lDUG4p6Q1FvKOoNRb3pRbHOWsViJXoPeZP/JaUXqf4+yv5L57kAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="parkinBackButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACkAAAAoCAYAAABjPNNTAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAMRJREFUWEftl7ERAiEQRSnBEizBEkiYOYjswBK8EuzEUizhSrAES9C/usHJnNGu
+        wwb/zfwAfvJgSUhe5Jx3tdbzNE0n3YqFCi7IU1JKOWgVg15Qgtvcaz2eH4IXrcdDQSsUtEJBKxS0QkEr
+        FLRCQStbgsgDuY1Oa+0qfgmLGVkLRsucMNa8UYQJ/D5/Jnl/XSnjPsoBRgbj/v4rYbMXXd7vIRoU9Yai
+        3lDUG4p6Q1FvKOoNRb3pRbHOWsViJXoPeZP/JaUXqf4+yv5L57kAAAAASUVORK5CYII=
+</value>
+  </data>
 </root>
