@@ -116,6 +116,7 @@ namespace ParkingSystemGUI
             button1.Name = "button1";
             button1.Size = new Size(210, 55);
             button1.TabIndex = 11;
+            button1.TabStop = false;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 

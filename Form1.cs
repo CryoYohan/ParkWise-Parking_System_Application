@@ -13,6 +13,7 @@ namespace ParkingSystemGUI
 {
     public partial class Form1 : Form
     {
+        MainForm mainForm = new MainForm();
         public Form1()
         {
             InitializeComponent();
@@ -37,53 +38,10 @@ namespace ParkingSystemGUI
         {
 
         }
-
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
-
-        private void pictureBox5_Enter(object sender, KeyEventArgs e)
-        {
-            promptUser = userTextbox.Text;
-            promptPass = passwordTextbox.Text;
-            if (e.KeyCode == Keys.Return)
-            {
-                if (promptUser == username && promptPass == password)
-                {
-                    MessageBox.Show("Login Succesful", "LOGIN");
-                    Hide();
-                    using (MainForm mainForm = new MainForm())
-                    {
-                        mainForm.ShowDialog();
-                    }
-                    Show();
-                }
-                else
-                    MessageBox.Show("Login Failed", "LOGIN");
-            }
-
-        }
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            promptUser = userTextbox.Text;
-            promptPass = passwordTextbox.Text;
-            if (promptUser == username && promptPass == password)
-            {
-                MessageBox.Show("Login Succesful", "LOGIN");
-                Hide();
-                using (MainForm mainForm = new MainForm())
-                {
-                    mainForm.ShowDialog();
-                }
-                Show();
-            }
-            else
-                MessageBox.Show("Login Failed", "LOGIN");
-        }
-
-        private string username = "Negusius";
-        private string password = "negus123";
         private string promptUser = "";
         private string promptPass = "";
 
@@ -91,9 +49,11 @@ namespace ParkingSystemGUI
         {
             promptUser = userTextbox.Text;
             promptPass = passwordTextbox.Text;
-            if (promptUser == username && promptPass == password)
+            if (promptUser == mainForm.GetUser() && promptPass == mainForm.GetPassword())
             {
                 MessageBox.Show("Login Succesful", "LOGIN");
+                userTextbox.Text = "";
+                passwordTextbox.Text = "";
                 Hide();
                 using (MainForm mainForm = new MainForm())
                 {

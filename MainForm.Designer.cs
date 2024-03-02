@@ -51,6 +51,18 @@
             parkoutBackButton = new Button();
             parkinBackButton = new Button();
             dataRegistered1 = new DataRegistered();
+            resultsForm1 = new ResultsForm();
+            parkAgainButton = new Button();
+            logoutButton = new Button();
+            customerLabelResults = new Label();
+            plateNoResultsLabel = new Label();
+            vehicleTypeResultsLabel = new Label();
+            vehicleBrandResultsLabel = new Label();
+            date1ResultsLabel = new Label();
+            date2ResultsLabel = new Label();
+            durationResultsLabel = new Label();
+            flagdownResultsLabel = new Label();
+            totalAmountResultsLabel = new Label();
             SuspendLayout();
             // 
             // proceedButton
@@ -86,7 +98,7 @@
             parkinButton.FlatStyle = FlatStyle.Flat;
             parkinButton.Font = new Font("STXihei", 21F, FontStyle.Regular, GraphicsUnit.Point, 0);
             parkinButton.ForeColor = Color.FromArgb(238, 231, 231);
-            parkinButton.Location = new Point(340, 529);
+            parkinButton.Location = new Point(347, 522);
             parkinButton.Name = "parkinButton";
             parkinButton.Size = new Size(251, 70);
             parkinButton.TabIndex = 5;
@@ -200,7 +212,7 @@
             minuteCBox.Font = new Font("Segoe UI", 12F);
             minuteCBox.FormattingEnabled = true;
             minuteCBox.IntegralHeight = false;
-            minuteCBox.Items.AddRange(new object[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" });
+            minuteCBox.Items.AddRange(new object[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" });
             minuteCBox.Location = new Point(764, 411);
             minuteCBox.Name = "minuteCBox";
             minuteCBox.Size = new Size(56, 29);
@@ -237,6 +249,7 @@
             parkoutButton.TabIndex = 17;
             parkoutButton.Text = "PARK-OUT";
             parkoutButton.UseVisualStyleBackColor = false;
+            parkoutButton.Click += parkoutButton_Click;
             // 
             // plateNoLabel
             // 
@@ -244,7 +257,7 @@
             plateNoLabel.BackColor = Color.LightGray;
             plateNoLabel.Font = new Font("Segoe UI", 21F);
             plateNoLabel.ForeColor = Color.FromArgb(32, 105, 158);
-            plateNoLabel.Location = new Point(527, 298);
+            plateNoLabel.Location = new Point(488, 295);
             plateNoLabel.Name = "plateNoLabel";
             plateNoLabel.Size = new Size(63, 38);
             plateNoLabel.TabIndex = 19;
@@ -254,11 +267,11 @@
             // 
             parkinDateLabel.AutoSize = true;
             parkinDateLabel.BackColor = Color.LightGray;
-            parkinDateLabel.Font = new Font("Segoe UI", 21F);
+            parkinDateLabel.Font = new Font("Segoe UI", 17F);
             parkinDateLabel.ForeColor = Color.FromArgb(32, 105, 158);
-            parkinDateLabel.Location = new Point(528, 443);
+            parkinDateLabel.Location = new Point(499, 450);
             parkinDateLabel.Name = "parkinDateLabel";
-            parkinDateLabel.Size = new Size(63, 38);
+            parkinDateLabel.Size = new Size(52, 31);
             parkinDateLabel.TabIndex = 20;
             parkinDateLabel.Text = "null";
             // 
@@ -268,7 +281,7 @@
             vehicleBLabel.BackColor = Color.LightGray;
             vehicleBLabel.Font = new Font("Segoe UI", 21F);
             vehicleBLabel.ForeColor = Color.FromArgb(32, 105, 158);
-            vehicleBLabel.Location = new Point(527, 384);
+            vehicleBLabel.Location = new Point(488, 387);
             vehicleBLabel.Name = "vehicleBLabel";
             vehicleBLabel.Size = new Size(63, 38);
             vehicleBLabel.TabIndex = 21;
@@ -280,11 +293,12 @@
             vehicleTLabel.BackColor = Color.LightGray;
             vehicleTLabel.Font = new Font("Segoe UI", 21F);
             vehicleTLabel.ForeColor = Color.FromArgb(32, 105, 158);
-            vehicleTLabel.Location = new Point(527, 336);
+            vehicleTLabel.Location = new Point(488, 337);
             vehicleTLabel.Name = "vehicleTLabel";
             vehicleTLabel.Size = new Size(63, 38);
             vehicleTLabel.TabIndex = 22;
             vehicleTLabel.Text = "null";
+            vehicleTLabel.Click += vehicleTLabel_Click;
             // 
             // userLabel
             // 
@@ -322,7 +336,7 @@
             parkinBackButton.Cursor = Cursors.Hand;
             parkinBackButton.FlatStyle = FlatStyle.Flat;
             parkinBackButton.ForeColor = Color.FromArgb(152, 188, 204);
-            parkinBackButton.Location = new Point(265, 545);
+            parkinBackButton.Location = new Point(265, 538);
             parkinBackButton.Name = "parkinBackButton";
             parkinBackButton.Size = new Size(35, 35);
             parkinBackButton.TabIndex = 26;
@@ -333,10 +347,160 @@
             // dataRegistered1
             // 
             dataRegistered1.BackColor = Color.FromArgb(126, 216, 253);
-            dataRegistered1.Location = new Point(-3, 12);
+            dataRegistered1.Location = new Point(-9, 12);
             dataRegistered1.Name = "dataRegistered1";
             dataRegistered1.Size = new Size(939, 650);
             dataRegistered1.TabIndex = 27;
+            // 
+            // resultsForm1
+            // 
+            resultsForm1.BackColor = Color.FromArgb(126, 216, 253);
+            resultsForm1.ForeColor = SystemColors.ControlText;
+            resultsForm1.Location = new Point(-3, 17);
+            resultsForm1.Name = "resultsForm1";
+            resultsForm1.Size = new Size(933, 645);
+            resultsForm1.TabIndex = 28;
+            // 
+            // parkAgainButton
+            // 
+            parkAgainButton.BackColor = Color.FromArgb(32, 105, 158);
+            parkAgainButton.Cursor = Cursors.Hand;
+            parkAgainButton.FlatAppearance.BorderSize = 0;
+            parkAgainButton.FlatStyle = FlatStyle.Flat;
+            parkAgainButton.Font = new Font("STXihei", 18F);
+            parkAgainButton.ForeColor = Color.FromArgb(238, 231, 231);
+            parkAgainButton.Location = new Point(256, 523);
+            parkAgainButton.Name = "parkAgainButton";
+            parkAgainButton.Size = new Size(198, 42);
+            parkAgainButton.TabIndex = 29;
+            parkAgainButton.Text = "Park Again";
+            parkAgainButton.UseVisualStyleBackColor = false;
+            parkAgainButton.Click += parkAgainButton_Click;
+            // 
+            // logoutButton
+            // 
+            logoutButton.BackColor = Color.FromArgb(32, 105, 158);
+            logoutButton.Cursor = Cursors.Hand;
+            logoutButton.FlatAppearance.BorderSize = 0;
+            logoutButton.FlatStyle = FlatStyle.Flat;
+            logoutButton.Font = new Font("STXihei", 21F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            logoutButton.ForeColor = Color.FromArgb(238, 231, 231);
+            logoutButton.Location = new Point(498, 522);
+            logoutButton.Name = "logoutButton";
+            logoutButton.Size = new Size(198, 42);
+            logoutButton.TabIndex = 30;
+            logoutButton.Text = "Log-out";
+            logoutButton.UseVisualStyleBackColor = false;
+            logoutButton.Click += logoutButton_Click;
+            // 
+            // customerLabelResults
+            // 
+            customerLabelResults.AutoSize = true;
+            customerLabelResults.BackColor = Color.FromArgb(208, 212, 212);
+            customerLabelResults.Font = new Font("Lucida Console", 10F);
+            customerLabelResults.ForeColor = Color.FromArgb(32, 105, 158);
+            customerLabelResults.Location = new Point(304, 288);
+            customerLabelResults.Name = "customerLabelResults";
+            customerLabelResults.Size = new Size(15, 14);
+            customerLabelResults.TabIndex = 31;
+            customerLabelResults.Text = ".";
+            customerLabelResults.Click += customerLabelResults_Click;
+            // 
+            // plateNoResultsLabel
+            // 
+            plateNoResultsLabel.AutoSize = true;
+            plateNoResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
+            plateNoResultsLabel.Font = new Font("Segoe UI", 10F);
+            plateNoResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
+            plateNoResultsLabel.Location = new Point(306, 314);
+            plateNoResultsLabel.Name = "plateNoResultsLabel";
+            plateNoResultsLabel.Size = new Size(12, 19);
+            plateNoResultsLabel.TabIndex = 33;
+            plateNoResultsLabel.Text = ".";
+            // 
+            // vehicleTypeResultsLabel
+            // 
+            vehicleTypeResultsLabel.AutoSize = true;
+            vehicleTypeResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
+            vehicleTypeResultsLabel.Font = new Font("Segoe UI", 10F);
+            vehicleTypeResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
+            vehicleTypeResultsLabel.Location = new Point(325, 345);
+            vehicleTypeResultsLabel.Name = "vehicleTypeResultsLabel";
+            vehicleTypeResultsLabel.Size = new Size(12, 19);
+            vehicleTypeResultsLabel.TabIndex = 34;
+            vehicleTypeResultsLabel.Text = ".";
+            // 
+            // vehicleBrandResultsLabel
+            // 
+            vehicleBrandResultsLabel.AutoSize = true;
+            vehicleBrandResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
+            vehicleBrandResultsLabel.Font = new Font("Lucida Console", 10F);
+            vehicleBrandResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
+            vehicleBrandResultsLabel.Location = new Point(589, 288);
+            vehicleBrandResultsLabel.Name = "vehicleBrandResultsLabel";
+            vehicleBrandResultsLabel.Size = new Size(15, 14);
+            vehicleBrandResultsLabel.TabIndex = 35;
+            vehicleBrandResultsLabel.Text = ".";
+            // 
+            // date1ResultsLabel
+            // 
+            date1ResultsLabel.AutoSize = true;
+            date1ResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
+            date1ResultsLabel.Font = new Font("Lucida Console", 6.5F);
+            date1ResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
+            date1ResultsLabel.Location = new Point(616, 319);
+            date1ResultsLabel.Name = "date1ResultsLabel";
+            date1ResultsLabel.Size = new Size(10, 9);
+            date1ResultsLabel.TabIndex = 36;
+            date1ResultsLabel.Text = ".";
+            // 
+            // date2ResultsLabel
+            // 
+            date2ResultsLabel.AutoSize = true;
+            date2ResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
+            date2ResultsLabel.Font = new Font("Lucida Console", 6.5F);
+            date2ResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
+            date2ResultsLabel.Location = new Point(628, 352);
+            date2ResultsLabel.Name = "date2ResultsLabel";
+            date2ResultsLabel.Size = new Size(10, 9);
+            date2ResultsLabel.TabIndex = 37;
+            date2ResultsLabel.Text = ".";
+            // 
+            // durationResultsLabel
+            // 
+            durationResultsLabel.AutoSize = true;
+            durationResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
+            durationResultsLabel.Font = new Font("Segoe UI", 12F);
+            durationResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
+            durationResultsLabel.Location = new Point(411, 394);
+            durationResultsLabel.Name = "durationResultsLabel";
+            durationResultsLabel.Size = new Size(13, 21);
+            durationResultsLabel.TabIndex = 38;
+            durationResultsLabel.Text = ".";
+            // 
+            // flagdownResultsLabel
+            // 
+            flagdownResultsLabel.AutoSize = true;
+            flagdownResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
+            flagdownResultsLabel.Font = new Font("Segoe UI", 12F);
+            flagdownResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
+            flagdownResultsLabel.Location = new Point(417, 420);
+            flagdownResultsLabel.Name = "flagdownResultsLabel";
+            flagdownResultsLabel.Size = new Size(13, 21);
+            flagdownResultsLabel.TabIndex = 39;
+            flagdownResultsLabel.Text = ".";
+            // 
+            // totalAmountResultsLabel
+            // 
+            totalAmountResultsLabel.AutoSize = true;
+            totalAmountResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
+            totalAmountResultsLabel.Font = new Font("Segoe UI", 12F);
+            totalAmountResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
+            totalAmountResultsLabel.Location = new Point(505, 469);
+            totalAmountResultsLabel.Name = "totalAmountResultsLabel";
+            totalAmountResultsLabel.Size = new Size(13, 21);
+            totalAmountResultsLabel.TabIndex = 32;
+            totalAmountResultsLabel.Text = ".";
             // 
             // MainForm
             // 
@@ -344,6 +508,18 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(126, 216, 253);
             ClientSize = new Size(919, 656);
+            Controls.Add(flagdownResultsLabel);
+            Controls.Add(durationResultsLabel);
+            Controls.Add(date2ResultsLabel);
+            Controls.Add(date1ResultsLabel);
+            Controls.Add(vehicleBrandResultsLabel);
+            Controls.Add(vehicleTypeResultsLabel);
+            Controls.Add(plateNoResultsLabel);
+            Controls.Add(totalAmountResultsLabel);
+            Controls.Add(customerLabelResults);
+            Controls.Add(logoutButton);
+            Controls.Add(parkAgainButton);
+            Controls.Add(resultsForm1);
             Controls.Add(userLabel);
             Controls.Add(parkoutBackButton);
             Controls.Add(parkinDateLabel);
@@ -399,6 +575,18 @@
         private Label userLabel;
         private Button parkinBackButton;
         private DataRegistered dataRegistered1;
+        private ResultsForm resultsForm1;
+        private Button parkAgainButton;
+        private Button logoutButton;
+        private Label customerLabelResults;
+        private Label plateNoResultsLabel;
+        private Label vehicleTypeResultsLabel;
+        private Label vehicleBrandResultsLabel;
+        private Label date1ResultsLabel;
+        private Label date2ResultsLabel;
+        private Label durationResultsLabel;
+        private Label flagdownResultsLabel;
+        private Label totalAmountResultsLabel;
         //private Button parkoutBackButton;
     }
 }
