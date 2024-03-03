@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ParkingSystemGUI
 {
-    
+    // Negus
     public partial class MainForm : Form
     {       
         private string username = "Negusius";
@@ -406,7 +406,7 @@ namespace ParkingSystemGUI
         public override double chargingFee(double hours, double minutes)
         {
             const double addHour = 15.00;
-            return vehicleChargeConditions(hours, minutes, addHour, suvVanFee);
+            return vehicleChargeConditions(hours, minutes, addHour, sedanFee);
         }
     }
     public class Blueprint

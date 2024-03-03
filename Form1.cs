@@ -61,7 +61,7 @@ namespace ParkingSystemGUI
                 }
                 Show();
             }
-            else if(promptUser == null || promptPass == null)
+            else if(promptUser == "" || promptPass == "")
             {
                 MessageBox.Show("Field cannot be empty!", "LOGIN");
                 if(promptUser == null)
