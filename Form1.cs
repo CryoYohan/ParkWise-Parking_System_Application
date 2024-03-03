@@ -61,6 +61,26 @@ namespace ParkingSystemGUI
                 }
                 Show();
             }
+            else if(promptUser == null || promptPass == null)
+            {
+                MessageBox.Show("Field cannot be empty!", "LOGIN");
+                if(promptUser == null)
+                {
+                    userTextbox.ForeColor = Color.Red;
+                    userTextbox.PlaceholderText = "Field cannot be empty!";
+                    Thread.Sleep(1500);
+                    userTextbox.ForeColor = Color.LightGray;
+                    userTextbox.PlaceholderText = "Enter username";
+                }
+                else if(promptPass == null)
+                {
+                    passwordTextbox.ForeColor = Color.Red;
+                    passwordTextbox.PlaceholderText = "Field cannot be empty!";
+                    Thread.Sleep(1500);
+                    passwordTextbox.ForeColor = Color.LightGray;
+                    passwordTextbox.PlaceholderText = "Enter password";
+                }
+            }
             else
                 MessageBox.Show("Login Failed", "LOGIN");
         }
