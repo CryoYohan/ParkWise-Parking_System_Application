@@ -11,7 +11,6 @@ using System.Windows.Forms;
 
 namespace ParkingSystemGUI
 {
-    // Negus
     public partial class MainForm : Form
     {       
         private string username = "Negusius";
