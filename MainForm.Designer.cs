@@ -347,7 +347,7 @@
             // dataRegistered1
             // 
             dataRegistered1.BackColor = Color.FromArgb(126, 216, 253);
-            dataRegistered1.Location = new Point(-9, 12);
+            dataRegistered1.Location = new Point(-3, 12);
             dataRegistered1.Name = "dataRegistered1";
             dataRegistered1.Size = new Size(939, 650);
             dataRegistered1.TabIndex = 27;

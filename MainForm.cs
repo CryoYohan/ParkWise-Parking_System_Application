@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace ParkingSystemGUI
 {
     public partial class MainForm : Form
-    {       
+    {
         private string username = "Negusius";
         private string password = "negus123";
         DateTime parkin = DateTime.Now;
@@ -86,7 +86,7 @@ namespace ParkingSystemGUI
             minutes = calcDate.Minutes;
             Blueprint bluePrint = new Blueprint(plateNoVar, vehicleTypeVar, vehicleBrandVar);
             bluePrint.GetPoint(out pn, out vt, out vb);
-            userLabel.Text = $"{username}";
+            userLabel.Text = username;
             plateNoLabel.Text = pn;
             vehicleTLabel.Text = vt;
             vehicleBLabel.Text = vb;
@@ -97,7 +97,7 @@ namespace ParkingSystemGUI
 
         // Removes registered data for a new one to be stored
         private void removeCollectedData()
-        {          
+        {
             userLabel.Text = "";
             parkinDateLabel.Text = "";
             customerLabelResults.Text = "";
@@ -128,7 +128,7 @@ namespace ParkingSystemGUI
 
         private void parkinBackButton_Click_1(object sender, EventArgs e)
         {
-            hideParkin();          
+            hideParkin();
             showMainMenu();
         }
         private void parkoutButton_Click(object sender, EventArgs e)
@@ -356,6 +356,11 @@ namespace ParkingSystemGUI
         }
 
         private void vehicleTLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
