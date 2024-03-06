@@ -258,7 +258,7 @@ namespace ParkingSystemGUI
         }
         private void hideParkin()
         {
-            parkinForm1.Hide();
+           // parkinForm1.Hide();
             parkinButton.Hide();
             parkinBackButton.Hide();
             plateNoBox.Hide();
@@ -274,7 +274,7 @@ namespace ParkingSystemGUI
         private void showParkin()
         {
             parkinButton.Show();
-            parkinForm1.Show();
+           // parkinForm1.Show();
             parkinBackButton.Show();
             plateNoBox.Show();
             vehicleTypeCBox.Show();
@@ -289,7 +289,7 @@ namespace ParkingSystemGUI
 
         private void hideDataRegister()
         {
-            dataRegistered1.Hide();
+           // dataRegistered1.Hide();
             userLabel.Hide();
             plateNoLabel.Hide();
             vehicleTLabel.Hide();
@@ -300,7 +300,7 @@ namespace ParkingSystemGUI
         }
         private void showDataRegister()
         {
-            dataRegistered1.Show();
+           // dataRegistered1.Show();
             userLabel.Show();
             plateNoLabel.Show();
             vehicleTLabel.Show();
@@ -311,7 +311,7 @@ namespace ParkingSystemGUI
         }
         private void showResults()
         {
-            resultsForm1.Show();
+          //  resultsForm1.Show();
             customerLabelResults.Show();
             plateNoResultsLabel.Show();
             vehicleTypeResultsLabel.Show();
@@ -326,7 +326,7 @@ namespace ParkingSystemGUI
         }
         private void hideResults()
         {
-            resultsForm1.Hide();
+           // resultsForm1.Hide();
             customerLabelResults.Hide();
             plateNoResultsLabel.Hide();
             vehicleTypeResultsLabel.Hide();
