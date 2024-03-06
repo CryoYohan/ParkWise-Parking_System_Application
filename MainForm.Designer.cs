@@ -56,10 +56,22 @@
             dataRegistered1 = new DataRegistered();
             dataGridForm1 = new DataGridForm();
             vehicleDataGrid = new DataGridView();
+            customerIDGridVar = new DataGridViewTextBoxColumn();
             plateNoGridVar = new DataGridViewTextBoxColumn();
             vehicleTypeGridVar = new DataGridViewTextBoxColumn();
             vehicleBrandGridVar = new DataGridViewTextBoxColumn();
             parkinDateTimeGridVar = new DataGridViewTextBoxColumn();
+            resultsForm1 = new ResultsForm();
+            customerIDResults = new Label();
+            parkinResults = new Label();
+            vehicleBrandResults = new Label();
+            vehicleTypeResults = new Label();
+            plateNoResults = new Label();
+            parkoutResults = new Label();
+            totalAmountResults = new Label();
+            flagDownResults = new Label();
+            durationResults = new Label();
+            confirmResultsButton = new Button();
             ((System.ComponentModel.ISupportInitialize)vehicleDataGrid).BeginInit();
             SuspendLayout();
             // 
@@ -357,7 +369,7 @@
             Home.FlatStyle = FlatStyle.Flat;
             Home.Font = new Font("STXihei", 12F);
             Home.ForeColor = Color.FromArgb(238, 231, 231);
-            Home.Location = new Point(813, 566);
+            Home.Location = new Point(813, 571);
             Home.Name = "Home";
             Home.Size = new Size(61, 48);
             Home.TabIndex = 55;
@@ -384,7 +396,7 @@
             // parkinForm1
             // 
             parkinForm1.BackColor = Color.FromArgb(126, 216, 253);
-            parkinForm1.Location = new Point(-5, 12);
+            parkinForm1.Location = new Point(-17, 12);
             parkinForm1.Name = "parkinForm1";
             parkinForm1.Size = new Size(939, 695);
             parkinForm1.TabIndex = 57;
@@ -392,7 +404,7 @@
             // dataRegistered1
             // 
             dataRegistered1.BackColor = Color.FromArgb(126, 216, 253);
-            dataRegistered1.Location = new Point(-5, 12);
+            dataRegistered1.Location = new Point(-17, 12);
             dataRegistered1.Name = "dataRegistered1";
             dataRegistered1.Size = new Size(939, 695);
             dataRegistered1.TabIndex = 58;
@@ -400,7 +412,7 @@
             // dataGridForm1
             // 
             dataGridForm1.BackColor = Color.FromArgb(126, 216, 253);
-            dataGridForm1.Location = new Point(-5, 12);
+            dataGridForm1.Location = new Point(-17, 12);
             dataGridForm1.Name = "dataGridForm1";
             dataGridForm1.Size = new Size(939, 695);
             dataGridForm1.TabIndex = 59;
@@ -408,34 +420,172 @@
             // 
             // vehicleDataGrid
             // 
+            vehicleDataGrid.AllowUserToDeleteRows = false;
+            vehicleDataGrid.AllowUserToResizeColumns = false;
+            vehicleDataGrid.AllowUserToResizeRows = false;
             vehicleDataGrid.BackgroundColor = Color.FromArgb(32, 105, 158);
             vehicleDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            vehicleDataGrid.Columns.AddRange(new DataGridViewColumn[] { plateNoGridVar, vehicleTypeGridVar, vehicleBrandGridVar, parkinDateTimeGridVar });
-            vehicleDataGrid.Location = new Point(186, 243);
+            vehicleDataGrid.Columns.AddRange(new DataGridViewColumn[] { customerIDGridVar, plateNoGridVar, vehicleTypeGridVar, vehicleBrandGridVar, parkinDateTimeGridVar });
+            vehicleDataGrid.Location = new Point(104, 232);
             vehicleDataGrid.Name = "vehicleDataGrid";
+            vehicleDataGrid.ReadOnly = true;
             vehicleDataGrid.RowHeadersWidth = 150;
-            vehicleDataGrid.Size = new Size(552, 267);
+            vehicleDataGrid.Size = new Size(701, 267);
             vehicleDataGrid.TabIndex = 60;
+            // 
+            // customerIDGridVar
+            // 
+            customerIDGridVar.HeaderText = "Customer ID";
+            customerIDGridVar.Name = "customerIDGridVar";
+            customerIDGridVar.ReadOnly = true;
             // 
             // plateNoGridVar
             // 
             plateNoGridVar.HeaderText = "Plate No.";
             plateNoGridVar.Name = "plateNoGridVar";
+            plateNoGridVar.ReadOnly = true;
             // 
             // vehicleTypeGridVar
             // 
             vehicleTypeGridVar.HeaderText = "Vehicle Type";
             vehicleTypeGridVar.Name = "vehicleTypeGridVar";
+            vehicleTypeGridVar.ReadOnly = true;
             // 
             // vehicleBrandGridVar
             // 
             vehicleBrandGridVar.HeaderText = "Vehicle Brand";
             vehicleBrandGridVar.Name = "vehicleBrandGridVar";
+            vehicleBrandGridVar.ReadOnly = true;
             // 
             // parkinDateTimeGridVar
             // 
             parkinDateTimeGridVar.HeaderText = "Park-in Date/Time";
             parkinDateTimeGridVar.Name = "parkinDateTimeGridVar";
+            parkinDateTimeGridVar.ReadOnly = true;
+            parkinDateTimeGridVar.Width = 150;
+            // 
+            // resultsForm1
+            // 
+            resultsForm1.BackColor = Color.FromArgb(126, 216, 253);
+            resultsForm1.ForeColor = SystemColors.ControlText;
+            resultsForm1.Location = new Point(-17, 13);
+            resultsForm1.Name = "resultsForm1";
+            resultsForm1.Size = new Size(933, 692);
+            resultsForm1.TabIndex = 61;
+            // 
+            // customerIDResults
+            // 
+            customerIDResults.AutoSize = true;
+            customerIDResults.BackColor = Color.Gainsboro;
+            customerIDResults.ForeColor = Color.FromArgb(32, 105, 158);
+            customerIDResults.Location = new Point(295, 286);
+            customerIDResults.Name = "customerIDResults";
+            customerIDResults.Size = new Size(27, 15);
+            customerIDResults.TabIndex = 62;
+            customerIDResults.Text = "null";
+            // 
+            // parkinResults
+            // 
+            parkinResults.AutoSize = true;
+            parkinResults.BackColor = Color.Gainsboro;
+            parkinResults.ForeColor = Color.FromArgb(32, 105, 158);
+            parkinResults.Location = new Point(610, 314);
+            parkinResults.Name = "parkinResults";
+            parkinResults.Size = new Size(27, 15);
+            parkinResults.TabIndex = 63;
+            parkinResults.Text = "null";
+            // 
+            // vehicleBrandResults
+            // 
+            vehicleBrandResults.AutoSize = true;
+            vehicleBrandResults.BackColor = Color.Gainsboro;
+            vehicleBrandResults.ForeColor = Color.FromArgb(32, 105, 158);
+            vehicleBrandResults.Location = new Point(578, 284);
+            vehicleBrandResults.Name = "vehicleBrandResults";
+            vehicleBrandResults.Size = new Size(27, 15);
+            vehicleBrandResults.TabIndex = 64;
+            vehicleBrandResults.Text = "null";
+            // 
+            // vehicleTypeResults
+            // 
+            vehicleTypeResults.AutoSize = true;
+            vehicleTypeResults.BackColor = Color.Gainsboro;
+            vehicleTypeResults.ForeColor = Color.FromArgb(32, 105, 158);
+            vehicleTypeResults.Location = new Point(314, 346);
+            vehicleTypeResults.Name = "vehicleTypeResults";
+            vehicleTypeResults.Size = new Size(27, 15);
+            vehicleTypeResults.TabIndex = 65;
+            vehicleTypeResults.Text = "null";
+            // 
+            // plateNoResults
+            // 
+            plateNoResults.AutoSize = true;
+            plateNoResults.BackColor = Color.Gainsboro;
+            plateNoResults.ForeColor = Color.FromArgb(32, 105, 158);
+            plateNoResults.Location = new Point(295, 315);
+            plateNoResults.Name = "plateNoResults";
+            plateNoResults.Size = new Size(27, 15);
+            plateNoResults.TabIndex = 66;
+            plateNoResults.Text = "null";
+            // 
+            // parkoutResults
+            // 
+            parkoutResults.AutoSize = true;
+            parkoutResults.BackColor = Color.Gainsboro;
+            parkoutResults.ForeColor = Color.FromArgb(32, 105, 158);
+            parkoutResults.Location = new Point(619, 346);
+            parkoutResults.Name = "parkoutResults";
+            parkoutResults.Size = new Size(27, 15);
+            parkoutResults.TabIndex = 67;
+            parkoutResults.Text = "null";
+            // 
+            // totalAmountResults
+            // 
+            totalAmountResults.AutoSize = true;
+            totalAmountResults.BackColor = Color.Gainsboro;
+            totalAmountResults.Font = new Font("Segoe UI", 21F);
+            totalAmountResults.ForeColor = Color.FromArgb(32, 105, 158);
+            totalAmountResults.Location = new Point(493, 452);
+            totalAmountResults.Name = "totalAmountResults";
+            totalAmountResults.Size = new Size(63, 38);
+            totalAmountResults.TabIndex = 68;
+            totalAmountResults.Text = "null";
+            totalAmountResults.Click += label6_Click;
+            // 
+            // flagDownResults
+            // 
+            flagDownResults.AutoSize = true;
+            flagDownResults.BackColor = Color.Gainsboro;
+            flagDownResults.ForeColor = Color.FromArgb(32, 105, 158);
+            flagDownResults.Location = new Point(408, 421);
+            flagDownResults.Name = "flagDownResults";
+            flagDownResults.Size = new Size(27, 15);
+            flagDownResults.TabIndex = 69;
+            flagDownResults.Text = "null";
+            // 
+            // durationResults
+            // 
+            durationResults.AutoSize = true;
+            durationResults.BackColor = Color.Gainsboro;
+            durationResults.ForeColor = Color.FromArgb(32, 105, 158);
+            durationResults.Location = new Point(400, 396);
+            durationResults.Name = "durationResults";
+            durationResults.Size = new Size(27, 15);
+            durationResults.TabIndex = 70;
+            durationResults.Text = "null";
+            // 
+            // confirmResultsButton
+            // 
+            confirmResultsButton.BackColor = Color.FromArgb(32, 105, 158);
+            confirmResultsButton.Font = new Font("Segoe UI", 20F);
+            confirmResultsButton.ForeColor = SystemColors.ButtonFace;
+            confirmResultsButton.Location = new Point(354, 505);
+            confirmResultsButton.Name = "confirmResultsButton";
+            confirmResultsButton.Size = new Size(208, 61);
+            confirmResultsButton.TabIndex = 71;
+            confirmResultsButton.Text = "CONFIRM";
+            confirmResultsButton.UseVisualStyleBackColor = false;
+            confirmResultsButton.Click += confirmResultsButton_Click;
             // 
             // MainForm
             // 
@@ -443,6 +593,17 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(126, 216, 253);
             ClientSize = new Size(919, 656);
+            Controls.Add(confirmResultsButton);
+            Controls.Add(durationResults);
+            Controls.Add(flagDownResults);
+            Controls.Add(totalAmountResults);
+            Controls.Add(parkoutResults);
+            Controls.Add(plateNoResults);
+            Controls.Add(vehicleTypeResults);
+            Controls.Add(vehicleBrandResults);
+            Controls.Add(parkinResults);
+            Controls.Add(customerIDResults);
+            Controls.Add(resultsForm1);
             Controls.Add(vehicleDataGrid);
             Controls.Add(Home);
             Controls.Add(logoutButton);
@@ -509,10 +670,22 @@
         private DataRegistered dataRegistered1;
         private DataGridForm dataGridForm1;
         private DataGridView vehicleDataGrid;
+        private DataGridViewTextBoxColumn customerIDGridVar;
         private DataGridViewTextBoxColumn plateNoGridVar;
         private DataGridViewTextBoxColumn vehicleTypeGridVar;
         private DataGridViewTextBoxColumn vehicleBrandGridVar;
         private DataGridViewTextBoxColumn parkinDateTimeGridVar;
+        private ResultsForm resultsForm1;
+        private Label customerIDResults;
+        private Label parkinResults;
+        private Label vehicleBrandResults;
+        private Label vehicleTypeResults;
+        private Label plateNoResults;
+        private Label parkoutResults;
+        private Label totalAmountResults;
+        private Label flagDownResults;
+        private Label durationResults;
+        private Button confirmResultsButton;
         //private Button parkoutBackButton;
     }
 }

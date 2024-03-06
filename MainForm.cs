@@ -15,6 +15,7 @@ namespace ParkingSystemGUI
     {
         private string username = "Negusius";
         private string password = "negus123";
+        private string idGeneratedVar;
         DateTime parkin = DateTime.Now;
         double days, hours, minutes, totalAmount;
         string plateNoVar = "", vehicleTypeVar = "", vehicleBrandVar = "", parkoutDateTimeVar = "", pn, vt, vb;
@@ -37,8 +38,8 @@ namespace ParkingSystemGUI
             showMainMenu();
             hideParkin();
             hideDataRegister();
-            hideResults();
             hideDataGridForm();
+            hideResultsForm();
         }
 
         private void parkinForm1_Load(object sender, EventArgs e)
@@ -64,12 +65,6 @@ namespace ParkingSystemGUI
         private void parkinForm1_Load_1(object sender, EventArgs e)
         {
 
-        }
-
-        private void proceedButton_Click(object sender, EventArgs e)
-        {
-            hideMainMenu();
-            showParkin();
         }
         //---- Changing Panels Functionality of Buttons-------
         private void parkinButton_Click(object sender, EventArgs e)
@@ -103,14 +98,20 @@ namespace ParkingSystemGUI
             minutes = calcDate.Minutes;*/
 
         }
+        // Proceed Button in MainMenu Form
+        private void proceedButton_Click(object sender, EventArgs e)
+        {
+            hideMainMenu();
+            showParkin();
+        }
 
         // Removes registered data for a new one to be stored
         private void removeCollectedData()
         {
             userLabel.Text = "";
             parkinDateLabel.Text = "";
-            vehicleBrandBox.SelectedItem = "";
-            vehicleTypeCBox.SelectedItem = "";
+            vehicleBrandBox.Items.Clear();
+            vehicleTypeCBox.SelectedItem = null;
             plateNoLabel.Text = "";
             vehicleTLabel.Text = "";
             vehicleBLabel.Text = "";
@@ -118,20 +119,28 @@ namespace ParkingSystemGUI
             vehicleTypeCBox.Text = "";
             vehicleBrandBox.Text = "";
         }
+        // The back button in Data Registered Form
         private void parkoutBackButton_Click(object sender, EventArgs e)
         {
             hideDataRegister();
             showParkin();
         }
-
+        // The back button in Park-in Form
         private void parkinBackButton_Click_1(object sender, EventArgs e)
         {
             hideParkin();
             showMainMenu();
         }
+
+        // Confirm Button in Data Registered
         private void parkoutButton_Click(object sender, EventArgs e)
         {
             hideDataRegister();
+            idGeneratedVar = idGenerator();
+            vehicleDataGrid.Rows.Add(idGeneratedVar, pn, vt, vb, parkin);
+            /* vehicleDataGrid.Rows.Add(vehicleTypeGridVar, vt);
+             vehicleDataGrid.Rows.Add(vehicleBrandGridVar, vb);
+             vehicleDataGrid.Rows.Add(parkinDateTimeGridVar, parkin);*/
             showDataGridForm();
             // parkoutButtonGrid = DateTime.Now;
 
@@ -149,6 +158,20 @@ namespace ParkingSystemGUI
 
         }
 
+        private string idGenerator()
+        {
+            int randInt;
+            string id = "PRKWS-";
+            Random random = new Random();
+            char[] arrChar = { 'A', 'B', 'C', 'X', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
+            for (int i = 0; i < 5; i++)
+            {
+                randInt = random.Next(arrChar.Length);
+                id += arrChar[randInt];
+            }
+            return id;
+        }
+
 
         // ADD VEHICLE FUNCTION
         private void parkAgainButton_Click(object sender, EventArgs e)
@@ -164,17 +187,20 @@ namespace ParkingSystemGUI
         }
         private void DataGridButtonMenu_Click(object sender, EventArgs e)
         {
-            // Navigate to DataGrid from Menu Form
+            hideMainMenu();
+            showDataGridForm();
         }
 
         private void DataGridButtonParkin_Click(object sender, EventArgs e)
         {
-            // Navigate to DataGrid from Parkin Form
+            hideParkin();
+            showDataGridForm();
         }
         // DataGRID Access in Parkout Form
         private void DataGridButtonParkout_Click(object sender, EventArgs e)
         {
-
+            hideDataRegister();
+            showDataGridForm();
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,13 +237,45 @@ namespace ParkingSystemGUI
         // PARKOUT Button
         private void parkoutButtonGrid_Click(object sender, EventArgs e)
         {
-            //PARKOUT
+            if (vehicleDataGrid.SelectedRows != null)
+            {
+
+                DateTime parkoutDateTime = DateTime.Now;
+                TimeSpan calcDate = parkoutDateTime.Subtract(parkin);
+                days = calcDate.Days;
+                hours = calcDate.Hours;
+                minutes = calcDate.Minutes;
+                totalAmount = IdentifyVehicleType(vt.ToLower(), hours, days, minutes);
+               
+                customerIDResults.Text = idGeneratedVar;
+                //plateNoResults.Text = vehicleDataGrid.Rows.IndexOf(vn);
+                vehicleTypeResults.Text = vehicleDataGrid.SelectedRows.ToString();
+                vehicleBrandResults.Text = vehicleDataGrid.SelectedRows.ToString();
+                parkinResults.Text = vehicleDataGrid.SelectedRows.ToString();
+                parkoutResults.Text = vehicleDataGrid.SelectedRows.ToString();
+                durationResults.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
+                totalAmountResults.Text = $"{totalAmount}";
+
+                showResultsForm();
+            }
+            else
+            {
+                MessageBox.Show("Select Vehicle to Park-out");
+            }
         }
+        // Main Menu Button
         private void Home_Click(object sender, EventArgs e)
         {
             hideDataGridForm();
             showMainMenu();
             removeCollectedData();
+        }
+
+        // Confirm button in Results Form
+        private void confirmResultsButton_Click(object sender, EventArgs e)
+        {
+            hideResultsForm();
+            showDataGridForm();
         }
 
 
@@ -357,21 +415,6 @@ namespace ParkingSystemGUI
             ConfirmButton.Show();
             parkoutBackButton.Show();
         }
-        private void showResults()
-        {
-            //  resultsForm1.Show
-            durationResultsLabel.Show();
-            flagdownResultsLabel.Show();
-            logoutButton.Show();
-        }
-        private void hideResults()
-        {
-            //resultsForm1.Hide();
-
-            durationResultsLabel.Hide();
-            flagdownResultsLabel.Hide();
-        }
-
         private void showDataGridForm()
         {
             dataGridForm1.Show();
@@ -390,6 +433,37 @@ namespace ParkingSystemGUI
             Home.Hide();
             parkoutButtonGrid.Hide();
         }
+
+        private void hideResultsForm()
+        {
+            resultsForm1.Hide();
+            confirmResultsButton.Hide();
+            customerIDResults.Hide();
+            plateNoResults.Hide();
+            vehicleBrandResults.Hide();
+            vehicleTypeResults.Hide();
+            parkinResults.Hide();
+            parkoutResults.Hide();
+            durationResults.Hide();
+            flagDownResults.Hide();
+            totalAmountResults.Hide();
+
+        }
+        private void showResultsForm()
+        {
+            resultsForm1.Show();
+            confirmResultsButton.Show();
+            customerIDResults.Show();
+            plateNoResults.Show();
+            vehicleBrandResults.Show();
+            vehicleTypeResults.Show();
+            parkinResults.Show();
+            parkoutResults.Show();
+            durationResults.Show();
+            flagDownResults.Show();
+            totalAmountResults.Show();
+        }
+
 
         private void amPMCBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -425,6 +499,13 @@ namespace ParkingSystemGUI
         {
 
         }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+ 
 
         /*  private void vehicleTypeCBox_SelectedIndexChanged(object sender, EventArgs e)
           {
