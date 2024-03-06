@@ -32,14 +32,7 @@
             proceedButton = new Button();
             mainMenu1 = new MainMenu();
             parkinButton = new Button();
-            vehicleTypeCBox = new ComboBox();
-            monthCBox = new ComboBox();
-            dayCBox = new ComboBox();
-            yearCBox = new ComboBox();
-            hourCBox = new ComboBox();
-            minuteCBox = new ComboBox();
-            amPMCBox = new ComboBox();
-            parkoutButton = new Button();
+            ConfirmButton = new Button();
             plateNoLabel = new Label();
             parkinDateLabel = new Label();
             vehicleBLabel = new Label();
@@ -48,20 +41,26 @@
             parkinBackButton = new Button();
             parkAgainButton = new Button();
             logoutButton = new Button();
-            customerLabelResults = new Label();
-            plateNoResultsLabel = new Label();
-            vehicleTypeResultsLabel = new Label();
-            vehicleBrandResultsLabel = new Label();
-            date1ResultsLabel = new Label();
-            date2ResultsLabel = new Label();
             durationResultsLabel = new Label();
             flagdownResultsLabel = new Label();
-            totalAmountResultsLabel = new Label();
-            plateNoBox = new TextBox();
             userLabel = new Label();
-            parkinForm1 = new ParkinForm();
+            DataGridButtonMenu = new Button();
+            DataGridButtonParkin = new Button();
+            vehicleTypeCBox = new ComboBox();
             vehicleBrandBox = new ComboBox();
-            button1 = new Button();
+            plateNoBox = new TextBox();
+            DataGridButtonParkout = new Button();
+            Home = new Button();
+            parkoutButtonGrid = new Button();
+            parkinForm1 = new ParkinForm();
+            dataRegistered1 = new DataRegistered();
+            dataGridForm1 = new DataGridForm();
+            vehicleDataGrid = new DataGridView();
+            plateNoGridVar = new DataGridViewTextBoxColumn();
+            vehicleTypeGridVar = new DataGridViewTextBoxColumn();
+            vehicleBrandGridVar = new DataGridViewTextBoxColumn();
+            parkinDateTimeGridVar = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)vehicleDataGrid).BeginInit();
             SuspendLayout();
             // 
             // proceedButton
@@ -83,7 +82,7 @@
             // mainMenu1
             // 
             mainMenu1.BackColor = Color.FromArgb(126, 216, 253);
-            mainMenu1.Location = new Point(-3, 12);
+            mainMenu1.Location = new Point(-5, 12);
             mainMenu1.Name = "mainMenu1";
             mainMenu1.Size = new Size(939, 638);
             mainMenu1.TabIndex = 3;
@@ -105,125 +104,21 @@
             parkinButton.UseVisualStyleBackColor = false;
             parkinButton.Click += parkinButton_Click;
             // 
-            // vehicleTypeCBox
+            // ConfirmButton
             // 
-            vehicleTypeCBox.AutoCompleteCustomSource.AddRange(new string[] { "Motorbike", "SUV", "Van", "Sedan" });
-            vehicleTypeCBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            vehicleTypeCBox.AutoCompleteSource = AutoCompleteSource.FileSystem;
-            vehicleTypeCBox.Cursor = Cursors.Hand;
-            vehicleTypeCBox.DropDownHeight = 80;
-            vehicleTypeCBox.Font = new Font("Segoe UI", 20.5F);
-            vehicleTypeCBox.FormattingEnabled = true;
-            vehicleTypeCBox.IntegralHeight = false;
-            vehicleTypeCBox.ItemHeight = 37;
-            vehicleTypeCBox.Items.AddRange(new object[] { "Motorbike", "SUV", "Van", "Sedan" });
-            vehicleTypeCBox.Location = new Point(311, 404);
-            vehicleTypeCBox.Name = "vehicleTypeCBox";
-            vehicleTypeCBox.Size = new Size(315, 45);
-            vehicleTypeCBox.TabIndex = 9;
-            // 
-            // monthCBox
-            // 
-            monthCBox.AutoCompleteCustomSource.AddRange(new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
-            monthCBox.Cursor = Cursors.Hand;
-            monthCBox.DropDownHeight = 80;
-            monthCBox.Font = new Font("Segoe UI", 12F);
-            monthCBox.FormattingEnabled = true;
-            monthCBox.IntegralHeight = false;
-            monthCBox.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
-            monthCBox.Location = new Point(516, 411);
-            monthCBox.Name = "monthCBox";
-            monthCBox.Size = new Size(56, 29);
-            monthCBox.TabIndex = 11;
-            // 
-            // dayCBox
-            // 
-            dayCBox.AutoCompleteCustomSource.AddRange(new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" });
-            dayCBox.Cursor = Cursors.Hand;
-            dayCBox.DropDownHeight = 80;
-            dayCBox.Font = new Font("Segoe UI", 12F);
-            dayCBox.FormattingEnabled = true;
-            dayCBox.IntegralHeight = false;
-            dayCBox.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" });
-            dayCBox.Location = new Point(578, 411);
-            dayCBox.Name = "dayCBox";
-            dayCBox.Size = new Size(56, 29);
-            dayCBox.TabIndex = 12;
-            // 
-            // yearCBox
-            // 
-            yearCBox.AutoCompleteCustomSource.AddRange(new string[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040" });
-            yearCBox.Cursor = Cursors.Hand;
-            yearCBox.DropDownHeight = 80;
-            yearCBox.Font = new Font("Segoe UI", 12F);
-            yearCBox.FormattingEnabled = true;
-            yearCBox.IntegralHeight = false;
-            yearCBox.Items.AddRange(new object[] { "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040" });
-            yearCBox.Location = new Point(640, 411);
-            yearCBox.Name = "yearCBox";
-            yearCBox.Size = new Size(56, 29);
-            yearCBox.TabIndex = 13;
-            // 
-            // hourCBox
-            // 
-            hourCBox.AutoCompleteCustomSource.AddRange(new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
-            hourCBox.Cursor = Cursors.Hand;
-            hourCBox.DropDownHeight = 80;
-            hourCBox.Font = new Font("Segoe UI", 12F);
-            hourCBox.FormattingEnabled = true;
-            hourCBox.IntegralHeight = false;
-            hourCBox.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
-            hourCBox.Location = new Point(702, 411);
-            hourCBox.Name = "hourCBox";
-            hourCBox.Size = new Size(56, 29);
-            hourCBox.TabIndex = 14;
-            // 
-            // minuteCBox
-            // 
-            minuteCBox.AutoCompleteCustomSource.AddRange(new string[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" });
-            minuteCBox.Cursor = Cursors.Hand;
-            minuteCBox.DropDownHeight = 80;
-            minuteCBox.Font = new Font("Segoe UI", 12F);
-            minuteCBox.FormattingEnabled = true;
-            minuteCBox.IntegralHeight = false;
-            minuteCBox.Items.AddRange(new object[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" });
-            minuteCBox.Location = new Point(764, 411);
-            minuteCBox.Name = "minuteCBox";
-            minuteCBox.Size = new Size(56, 29);
-            minuteCBox.TabIndex = 15;
-            // 
-            // amPMCBox
-            // 
-            amPMCBox.AutoCompleteCustomSource.AddRange(new string[] { "AM", "PM" });
-            amPMCBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            amPMCBox.AutoCompleteSource = AutoCompleteSource.FileSystem;
-            amPMCBox.Cursor = Cursors.Hand;
-            amPMCBox.DropDownHeight = 80;
-            amPMCBox.Font = new Font("Segoe UI", 10F);
-            amPMCBox.FormattingEnabled = true;
-            amPMCBox.IntegralHeight = false;
-            amPMCBox.Items.AddRange(new object[] { "AM", "PM" });
-            amPMCBox.Location = new Point(826, 414);
-            amPMCBox.Name = "amPMCBox";
-            amPMCBox.Size = new Size(53, 25);
-            amPMCBox.TabIndex = 16;
-            amPMCBox.SelectedIndexChanged += amPMCBox_SelectedIndexChanged;
-            // 
-            // parkoutButton
-            // 
-            parkoutButton.BackColor = Color.FromArgb(32, 105, 158);
-            parkoutButton.Cursor = Cursors.Hand;
-            parkoutButton.FlatAppearance.BorderSize = 0;
-            parkoutButton.FlatStyle = FlatStyle.Flat;
-            parkoutButton.Font = new Font("STXihei", 21F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            parkoutButton.ForeColor = Color.FromArgb(238, 231, 231);
-            parkoutButton.Location = new Point(367, 516);
-            parkoutButton.Name = "parkoutButton";
-            parkoutButton.Size = new Size(251, 70);
-            parkoutButton.TabIndex = 17;
-            parkoutButton.Text = "PARK-OUT";
-            parkoutButton.UseVisualStyleBackColor = false;
-            parkoutButton.Click += parkoutButton_Click;
+            ConfirmButton.BackColor = Color.FromArgb(32, 105, 158);
+            ConfirmButton.Cursor = Cursors.Hand;
+            ConfirmButton.FlatAppearance.BorderSize = 0;
+            ConfirmButton.FlatStyle = FlatStyle.Flat;
+            ConfirmButton.Font = new Font("STXihei", 21F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ConfirmButton.ForeColor = Color.FromArgb(238, 231, 231);
+            ConfirmButton.Location = new Point(367, 516);
+            ConfirmButton.Name = "ConfirmButton";
+            ConfirmButton.Size = new Size(251, 70);
+            ConfirmButton.TabIndex = 17;
+            ConfirmButton.Text = "CONFIRM";
+            ConfirmButton.UseVisualStyleBackColor = false;
+            ConfirmButton.Click += parkoutButton_Click;
             // 
             // plateNoLabel
             // 
@@ -260,6 +155,7 @@
             vehicleBLabel.Size = new Size(63, 38);
             vehicleBLabel.TabIndex = 21;
             vehicleBLabel.Text = "null";
+            vehicleBLabel.Click += vehicleBLabel_Click;
             // 
             // vehicleTLabel
             // 
@@ -306,36 +202,19 @@
             parkinBackButton.Visible = false;
             parkinBackButton.Click += parkinBackButton_Click_1;
             // 
-            // dataRegistered1
-            // 
-            dataRegistered1.BackColor = Color.FromArgb(126, 216, 253);
-            dataRegistered1.Location = new Point(-9, 12);
-            dataRegistered1.Name = "dataRegistered1";
-            dataRegistered1.Size = new Size(939, 650);
-            dataRegistered1.TabIndex = 27;
-            // 
-            // resultsForm1
-            // 
-            resultsForm1.BackColor = Color.FromArgb(126, 216, 253);
-            resultsForm1.ForeColor = SystemColors.ControlText;
-            resultsForm1.Location = new Point(-3, 17);
-            resultsForm1.Name = "resultsForm1";
-            resultsForm1.Size = new Size(933, 645);
-            resultsForm1.TabIndex = 28;
-            // 
             // parkAgainButton
             // 
             parkAgainButton.BackColor = Color.FromArgb(32, 105, 158);
             parkAgainButton.Cursor = Cursors.Hand;
             parkAgainButton.FlatAppearance.BorderSize = 0;
             parkAgainButton.FlatStyle = FlatStyle.Flat;
-            parkAgainButton.Font = new Font("STXihei", 18F);
+            parkAgainButton.Font = new Font("STXihei", 12F);
             parkAgainButton.ForeColor = Color.FromArgb(238, 231, 231);
-            parkAgainButton.Location = new Point(256, 523);
+            parkAgainButton.Location = new Point(235, 550);
             parkAgainButton.Name = "parkAgainButton";
-            parkAgainButton.Size = new Size(198, 42);
+            parkAgainButton.Size = new Size(126, 42);
             parkAgainButton.TabIndex = 29;
-            parkAgainButton.Text = "Park Again";
+            parkAgainButton.Text = "Add Vehicle";
             parkAgainButton.UseVisualStyleBackColor = false;
             parkAgainButton.Click += parkAgainButton_Click;
             // 
@@ -345,88 +224,15 @@
             logoutButton.Cursor = Cursors.Hand;
             logoutButton.FlatAppearance.BorderSize = 0;
             logoutButton.FlatStyle = FlatStyle.Flat;
-            logoutButton.Font = new Font("STXihei", 21F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            logoutButton.Font = new Font("STXihei", 11F);
             logoutButton.ForeColor = Color.FromArgb(238, 231, 231);
-            logoutButton.Location = new Point(498, 522);
+            logoutButton.Location = new Point(636, 550);
             logoutButton.Name = "logoutButton";
-            logoutButton.Size = new Size(198, 42);
+            logoutButton.Size = new Size(74, 42);
             logoutButton.TabIndex = 30;
-            logoutButton.Text = "Log-out";
+            logoutButton.Text = "Log Out";
             logoutButton.UseVisualStyleBackColor = false;
             logoutButton.Click += logoutButton_Click;
-            // 
-            // customerLabelResults
-            // 
-            customerLabelResults.AutoSize = true;
-            customerLabelResults.BackColor = Color.FromArgb(208, 212, 212);
-            customerLabelResults.Font = new Font("Lucida Console", 10F);
-            customerLabelResults.ForeColor = Color.FromArgb(32, 105, 158);
-            customerLabelResults.Location = new Point(304, 288);
-            customerLabelResults.Name = "customerLabelResults";
-            customerLabelResults.Size = new Size(15, 14);
-            customerLabelResults.TabIndex = 31;
-            customerLabelResults.Text = ".";
-            customerLabelResults.Click += customerLabelResults_Click;
-            // 
-            // plateNoResultsLabel
-            // 
-            plateNoResultsLabel.AutoSize = true;
-            plateNoResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
-            plateNoResultsLabel.Font = new Font("Segoe UI", 10F);
-            plateNoResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
-            plateNoResultsLabel.Location = new Point(306, 314);
-            plateNoResultsLabel.Name = "plateNoResultsLabel";
-            plateNoResultsLabel.Size = new Size(12, 19);
-            plateNoResultsLabel.TabIndex = 33;
-            plateNoResultsLabel.Text = ".";
-            // 
-            // vehicleTypeResultsLabel
-            // 
-            vehicleTypeResultsLabel.AutoSize = true;
-            vehicleTypeResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
-            vehicleTypeResultsLabel.Font = new Font("Segoe UI", 10F);
-            vehicleTypeResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
-            vehicleTypeResultsLabel.Location = new Point(325, 345);
-            vehicleTypeResultsLabel.Name = "vehicleTypeResultsLabel";
-            vehicleTypeResultsLabel.Size = new Size(12, 19);
-            vehicleTypeResultsLabel.TabIndex = 34;
-            vehicleTypeResultsLabel.Text = ".";
-            // 
-            // vehicleBrandResultsLabel
-            // 
-            vehicleBrandResultsLabel.AutoSize = true;
-            vehicleBrandResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
-            vehicleBrandResultsLabel.Font = new Font("Lucida Console", 10F);
-            vehicleBrandResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
-            vehicleBrandResultsLabel.Location = new Point(589, 288);
-            vehicleBrandResultsLabel.Name = "vehicleBrandResultsLabel";
-            vehicleBrandResultsLabel.Size = new Size(15, 14);
-            vehicleBrandResultsLabel.TabIndex = 35;
-            vehicleBrandResultsLabel.Text = ".";
-            // 
-            // date1ResultsLabel
-            // 
-            date1ResultsLabel.AutoSize = true;
-            date1ResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
-            date1ResultsLabel.Font = new Font("Lucida Console", 6.5F);
-            date1ResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
-            date1ResultsLabel.Location = new Point(616, 319);
-            date1ResultsLabel.Name = "date1ResultsLabel";
-            date1ResultsLabel.Size = new Size(10, 9);
-            date1ResultsLabel.TabIndex = 36;
-            date1ResultsLabel.Text = ".";
-            // 
-            // date2ResultsLabel
-            // 
-            date2ResultsLabel.AutoSize = true;
-            date2ResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
-            date2ResultsLabel.Font = new Font("Lucida Console", 6.5F);
-            date2ResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
-            date2ResultsLabel.Location = new Point(628, 352);
-            date2ResultsLabel.Name = "date2ResultsLabel";
-            date2ResultsLabel.Size = new Size(10, 9);
-            date2ResultsLabel.TabIndex = 37;
-            date2ResultsLabel.Text = ".";
             // 
             // durationResultsLabel
             // 
@@ -452,26 +258,6 @@
             flagdownResultsLabel.TabIndex = 39;
             flagdownResultsLabel.Text = ".";
             // 
-            // totalAmountResultsLabel
-            // 
-            totalAmountResultsLabel.AutoSize = true;
-            totalAmountResultsLabel.BackColor = Color.FromArgb(208, 212, 212);
-            totalAmountResultsLabel.Font = new Font("Segoe UI", 12F);
-            totalAmountResultsLabel.ForeColor = Color.FromArgb(32, 105, 158);
-            totalAmountResultsLabel.Location = new Point(505, 469);
-            totalAmountResultsLabel.Name = "totalAmountResultsLabel";
-            totalAmountResultsLabel.Size = new Size(13, 21);
-            totalAmountResultsLabel.TabIndex = 32;
-            totalAmountResultsLabel.Text = ".";
-            // 
-            // plateNoBox
-            // 
-            plateNoBox.Font = new Font("Segoe UI", 20.5F);
-            plateNoBox.Location = new Point(106, 273);
-            plateNoBox.Name = "plateNoBox";
-            plateNoBox.Size = new Size(315, 44);
-            plateNoBox.TabIndex = 8;
-            // 
             // userLabel
             // 
             userLabel.AutoSize = true;
@@ -484,38 +270,172 @@
             userLabel.TabIndex = 23;
             userLabel.Text = "User: ";
             // 
-            // parkinForm1
+            // DataGridButtonMenu
             // 
-            parkinForm1.BackColor = Color.FromArgb(126, 216, 253);
-            parkinForm1.ForeColor = SystemColors.ControlDark;
-            parkinForm1.Location = new Point(-3, 12);
-            parkinForm1.Name = "parkinForm1";
-            parkinForm1.Size = new Size(906, 642);
-            parkinForm1.TabIndex = 42;
+            DataGridButtonMenu.BackColor = Color.FromArgb(32, 105, 158);
+            DataGridButtonMenu.Cursor = Cursors.Hand;
+            DataGridButtonMenu.FlatAppearance.BorderSize = 0;
+            DataGridButtonMenu.FlatStyle = FlatStyle.Flat;
+            DataGridButtonMenu.Font = new Font("STXihei", 12F);
+            DataGridButtonMenu.ForeColor = Color.FromArgb(238, 231, 231);
+            DataGridButtonMenu.Location = new Point(813, 571);
+            DataGridButtonMenu.Name = "DataGridButtonMenu";
+            DataGridButtonMenu.Size = new Size(61, 48);
+            DataGridButtonMenu.TabIndex = 44;
+            DataGridButtonMenu.Text = "DataGrid";
+            DataGridButtonMenu.UseVisualStyleBackColor = false;
+            DataGridButtonMenu.Click += DataGridButtonMenu_Click;
+            // 
+            // DataGridButtonParkin
+            // 
+            DataGridButtonParkin.BackColor = Color.FromArgb(32, 105, 158);
+            DataGridButtonParkin.Cursor = Cursors.Hand;
+            DataGridButtonParkin.FlatAppearance.BorderSize = 0;
+            DataGridButtonParkin.FlatStyle = FlatStyle.Flat;
+            DataGridButtonParkin.Font = new Font("STXihei", 12F);
+            DataGridButtonParkin.ForeColor = Color.FromArgb(238, 231, 231);
+            DataGridButtonParkin.Location = new Point(813, 571);
+            DataGridButtonParkin.Name = "DataGridButtonParkin";
+            DataGridButtonParkin.Size = new Size(61, 48);
+            DataGridButtonParkin.TabIndex = 45;
+            DataGridButtonParkin.Text = "DataGrid";
+            DataGridButtonParkin.UseVisualStyleBackColor = false;
+            DataGridButtonParkin.Click += DataGridButtonParkin_Click;
+            // 
+            // vehicleTypeCBox
+            // 
+            vehicleTypeCBox.AutoCompleteCustomSource.AddRange(new string[] { "Motorbike", "SUV", "Van", "Sedan" });
+            vehicleTypeCBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            vehicleTypeCBox.Font = new Font("Segoe UI", 22F);
+            vehicleTypeCBox.FormattingEnabled = true;
+            vehicleTypeCBox.Items.AddRange(new object[] { "Motorbike", "SUV", "Van", "Sedan" });
+            vehicleTypeCBox.Location = new Point(331, 394);
+            vehicleTypeCBox.Name = "vehicleTypeCBox";
+            vehicleTypeCBox.Size = new Size(287, 48);
+            vehicleTypeCBox.TabIndex = 48;
+            vehicleTypeCBox.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
             // vehicleBrandBox
             // 
-            vehicleBrandBox.Font = new Font("Segoe UI", 20.5F);
+            vehicleBrandBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            vehicleBrandBox.Font = new Font("Segoe UI", 22F);
             vehicleBrandBox.FormattingEnabled = true;
-            vehicleBrandBox.Location = new Point(525, 271);
+            vehicleBrandBox.Location = new Point(544, 273);
             vehicleBrandBox.Name = "vehicleBrandBox";
-            vehicleBrandBox.Size = new Size(313, 45);
-            vehicleBrandBox.TabIndex = 41;
+            vehicleBrandBox.Size = new Size(287, 48);
+            vehicleBrandBox.TabIndex = 49;
             // 
-            // button1
+            // plateNoBox
             // 
-            button1.BackColor = Color.FromArgb(32, 105, 158);
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("STXihei", 12F);
-            button1.ForeColor = Color.FromArgb(238, 231, 231);
-            button1.Location = new Point(818, 566);
-            button1.Name = "button1";
-            button1.Size = new Size(61, 48);
-            button1.TabIndex = 43;
-            button1.Text = "PARK-IN";
-            button1.UseVisualStyleBackColor = false;
+            plateNoBox.Font = new Font("Segoe UI", 22F);
+            plateNoBox.Location = new Point(104, 273);
+            plateNoBox.Name = "plateNoBox";
+            plateNoBox.Size = new Size(287, 47);
+            plateNoBox.TabIndex = 50;
+            // 
+            // DataGridButtonParkout
+            // 
+            DataGridButtonParkout.BackColor = Color.FromArgb(32, 105, 158);
+            DataGridButtonParkout.Cursor = Cursors.Hand;
+            DataGridButtonParkout.FlatAppearance.BorderSize = 0;
+            DataGridButtonParkout.FlatStyle = FlatStyle.Flat;
+            DataGridButtonParkout.Font = new Font("STXihei", 12F);
+            DataGridButtonParkout.ForeColor = Color.FromArgb(238, 231, 231);
+            DataGridButtonParkout.Location = new Point(813, 571);
+            DataGridButtonParkout.Name = "DataGridButtonParkout";
+            DataGridButtonParkout.Size = new Size(61, 48);
+            DataGridButtonParkout.TabIndex = 51;
+            DataGridButtonParkout.Text = "DataGrid";
+            DataGridButtonParkout.UseVisualStyleBackColor = false;
+            DataGridButtonParkout.Click += DataGridButtonParkout_Click;
+            // 
+            // Home
+            // 
+            Home.BackColor = Color.FromArgb(32, 105, 158);
+            Home.Cursor = Cursors.Hand;
+            Home.FlatAppearance.BorderSize = 0;
+            Home.FlatStyle = FlatStyle.Flat;
+            Home.Font = new Font("STXihei", 12F);
+            Home.ForeColor = Color.FromArgb(238, 231, 231);
+            Home.Location = new Point(813, 566);
+            Home.Name = "Home";
+            Home.Size = new Size(61, 48);
+            Home.TabIndex = 55;
+            Home.Text = "Main Menu";
+            Home.UseVisualStyleBackColor = false;
+            Home.Click += Home_Click;
+            // 
+            // parkoutButtonGrid
+            // 
+            parkoutButtonGrid.BackColor = Color.FromArgb(32, 105, 158);
+            parkoutButtonGrid.Cursor = Cursors.Hand;
+            parkoutButtonGrid.FlatAppearance.BorderSize = 0;
+            parkoutButtonGrid.FlatStyle = FlatStyle.Flat;
+            parkoutButtonGrid.Font = new Font("STXihei", 18F);
+            parkoutButtonGrid.ForeColor = Color.FromArgb(238, 231, 231);
+            parkoutButtonGrid.Location = new Point(400, 550);
+            parkoutButtonGrid.Name = "parkoutButtonGrid";
+            parkoutButtonGrid.Size = new Size(198, 42);
+            parkoutButtonGrid.TabIndex = 56;
+            parkoutButtonGrid.Text = "PARK-OUT";
+            parkoutButtonGrid.UseVisualStyleBackColor = false;
+            parkoutButtonGrid.Click += parkoutButtonGrid_Click;
+            // 
+            // parkinForm1
+            // 
+            parkinForm1.BackColor = Color.FromArgb(126, 216, 253);
+            parkinForm1.Location = new Point(-5, 12);
+            parkinForm1.Name = "parkinForm1";
+            parkinForm1.Size = new Size(939, 695);
+            parkinForm1.TabIndex = 57;
+            // 
+            // dataRegistered1
+            // 
+            dataRegistered1.BackColor = Color.FromArgb(126, 216, 253);
+            dataRegistered1.Location = new Point(-5, 12);
+            dataRegistered1.Name = "dataRegistered1";
+            dataRegistered1.Size = new Size(939, 695);
+            dataRegistered1.TabIndex = 58;
+            // 
+            // dataGridForm1
+            // 
+            dataGridForm1.BackColor = Color.FromArgb(126, 216, 253);
+            dataGridForm1.Location = new Point(-5, 12);
+            dataGridForm1.Name = "dataGridForm1";
+            dataGridForm1.Size = new Size(939, 695);
+            dataGridForm1.TabIndex = 59;
+            dataGridForm1.Load += dataGridForm1_Load;
+            // 
+            // vehicleDataGrid
+            // 
+            vehicleDataGrid.BackgroundColor = Color.FromArgb(32, 105, 158);
+            vehicleDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            vehicleDataGrid.Columns.AddRange(new DataGridViewColumn[] { plateNoGridVar, vehicleTypeGridVar, vehicleBrandGridVar, parkinDateTimeGridVar });
+            vehicleDataGrid.Location = new Point(186, 243);
+            vehicleDataGrid.Name = "vehicleDataGrid";
+            vehicleDataGrid.RowHeadersWidth = 150;
+            vehicleDataGrid.Size = new Size(552, 267);
+            vehicleDataGrid.TabIndex = 60;
+            // 
+            // plateNoGridVar
+            // 
+            plateNoGridVar.HeaderText = "Plate No.";
+            plateNoGridVar.Name = "plateNoGridVar";
+            // 
+            // vehicleTypeGridVar
+            // 
+            vehicleTypeGridVar.HeaderText = "Vehicle Type";
+            vehicleTypeGridVar.Name = "vehicleTypeGridVar";
+            // 
+            // vehicleBrandGridVar
+            // 
+            vehicleBrandGridVar.HeaderText = "Vehicle Brand";
+            vehicleBrandGridVar.Name = "vehicleBrandGridVar";
+            // 
+            // parkinDateTimeGridVar
+            // 
+            parkinDateTimeGridVar.HeaderText = "Park-in Date/Time";
+            parkinDateTimeGridVar.Name = "parkinDateTimeGridVar";
             // 
             // MainForm
             // 
@@ -523,37 +443,31 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(126, 216, 253);
             ClientSize = new Size(919, 656);
-            Controls.Add(button1);
-            Controls.Add(parkinButton);
-            Controls.Add(vehicleBrandBox);
-            Controls.Add(vehicleTypeCBox);
-            Controls.Add(plateNoBox);
-            Controls.Add(parkinForm1);
-            Controls.Add(flagdownResultsLabel);
-            Controls.Add(durationResultsLabel);
-            Controls.Add(date2ResultsLabel);
-            Controls.Add(date1ResultsLabel);
-            Controls.Add(vehicleBrandResultsLabel);
-            Controls.Add(vehicleTypeResultsLabel);
-            Controls.Add(plateNoResultsLabel);
-            Controls.Add(totalAmountResultsLabel);
-            Controls.Add(customerLabelResults);
+            Controls.Add(vehicleDataGrid);
+            Controls.Add(Home);
             Controls.Add(logoutButton);
             Controls.Add(parkAgainButton);
-            Controls.Add(userLabel);
-            Controls.Add(parkoutBackButton);
+            Controls.Add(parkoutButtonGrid);
+            Controls.Add(dataGridForm1);
             Controls.Add(parkinDateLabel);
+            Controls.Add(vehicleBLabel);
             Controls.Add(vehicleTLabel);
             Controls.Add(plateNoLabel);
-            Controls.Add(vehicleBLabel);
-            Controls.Add(parkoutButton);
+            Controls.Add(userLabel);
+            Controls.Add(DataGridButtonParkout);
+            Controls.Add(parkoutBackButton);
+            Controls.Add(ConfirmButton);
+            Controls.Add(dataRegistered1);
+            Controls.Add(DataGridButtonParkin);
+            Controls.Add(parkinButton);
             Controls.Add(parkinBackButton);
-            Controls.Add(amPMCBox);
-            Controls.Add(minuteCBox);
-            Controls.Add(hourCBox);
-            Controls.Add(yearCBox);
-            Controls.Add(dayCBox);
-            Controls.Add(monthCBox);
+            Controls.Add(vehicleTypeCBox);
+            Controls.Add(vehicleBrandBox);
+            Controls.Add(plateNoBox);
+            Controls.Add(parkinForm1);
+            Controls.Add(DataGridButtonMenu);
+            Controls.Add(flagdownResultsLabel);
+            Controls.Add(durationResultsLabel);
             Controls.Add(proceedButton);
             Controls.Add(mainMenu1);
             MaximizeBox = false;
@@ -561,6 +475,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MainForm";
             Load += MainForm_Load;
+            ((System.ComponentModel.ISupportInitialize)vehicleDataGrid).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -571,14 +486,7 @@
         private MainMenu mainMenu1;
         private Button parkinButton;
         private Button parkoutBackButton;
-        private ComboBox vehicleTypeCBox;
-        private ComboBox monthCBox;
-        private ComboBox dayCBox;
-        private ComboBox yearCBox;
-        private ComboBox hourCBox;
-        private ComboBox minuteCBox;
-        private ComboBox amPMCBox;
-        private Button parkoutButton;
+        private Button ConfirmButton;
         private Label plateNoLabel;
         private Label parkinDateLabel;
         private Label vehicleBLabel;
@@ -586,20 +494,25 @@
         private Button parkinBackButton;
         private Button parkAgainButton;
         private Button logoutButton;
-        private Label customerLabelResults;
-        private Label plateNoResultsLabel;
-        private Label vehicleTypeResultsLabel;
-        private Label vehicleBrandResultsLabel;
-        private Label date1ResultsLabel;
-        private Label date2ResultsLabel;
         private Label durationResultsLabel;
         private Label flagdownResultsLabel;
-        private Label totalAmountResultsLabel;
-        private TextBox plateNoBox;
         private Label userLabel;
-        private ParkinForm parkinForm1;
+        private Button DataGridButtonMenu;
+        private Button DataGridButtonParkin;
+        private ComboBox vehicleTypeCBox;
         private ComboBox vehicleBrandBox;
-        private Button button1;
+        private TextBox plateNoBox;
+        private Button DataGridButtonParkout;
+        private Button Home;
+        private Button parkoutButtonGrid;
+        private ParkinForm parkinForm1;
+        private DataRegistered dataRegistered1;
+        private DataGridForm dataGridForm1;
+        private DataGridView vehicleDataGrid;
+        private DataGridViewTextBoxColumn plateNoGridVar;
+        private DataGridViewTextBoxColumn vehicleTypeGridVar;
+        private DataGridViewTextBoxColumn vehicleBrandGridVar;
+        private DataGridViewTextBoxColumn parkinDateTimeGridVar;
         //private Button parkoutBackButton;
     }
 }

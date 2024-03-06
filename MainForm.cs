@@ -16,7 +16,6 @@ namespace ParkingSystemGUI
         private string username = "Negusius";
         private string password = "negus123";
         DateTime parkin = DateTime.Now;
-        DateTime parkout;
         double days, hours, minutes, totalAmount;
         string plateNoVar = "", vehicleTypeVar = "", vehicleBrandVar = "", parkoutDateTimeVar = "", pn, vt, vb;
         public MainForm()
@@ -39,6 +38,7 @@ namespace ParkingSystemGUI
             hideParkin();
             hideDataRegister();
             hideResults();
+            hideDataGridForm();
         }
 
         private void parkinForm1_Load(object sender, EventArgs e)
@@ -51,11 +51,6 @@ namespace ParkingSystemGUI
 
         }
 
-        private void proceedButton_Click(object sender, EventArgs e)
-        {
-            hideMainMenu();
-            showParkin();
-        }
 
         private void mainMenu1_Load_1(object sender, EventArgs e)
         {
@@ -71,28 +66,42 @@ namespace ParkingSystemGUI
 
         }
 
+        private void proceedButton_Click(object sender, EventArgs e)
+        {
+            hideMainMenu();
+            showParkin();
+        }
         //---- Changing Panels Functionality of Buttons-------
         private void parkinButton_Click(object sender, EventArgs e)
         {
-            plateNoVar = plateNoBox.Text;
-            vehicleTypeVar = vehicleTypeCBox.SelectedItem.ToString();
-            vehicleBrandVar = vehicleBrandBox.Text;
-            parkoutDateTimeVar = $"{monthCBox.SelectedItem?.ToString()}/{dayCBox.SelectedItem?.ToString()}/{yearCBox.SelectedItem?.ToString()} {hourCBox.SelectedItem?.ToString()}:{minuteCBox.SelectedItem?.ToString()} {amPMCBox.SelectedItem?.ToString()}";
-            parkout = DateTime.Parse(parkoutDateTimeVar);
+            if (plateNoBox.Text != "" || vehicleBrandBox.Items == null || vehicleTypeCBox.Items == null)
+            {
+                plateNoVar = plateNoBox.Text;
+                vehicleTypeVar = vehicleTypeCBox.SelectedItem.ToString();
+                vehicleBrandVar = vehicleBrandBox.Text;
+                Blueprint bluePrint = new Blueprint(plateNoVar, vehicleTypeVar, vehicleBrandVar);
+                bluePrint.GetPoint(out pn, out vt, out vb);
+                userLabel.Text = username;
+                plateNoLabel.Text = pn;
+                vehicleTLabel.Text = vt;
+                vehicleBLabel.Text = vb;
+                parkinDateLabel.Text = parkin.ToString();
+                hideParkin();
+                showDataRegister();
+            }
+            else
+            {
+                MessageBox.Show("Fill in empty fields, please");
+            }
 
-            TimeSpan calcDate = parkout.Subtract(parkin);
+            // parkoutDateTimeVar = $"{monthCBox.SelectedItem?.ToString()}/{dayCBox.SelectedItem?.ToString()}/{yearCBox.SelectedItem?.ToString()} {hourCBox.SelectedItem?.ToString()}:{minuteCBox.SelectedItem?.ToString()} {amPMCBox.SelectedItem?.ToString()}";
+            //parkout = DateTime.Parse(parkoutDateTimeVar);
+
+            /*TimeSpan calcDate = parkout.Subtract(parkin);
             days = calcDate.Days;
             hours = calcDate.Hours;
-            minutes = calcDate.Minutes;
-            Blueprint bluePrint = new Blueprint(plateNoVar, vehicleTypeVar, vehicleBrandVar);
-            bluePrint.GetPoint(out pn, out vt, out vb);
-            userLabel.Text = username;
-            plateNoLabel.Text = pn;
-            vehicleTLabel.Text = vt;
-            vehicleBLabel.Text = vb;
-            parkinDateLabel.Text = parkin.ToString();
-            hideParkin();
-            showDataRegister();
+            minutes = calcDate.Minutes;*/
+
         }
 
         // Removes registered data for a new one to be stored
@@ -100,25 +109,14 @@ namespace ParkingSystemGUI
         {
             userLabel.Text = "";
             parkinDateLabel.Text = "";
-            customerLabelResults.Text = "";
+            vehicleBrandBox.SelectedItem = "";
+            vehicleTypeCBox.SelectedItem = "";
             plateNoLabel.Text = "";
             vehicleTLabel.Text = "";
             vehicleBLabel.Text = "";
-            plateNoResultsLabel.Text = "";
-            vehicleTypeResultsLabel.Text = "";
-            vehicleBrandResultsLabel.Text = "";
-            date1ResultsLabel.Text = "";
-            date2ResultsLabel.Text = "";
-            durationResultsLabel.Text = "";
-            totalAmountResultsLabel.Text = "";
             plateNoBox.Text = "";
             vehicleTypeCBox.Text = "";
             vehicleBrandBox.Text = "";
-            monthCBox.Text = "";
-            dayCBox.Text = "";
-            yearCBox.Text = "";
-            hourCBox.Text = "";
-            minuteCBox.Text = "";
         }
         private void parkoutBackButton_Click(object sender, EventArgs e)
         {
@@ -134,30 +132,92 @@ namespace ParkingSystemGUI
         private void parkoutButton_Click(object sender, EventArgs e)
         {
             hideDataRegister();
-            customerLabelResults.Text = username;
-            plateNoResultsLabel.Text = pn;
-            vehicleTypeResultsLabel.Text = vt;
-            vehicleBrandResultsLabel.Text = vb;
-            totalAmount = IdentifyVehicleType(vt.ToLower(), hours, days, minutes);
-            date1ResultsLabel.Text = parkin.ToString();
-            date2ResultsLabel.Text = parkout.ToString();
+            showDataGridForm();
+            // parkoutButtonGrid = DateTime.Now;
+
+            //TimeSpan calcDate = parkoutButtonGrid.Subtract(parkin);
+            /* days = calcDate.Days;
+             hours = calcDate.Hours;
+             minutes = calcDate.Minutes;
+             totalAmount = IdentifyVehicleType(vt.ToLower(), hours, days, minutes);*/
+            /*date1ResultsLabel.Text = parkin.ToString();
+            date2ResultsLabel.Text = parkoutButtonGrid.ToString();
             durationResultsLabel.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
-            totalAmountResultsLabel.Text = $"{totalAmount}";
+            totalAmountResultsLabel.Text = $"{totalAmount}";*/
             // flagdownResultsLabel
-            showResults();
+            //showResults();
 
         }
 
+
+        // ADD VEHICLE FUNCTION
         private void parkAgainButton_Click(object sender, EventArgs e)
         {
             removeCollectedData();
-            hideResults();
-            showMainMenu();
+            hideDataGridForm();
+            showParkin();
         }
         private void logoutButton_Click(object sender, EventArgs e)
         {
             removeCollectedData();
             this.Close();
+        }
+        private void DataGridButtonMenu_Click(object sender, EventArgs e)
+        {
+            // Navigate to DataGrid from Menu Form
+        }
+
+        private void DataGridButtonParkin_Click(object sender, EventArgs e)
+        {
+            // Navigate to DataGrid from Parkin Form
+        }
+        // DataGRID Access in Parkout Form
+        private void DataGridButtonParkout_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (vehicleTypeCBox.SelectedItem == "Motorbike")
+            {
+                vehicleBrandBox.Items.Clear();
+                vehicleBrandBox.Items.AddRange(new object[] { "Kawasaki", "Yamaha", "Ducatti", "Suzuki", "Honda", "Rusi" });
+            }
+
+            else if (vehicleTypeCBox.SelectedItem == "SUV")
+            {
+                vehicleBrandBox.Items.Clear();
+                vehicleBrandBox.Items.AddRange(new object[] { "Toyota", "Nissan", "Volkswagen", "Mercedez", "Hyundai", "Ford" });
+            }
+            else if (vehicleTypeCBox.SelectedItem == "Van")
+            {
+                vehicleBrandBox.Items.Clear();
+                vehicleBrandBox.Items.AddRange(new object[] { "Toyota", "Nissan", "Volkswagen", "Mercedez", "Hyundai", "Ford" });
+            }
+
+            else if (vehicleTypeCBox.SelectedItem == "Sedan")
+            {
+                vehicleBrandBox.Items.Clear();
+                vehicleBrandBox.Items.AddRange(new object[] { "Porsche", "Nissan", "Volkswagen", "Mercedez", "Hyundai", "Toyota" });
+            }
+        }
+
+        private void vehicleBLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // PARKOUT Button
+        private void parkoutButtonGrid_Click(object sender, EventArgs e)
+        {
+            //PARKOUT
+        }
+        private void Home_Click(object sender, EventArgs e)
+        {
+            hideDataGridForm();
+            showMainMenu();
+            removeCollectedData();
         }
 
 
@@ -258,86 +318,77 @@ namespace ParkingSystemGUI
         }
         private void hideParkin()
         {
-           // parkinForm1.Hide();
+            parkinForm1.Hide();
             parkinButton.Hide();
             parkinBackButton.Hide();
             plateNoBox.Hide();
             vehicleTypeCBox.Hide();
             vehicleBrandBox.Hide();
-            monthCBox.Hide();
-            dayCBox.Hide();
-            yearCBox.Hide();
-            hourCBox.Hide();
-            minuteCBox.Hide();
-            amPMCBox.Hide();
         }
         private void showParkin()
         {
             parkinButton.Show();
-           // parkinForm1.Show();
+            parkinForm1.Show();
             parkinBackButton.Show();
             plateNoBox.Show();
             vehicleTypeCBox.Show();
             vehicleBrandBox.Show();
-            monthCBox.Show();
-            dayCBox.Show();
-            yearCBox.Show();
-            hourCBox.Show();
-            minuteCBox.Show();
-            amPMCBox.Show();
         }
 
         private void hideDataRegister()
         {
-           // dataRegistered1.Hide();
+            dataRegistered1.Hide();
             userLabel.Hide();
             plateNoLabel.Hide();
             vehicleTLabel.Hide();
             vehicleBLabel.Hide();
             parkinDateLabel.Hide();
-            parkoutButton.Hide();
+            ConfirmButton.Hide();
             parkoutBackButton.Hide();
         }
         private void showDataRegister()
         {
-           // dataRegistered1.Show();
+            dataRegistered1.Show();
             userLabel.Show();
             plateNoLabel.Show();
             vehicleTLabel.Show();
             vehicleBLabel.Show();
             parkinDateLabel.Show();
-            parkoutButton.Show();
+            ConfirmButton.Show();
             parkoutBackButton.Show();
         }
         private void showResults()
         {
-          //  resultsForm1.Show();
-            customerLabelResults.Show();
-            plateNoResultsLabel.Show();
-            vehicleTypeResultsLabel.Show();
-            vehicleBrandResultsLabel.Show();
-            date1ResultsLabel.Show();
-            date2ResultsLabel.Show();
+            //  resultsForm1.Show
             durationResultsLabel.Show();
             flagdownResultsLabel.Show();
-            totalAmountResultsLabel.Show();
-            parkAgainButton.Show();
             logoutButton.Show();
         }
         private void hideResults()
         {
-           // resultsForm1.Hide();
-            customerLabelResults.Hide();
-            plateNoResultsLabel.Hide();
-            vehicleTypeResultsLabel.Hide();
-            vehicleBrandResultsLabel.Hide();
-            date1ResultsLabel.Hide();
-            date2ResultsLabel.Hide();
+            //resultsForm1.Hide();
+
             durationResultsLabel.Hide();
             flagdownResultsLabel.Hide();
-            totalAmountResultsLabel.Hide();
+        }
+
+        private void showDataGridForm()
+        {
+            dataGridForm1.Show();
+            vehicleDataGrid.Show();
+            parkAgainButton.Show();
+            logoutButton.Show();
+            Home.Show();
+            parkoutButtonGrid.Show();
+        }
+        private void hideDataGridForm()
+        {
+            dataGridForm1.Hide();
+            vehicleDataGrid.Hide();
             parkAgainButton.Hide();
             logoutButton.Hide();
+            Home.Hide();
+            parkoutButtonGrid.Hide();
         }
 
         private void amPMCBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -364,6 +415,23 @@ namespace ParkingSystemGUI
         {
 
         }
+
+        private void vehicleBrandBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridForm1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        /*  private void vehicleTypeCBox_SelectedIndexChanged(object sender, EventArgs e)
+          {
+
+
+          }*/
+
     }
 
     public abstract class Charge
