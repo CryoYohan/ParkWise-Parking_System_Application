@@ -420,6 +420,7 @@
             // 
             // vehicleDataGrid
             // 
+            vehicleDataGrid.AllowUserToAddRows = false;
             vehicleDataGrid.AllowUserToDeleteRows = false;
             vehicleDataGrid.AllowUserToResizeColumns = false;
             vehicleDataGrid.AllowUserToResizeRows = false;
@@ -468,7 +469,7 @@
             // 
             resultsForm1.BackColor = Color.FromArgb(126, 216, 253);
             resultsForm1.ForeColor = SystemColors.ControlText;
-            resultsForm1.Location = new Point(-17, 13);
+            resultsForm1.Location = new Point(-17, 15);
             resultsForm1.Name = "resultsForm1";
             resultsForm1.Size = new Size(933, 692);
             resultsForm1.TabIndex = 61;

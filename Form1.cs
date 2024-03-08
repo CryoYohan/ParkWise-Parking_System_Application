@@ -61,10 +61,10 @@ namespace ParkingSystemGUI
                 }
                 Show();
             }
-            else if(promptUser == "" || promptPass == "")
+            else if (promptUser == "" || promptPass == "")
             {
                 MessageBox.Show("Field cannot be empty!", "LOGIN");
-                if(promptUser == null)
+                if (promptUser == null)
                 {
                     userTextbox.ForeColor = Color.Red;
                     userTextbox.PlaceholderText = "Field cannot be empty!";
@@ -72,7 +72,7 @@ namespace ParkingSystemGUI
                     userTextbox.ForeColor = Color.LightGray;
                     userTextbox.PlaceholderText = "Enter username";
                 }
-                else if(promptPass == null)
+                else if (promptPass == null)
                 {
                     passwordTextbox.ForeColor = Color.Red;
                     passwordTextbox.PlaceholderText = "Field cannot be empty!";
@@ -83,6 +83,16 @@ namespace ParkingSystemGUI
             }
             else
                 MessageBox.Show("Login Failed", "LOGIN");
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (showPassCheckBox.Checked)
+            {
+                passwordTextbox.UseSystemPasswordChar = false;
+            }
+            else if(showPassCheckBox.CheckState == CheckState.Unchecked)
+                passwordTextbox.UseSystemPasswordChar = true;
         }
     }
 }

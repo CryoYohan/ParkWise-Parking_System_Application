@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -69,7 +70,7 @@ namespace ParkingSystemGUI
         //---- Changing Panels Functionality of Buttons-------
         private void parkinButton_Click(object sender, EventArgs e)
         {
-            if (plateNoBox.Text != "" || vehicleBrandBox.Items == null || vehicleTypeCBox.Items == null)
+            if (plateNoBox.Text != "" && vehicleBrandBox.SelectedItem != null && vehicleTypeCBox.SelectedItem != null)
             {
                 plateNoVar = plateNoBox.Text;
                 vehicleTypeVar = vehicleTypeCBox.SelectedItem.ToString();
@@ -131,6 +132,7 @@ namespace ParkingSystemGUI
             hideParkin();
             showMainMenu();
         }
+        ArrayList listahan = new ArrayList();
 
         // Confirm Button in Data Registered
         private void parkoutButton_Click(object sender, EventArgs e)
@@ -138,23 +140,10 @@ namespace ParkingSystemGUI
             hideDataRegister();
             idGeneratedVar = idGenerator();
             vehicleDataGrid.Rows.Add(idGeneratedVar, pn, vt, vb, parkin);
-            /* vehicleDataGrid.Rows.Add(vehicleTypeGridVar, vt);
-             vehicleDataGrid.Rows.Add(vehicleBrandGridVar, vb);
-             vehicleDataGrid.Rows.Add(parkinDateTimeGridVar, parkin);*/
+            
+            string[] lista = { idGeneratedVar, pn, vt, vb, parkin.ToString() };
+            listahan.Add(lista);
             showDataGridForm();
-            // parkoutButtonGrid = DateTime.Now;
-
-            //TimeSpan calcDate = parkoutButtonGrid.Subtract(parkin);
-            /* days = calcDate.Days;
-             hours = calcDate.Hours;
-             minutes = calcDate.Minutes;
-             totalAmount = IdentifyVehicleType(vt.ToLower(), hours, days, minutes);*/
-            /*date1ResultsLabel.Text = parkin.ToString();
-            date2ResultsLabel.Text = parkoutButtonGrid.ToString();
-            durationResultsLabel.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
-            totalAmountResultsLabel.Text = $"{totalAmount}";*/
-            // flagdownResultsLabel
-            //showResults();
 
         }
 
@@ -237,31 +226,67 @@ namespace ParkingSystemGUI
         // PARKOUT Button
         private void parkoutButtonGrid_Click(object sender, EventArgs e)
         {
-            if (vehicleDataGrid.SelectedRows != null)
+            if (!vehicleDataGrid.SelectedRows.Equals(null))
             {
-
-                DateTime parkoutDateTime = DateTime.Now;
-                TimeSpan calcDate = parkoutDateTime.Subtract(parkin);
-                days = calcDate.Days;
-                hours = calcDate.Hours;
-                minutes = calcDate.Minutes;
-                totalAmount = IdentifyVehicleType(vt.ToLower(), hours, days, minutes);
                
-                customerIDResults.Text = idGeneratedVar;
-                //plateNoResults.Text = vehicleDataGrid.Rows.IndexOf(vn);
-                vehicleTypeResults.Text = vehicleDataGrid.SelectedRows.ToString();
-                vehicleBrandResults.Text = vehicleDataGrid.SelectedRows.ToString();
-                parkinResults.Text = vehicleDataGrid.SelectedRows.ToString();
-                parkoutResults.Text = vehicleDataGrid.SelectedRows.ToString();
-                durationResults.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
-                totalAmountResults.Text = $"{totalAmount}";
+                if (vehicleDataGrid.SelectedRows.Count > 0)
+                {
+                    foreach (DataGridViewCell cell in vehicleDataGrid.SelectedRows[0].Cells)
+                    {
+                        // Check if the cell value is not null and not empty
+                        if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
+                        {
+                            // If at least one cell in the selected row contains data, return false
+                            //return false;
+                            DateTime parkoutDateTime = DateTime.Now;
+                            TimeSpan calcDate = parkoutDateTime.Subtract(parkin);
+                            days = calcDate.Days;
+                            hours = calcDate.Hours;
+                            minutes = calcDate.Minutes;
+                            totalAmount = IdentifyVehicleType(vt.ToLower(), hours, days, minutes); // if any of these objects are ull, set trappings for this
+                            customerIDResults.Text = vehicleDataGrid.CurrentRow.Cells[0].Value.ToString();
+                            plateNoResults.Text = vehicleDataGrid.CurrentRow.Cells[1].Value.ToString();
+                            vehicleTypeResults.Text = vehicleDataGrid.CurrentRow.Cells[2].Value.ToString();
+                            vehicleBrandResults.Text = vehicleDataGrid.CurrentRow.Cells[3].Value.ToString();
+                            parkinResults.Text = vehicleDataGrid.CurrentRow.Cells[4].Value.ToString();
+                            parkoutResults.Text = parkoutDateTime.ToString();
+                            durationResults.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
+                            flagDownResults.Text = $"₱{getFlagDown(vt.ToLower())}.00";
+                            totalAmountResults.Text = $"₱{totalAmount}.00";
+                            showResultsForm();
+                        }
+                    }
 
-                showResultsForm();
+                }
+                else
+                    MessageBox.Show("No Vehicles to Park-out");
+
             }
             else
             {
                 MessageBox.Show("Select Vehicle to Park-out");
             }
+        }
+        private double getFlagDown(string vehicle)
+        {
+            switch (vehicle)
+            {
+
+                case "motorbike":
+                    return 20.00;
+                    break;
+                case "suv":
+                case "van":
+                    return 40.00;
+                    break;
+                case "sedan":
+                    return 30.00;
+                    break;
+                default:
+                    return 0;
+                    break;
+            }
+
         }
         // Main Menu Button
         private void Home_Click(object sender, EventArgs e)
@@ -274,6 +299,19 @@ namespace ParkingSystemGUI
         // Confirm button in Results Form
         private void confirmResultsButton_Click(object sender, EventArgs e)
         {
+            foreach (DataGridViewRow row in vehicleDataGrid.SelectedRows)
+            {
+                // Remove the entire row from the DataGridView
+                vehicleDataGrid.Rows.Remove(row);
+            }
+            customerIDResults.Text = "";
+            plateNoResults.Text = "";
+            vehicleTypeResults.Text = "";
+            vehicleBrandResults.Text = "";
+            parkinResults.Text = "";
+            parkoutResults.Text = "";
+            durationResults.Text = "";
+            totalAmountResults.Text = "";
             hideResultsForm();
             showDataGridForm();
         }
@@ -505,7 +543,12 @@ namespace ParkingSystemGUI
 
         }
 
- 
+        private void vehicleDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+
 
         /*  private void vehicleTypeCBox_SelectedIndexChanged(object sender, EventArgs e)
           {

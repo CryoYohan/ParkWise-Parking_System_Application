@@ -38,6 +38,7 @@ namespace ParkingSystemGUI
             passwordTextbox = new TextBox();
             pictureBox4 = new PictureBox();
             button1 = new Button();
+            showPassCheckBox = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -87,7 +88,6 @@ namespace ParkingSystemGUI
             passwordTextbox.Font = new Font("Segoe UI", 13F);
             passwordTextbox.Location = new Point(540, 347);
             passwordTextbox.Name = "passwordTextbox";
-            passwordTextbox.PasswordChar = '*';
             passwordTextbox.PlaceholderText = "Enter password";
             passwordTextbox.Size = new Size(210, 31);
             passwordTextbox.TabIndex = 8;
@@ -120,6 +120,19 @@ namespace ParkingSystemGUI
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
+            // showPassCheckBox
+            // 
+            showPassCheckBox.AutoSize = true;
+            showPassCheckBox.BackColor = Color.FromArgb(160, 188, 204);
+            showPassCheckBox.ForeColor = SystemColors.ButtonFace;
+            showPassCheckBox.Location = new Point(596, 384);
+            showPassCheckBox.Name = "showPassCheckBox";
+            showPassCheckBox.Size = new Size(108, 19);
+            showPassCheckBox.TabIndex = 12;
+            showPassCheckBox.Text = "Show Password";
+            showPassCheckBox.UseVisualStyleBackColor = false;
+            showPassCheckBox.CheckedChanged += checkBox1_CheckedChanged;
+            // 
             // Form1
             // 
             AcceptButton = button1;
@@ -127,6 +140,7 @@ namespace ParkingSystemGUI
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(126, 216, 253);
             ClientSize = new Size(848, 641);
+            Controls.Add(showPassCheckBox);
             Controls.Add(button1);
             Controls.Add(pictureBox4);
             Controls.Add(passwordTextbox);
@@ -158,5 +172,6 @@ namespace ParkingSystemGUI
         private TextBox passwordTextbox;
         private PictureBox pictureBox4;
         private Button button1;
+        private CheckBox showPassCheckBox;
     }
 }
