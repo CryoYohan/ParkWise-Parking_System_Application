@@ -14,8 +14,8 @@ namespace ParkingSystemGUI
 {
     public partial class MainForm : Form
     {
-        private string username = "Negusius";
-        private string password = "negus123";
+        private string username = "LeoBermudez";
+        private string password = "leogwapo123";
         private string idGeneratedVar;
         DateTime parkin = DateTime.Now;
         double days, hours, minutes, totalAmount;
@@ -70,9 +70,9 @@ namespace ParkingSystemGUI
         //---- Changing Panels Functionality of Buttons-------
         private void parkinButton_Click(object sender, EventArgs e)
         {
-            if (plateNoBox.Text != "" && vehicleBrandBox.SelectedItem != null && vehicleTypeCBox.SelectedItem != null)
+            if (plateNoBox.Text.Trim() != "" && vehicleBrandBox.SelectedItem != null && vehicleTypeCBox.SelectedItem != null)
             {
-                plateNoVar = plateNoBox.Text;
+                plateNoVar = plateNoBox.Text.Trim();
                 vehicleTypeVar = vehicleTypeCBox.SelectedItem.ToString();
                 vehicleBrandVar = vehicleBrandBox.Text;
                 Blueprint bluePrint = new Blueprint(plateNoVar, vehicleTypeVar, vehicleBrandVar);
@@ -89,14 +89,6 @@ namespace ParkingSystemGUI
             {
                 MessageBox.Show("Fill in empty fields, please");
             }
-
-            // parkoutDateTimeVar = $"{monthCBox.SelectedItem?.ToString()}/{dayCBox.SelectedItem?.ToString()}/{yearCBox.SelectedItem?.ToString()} {hourCBox.SelectedItem?.ToString()}:{minuteCBox.SelectedItem?.ToString()} {amPMCBox.SelectedItem?.ToString()}";
-            //parkout = DateTime.Parse(parkoutDateTimeVar);
-
-            /*TimeSpan calcDate = parkout.Subtract(parkin);
-            days = calcDate.Days;
-            hours = calcDate.Hours;
-            minutes = calcDate.Minutes;*/
 
         }
         // Proceed Button in MainMenu Form
@@ -132,7 +124,6 @@ namespace ParkingSystemGUI
             hideParkin();
             showMainMenu();
         }
-        ArrayList listahan = new ArrayList();
 
         // Confirm Button in Data Registered
         private void parkoutButton_Click(object sender, EventArgs e)
@@ -140,9 +131,6 @@ namespace ParkingSystemGUI
             hideDataRegister();
             idGeneratedVar = idGenerator();
             vehicleDataGrid.Rows.Add(idGeneratedVar, pn, vt, vb, parkin);
-            
-            string[] lista = { idGeneratedVar, pn, vt, vb, parkin.ToString() };
-            listahan.Add(lista);
             showDataGridForm();
 
         }
@@ -171,8 +159,12 @@ namespace ParkingSystemGUI
         }
         private void logoutButton_Click(object sender, EventArgs e)
         {
-            removeCollectedData();
-            this.Close();
+            DialogResult dg = MessageBox.Show("Are you sure you want to log-out?", "ParkWise", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(dg == DialogResult.Yes)
+            {
+                removeCollectedData();
+                this.Close();
+            }
         }
         private void DataGridButtonMenu_Click(object sender, EventArgs e)
         {
@@ -243,17 +235,25 @@ namespace ParkingSystemGUI
                             days = calcDate.Days;
                             hours = calcDate.Hours;
                             minutes = calcDate.Minutes;
-                            totalAmount = IdentifyVehicleType(vt.ToLower(), hours, days, minutes); // if any of these objects are ull, set trappings for this
-                            customerIDResults.Text = vehicleDataGrid.CurrentRow.Cells[0].Value.ToString();
-                            plateNoResults.Text = vehicleDataGrid.CurrentRow.Cells[1].Value.ToString();
-                            vehicleTypeResults.Text = vehicleDataGrid.CurrentRow.Cells[2].Value.ToString();
-                            vehicleBrandResults.Text = vehicleDataGrid.CurrentRow.Cells[3].Value.ToString();
-                            parkinResults.Text = vehicleDataGrid.CurrentRow.Cells[4].Value.ToString();
-                            parkoutResults.Text = parkoutDateTime.ToString();
-                            durationResults.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
-                            flagDownResults.Text = $"₱{getFlagDown(vt.ToLower())}.00";
-                            totalAmountResults.Text = $"₱{totalAmount}.00";
-                            showResultsForm();
+                            if(parkoutDateTime < parkin)
+                            {
+                                MessageBox.Show("Invalid Date. Park-out Date cannot be before the Park-in Date.", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                break;
+                            }
+                            else
+                            {
+                                totalAmount = IdentifyVehicleType(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower(), hours, days, minutes); // if any of these objects are null, set trappings for this
+                                customerIDResults.Text = vehicleDataGrid.CurrentRow.Cells[0].Value.ToString();
+                                plateNoResults.Text = vehicleDataGrid.CurrentRow.Cells[1].Value.ToString();
+                                vehicleTypeResults.Text = vehicleDataGrid.CurrentRow.Cells[2].Value.ToString();
+                                vehicleBrandResults.Text = vehicleDataGrid.CurrentRow.Cells[3].Value.ToString();
+                                parkinResults.Text = vehicleDataGrid.CurrentRow.Cells[4].Value.ToString();
+                                parkoutResults.Text = parkoutDateTime.ToString();
+                                durationResults.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
+                                flagDownResults.Text = $"₱{getFlagDown(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower())}.00";
+                                totalAmountResults.Text = $"₱{totalAmount}.00";
+                                showResultsForm();
+                            }
                         }
                     }
 
@@ -399,7 +399,6 @@ namespace ParkingSystemGUI
             }
         }
 
-        // WATCH OUT MA ERROR NI DIRE, POSSIBLY
 
         // Methods for Showing and Hiding necesarry Pages
         private void hideMainMenu()
@@ -548,13 +547,6 @@ namespace ParkingSystemGUI
 
         }
 
-
-
-        /*  private void vehicleTypeCBox_SelectedIndexChanged(object sender, EventArgs e)
-          {
-
-
-          }*/
 
     }
 

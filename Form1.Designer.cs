@@ -108,6 +108,7 @@ namespace ParkingSystemGUI
             // 
             button1.BackColor = Color.FromArgb(160, 188, 204);
             button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
+            button1.Cursor = Cursors.Hand;
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.FromArgb(160, 188, 204);

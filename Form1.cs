@@ -24,11 +24,6 @@ namespace ParkingSystemGUI
 
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void userTextbox_TextChanged(object sender, EventArgs e)
         {
 
@@ -51,7 +46,7 @@ namespace ParkingSystemGUI
             promptPass = passwordTextbox.Text;
             if (promptUser == mainForm.GetUser() && promptPass == mainForm.GetPassword())
             {
-                MessageBox.Show("Login Succesful", "LOGIN");
+                MessageBox.Show("Login Succesful", "LOGIN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 userTextbox.Text = "";
                 passwordTextbox.Text = "";
                 Hide();
@@ -82,7 +77,7 @@ namespace ParkingSystemGUI
                 }
             }
             else
-                MessageBox.Show("Login Failed", "LOGIN");
+                MessageBox.Show("Login Failed\nInvalid Username/Password", "LOGIN", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
