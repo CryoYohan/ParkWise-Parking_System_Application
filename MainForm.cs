@@ -160,7 +160,7 @@ namespace ParkingSystemGUI
         private void logoutButton_Click(object sender, EventArgs e)
         {
             DialogResult dg = MessageBox.Show("Are you sure you want to log-out?", "ParkWise", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(dg == DialogResult.Yes)
+            if (dg == DialogResult.Yes)
             {
                 removeCollectedData();
                 this.Close();
@@ -218,54 +218,49 @@ namespace ParkingSystemGUI
         // PARKOUT Button
         private void parkoutButtonGrid_Click(object sender, EventArgs e)
         {
-            if (!vehicleDataGrid.SelectedRows.Equals(null))
+
+            if (vehicleDataGrid.SelectedRows.Count > 0)
             {
-               
-                if (vehicleDataGrid.SelectedRows.Count > 0)
+                foreach (DataGridViewCell cell in vehicleDataGrid.SelectedRows[0].Cells)
                 {
-                    foreach (DataGridViewCell cell in vehicleDataGrid.SelectedRows[0].Cells)
+                    // Check if the cell value is not null and not empty
+                    if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
                     {
-                        // Check if the cell value is not null and not empty
-                        if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
+                        // If at least one cell in the selected row contains data, return false
+                        DateTime parkoutDateTime = DateTime.Now;
+                        TimeSpan calcDate = parkoutDateTime.Subtract(parkin);
+                        days = calcDate.Days;
+                        hours = calcDate.Hours;
+                        minutes = calcDate.Minutes;
+                        if (parkoutDateTime < parkin)
                         {
-                            // If at least one cell in the selected row contains data, return false
-                            //return false;
-                            DateTime parkoutDateTime = DateTime.Now;
-                            TimeSpan calcDate = parkoutDateTime.Subtract(parkin);
-                            days = calcDate.Days;
-                            hours = calcDate.Hours;
-                            minutes = calcDate.Minutes;
-                            if(parkoutDateTime < parkin)
-                            {
-                                MessageBox.Show("Invalid Date. Park-out Date cannot be before the Park-in Date.", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                break;
-                            }
-                            else
-                            {
-                                totalAmount = IdentifyVehicleType(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower(), hours, days, minutes); // if any of these objects are null, set trappings for this
-                                customerIDResults.Text = vehicleDataGrid.CurrentRow.Cells[0].Value.ToString();
-                                plateNoResults.Text = vehicleDataGrid.CurrentRow.Cells[1].Value.ToString();
-                                vehicleTypeResults.Text = vehicleDataGrid.CurrentRow.Cells[2].Value.ToString();
-                                vehicleBrandResults.Text = vehicleDataGrid.CurrentRow.Cells[3].Value.ToString();
-                                parkinResults.Text = vehicleDataGrid.CurrentRow.Cells[4].Value.ToString();
-                                parkoutResults.Text = parkoutDateTime.ToString();
-                                durationResults.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
-                                flagDownResults.Text = $"₱{getFlagDown(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower())}.00";
-                                totalAmountResults.Text = $"₱{totalAmount}.00";
-                                showResultsForm();
-                            }
+                            MessageBox.Show("Invalid Date. Park-out Date cannot be before the Park-in Date.", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
+                        }
+                        else
+                        {
+                            totalAmount = IdentifyVehicleType(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower(), hours, days, minutes); // if any of these objects are null, set trappings for this
+                            customerIDResults.Text = vehicleDataGrid.CurrentRow.Cells[0].Value.ToString();
+                            plateNoResults.Text = vehicleDataGrid.CurrentRow.Cells[1].Value.ToString();
+                            vehicleTypeResults.Text = vehicleDataGrid.CurrentRow.Cells[2].Value.ToString();
+                            vehicleBrandResults.Text = vehicleDataGrid.CurrentRow.Cells[3].Value.ToString();
+                            parkinResults.Text = vehicleDataGrid.CurrentRow.Cells[4].Value.ToString();
+                            parkoutResults.Text = parkoutDateTime.ToString();
+                            durationResults.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
+                            flagDownResults.Text = $"₱{getFlagDown(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower())}.00";
+                            totalAmountResults.Text = $"₱{totalAmount}.00";
+                            showResultsForm();
                         }
                     }
-
                 }
-                else
-                    MessageBox.Show("No Vehicles to Park-out");
 
             }
+            else if(vehicleDataGrid.Rows.Count == 0)
+                MessageBox.Show("No Vehicles to Park-out");
             else
-            {
-                MessageBox.Show("Select Vehicle to Park-out");
-            }
+                MessageBox.Show("Select Vehicles to Park-out");
+
+
         }
         private double getFlagDown(string vehicle)
         {
@@ -547,7 +542,10 @@ namespace ParkingSystemGUI
 
         }
 
+        private void vehicleDataGrid_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
 
+        }
     }
 
     public abstract class Charge

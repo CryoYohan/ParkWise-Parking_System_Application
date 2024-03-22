@@ -21,5 +21,10 @@ namespace ParkingSystemGUI
         {
 
         }
+
+        private void ParkinForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

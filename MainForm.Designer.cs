@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             proceedButton = new Button();
             mainMenu1 = new MainMenu();
@@ -61,6 +62,7 @@
             vehicleTypeGridVar = new DataGridViewTextBoxColumn();
             vehicleBrandGridVar = new DataGridViewTextBoxColumn();
             parkinDateTimeGridVar = new DataGridViewTextBoxColumn();
+            parkingRepositoryBindingSource = new BindingSource(components);
             resultsForm1 = new ResultsForm();
             customerIDResults = new Label();
             parkinResults = new Label();
@@ -73,6 +75,7 @@
             durationResults = new Label();
             confirmResultsButton = new Button();
             ((System.ComponentModel.ISupportInitialize)vehicleDataGrid).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)parkingRepositoryBindingSource).BeginInit();
             SuspendLayout();
             // 
             // proceedButton
@@ -321,7 +324,7 @@
             vehicleTypeCBox.Font = new Font("Segoe UI", 22F);
             vehicleTypeCBox.FormattingEnabled = true;
             vehicleTypeCBox.Items.AddRange(new object[] { "Motorbike", "SUV", "Van", "Sedan" });
-            vehicleTypeCBox.Location = new Point(331, 394);
+            vehicleTypeCBox.Location = new Point(536, 272);
             vehicleTypeCBox.Name = "vehicleTypeCBox";
             vehicleTypeCBox.Size = new Size(287, 48);
             vehicleTypeCBox.TabIndex = 48;
@@ -332,7 +335,7 @@
             vehicleBrandBox.DropDownStyle = ComboBoxStyle.DropDownList;
             vehicleBrandBox.Font = new Font("Segoe UI", 22F);
             vehicleBrandBox.FormattingEnabled = true;
-            vehicleBrandBox.Location = new Point(544, 273);
+            vehicleBrandBox.Location = new Point(331, 402);
             vehicleBrandBox.Name = "vehicleBrandBox";
             vehicleBrandBox.Size = new Size(287, 48);
             vehicleBrandBox.TabIndex = 49;
@@ -465,6 +468,10 @@
             parkinDateTimeGridVar.ReadOnly = true;
             parkinDateTimeGridVar.Width = 150;
             // 
+            // parkingRepositoryBindingSource
+            // 
+            parkingRepositoryBindingSource.DataSource = typeof(DataRepository.ParkingRepository);
+            // 
             // resultsForm1
             // 
             resultsForm1.BackColor = Color.FromArgb(126, 216, 253);
@@ -478,10 +485,11 @@
             // 
             customerIDResults.AutoSize = true;
             customerIDResults.BackColor = Color.Gainsboro;
+            customerIDResults.Font = new Font("Segoe UI", 11F);
             customerIDResults.ForeColor = Color.FromArgb(32, 105, 158);
-            customerIDResults.Location = new Point(295, 286);
+            customerIDResults.Location = new Point(291, 285);
             customerIDResults.Name = "customerIDResults";
-            customerIDResults.Size = new Size(27, 15);
+            customerIDResults.Size = new Size(33, 20);
             customerIDResults.TabIndex = 62;
             customerIDResults.Text = "null";
             // 
@@ -490,7 +498,7 @@
             parkinResults.AutoSize = true;
             parkinResults.BackColor = Color.Gainsboro;
             parkinResults.ForeColor = Color.FromArgb(32, 105, 158);
-            parkinResults.Location = new Point(610, 314);
+            parkinResults.Location = new Point(607, 316);
             parkinResults.Name = "parkinResults";
             parkinResults.Size = new Size(27, 15);
             parkinResults.TabIndex = 63;
@@ -500,10 +508,11 @@
             // 
             vehicleBrandResults.AutoSize = true;
             vehicleBrandResults.BackColor = Color.Gainsboro;
+            vehicleBrandResults.Font = new Font("Segoe UI", 11F);
             vehicleBrandResults.ForeColor = Color.FromArgb(32, 105, 158);
-            vehicleBrandResults.Location = new Point(578, 284);
+            vehicleBrandResults.Location = new Point(576, 282);
             vehicleBrandResults.Name = "vehicleBrandResults";
-            vehicleBrandResults.Size = new Size(27, 15);
+            vehicleBrandResults.Size = new Size(33, 20);
             vehicleBrandResults.TabIndex = 64;
             vehicleBrandResults.Text = "null";
             // 
@@ -511,10 +520,11 @@
             // 
             vehicleTypeResults.AutoSize = true;
             vehicleTypeResults.BackColor = Color.Gainsboro;
+            vehicleTypeResults.Font = new Font("Segoe UI", 11F);
             vehicleTypeResults.ForeColor = Color.FromArgb(32, 105, 158);
-            vehicleTypeResults.Location = new Point(314, 346);
+            vehicleTypeResults.Location = new Point(312, 344);
             vehicleTypeResults.Name = "vehicleTypeResults";
-            vehicleTypeResults.Size = new Size(27, 15);
+            vehicleTypeResults.Size = new Size(33, 20);
             vehicleTypeResults.TabIndex = 65;
             vehicleTypeResults.Text = "null";
             // 
@@ -522,10 +532,11 @@
             // 
             plateNoResults.AutoSize = true;
             plateNoResults.BackColor = Color.Gainsboro;
+            plateNoResults.Font = new Font("Segoe UI", 11F);
             plateNoResults.ForeColor = Color.FromArgb(32, 105, 158);
-            plateNoResults.Location = new Point(295, 315);
+            plateNoResults.Location = new Point(291, 314);
             plateNoResults.Name = "plateNoResults";
-            plateNoResults.Size = new Size(27, 15);
+            plateNoResults.Size = new Size(33, 20);
             plateNoResults.TabIndex = 66;
             plateNoResults.Text = "null";
             // 
@@ -534,7 +545,7 @@
             parkoutResults.AutoSize = true;
             parkoutResults.BackColor = Color.Gainsboro;
             parkoutResults.ForeColor = Color.FromArgb(32, 105, 158);
-            parkoutResults.Location = new Point(619, 346);
+            parkoutResults.Location = new Point(617, 348);
             parkoutResults.Name = "parkoutResults";
             parkoutResults.Size = new Size(27, 15);
             parkoutResults.TabIndex = 67;
@@ -557,10 +568,11 @@
             // 
             flagDownResults.AutoSize = true;
             flagDownResults.BackColor = Color.Gainsboro;
+            flagDownResults.Font = new Font("Segoe UI", 11F);
             flagDownResults.ForeColor = Color.FromArgb(32, 105, 158);
-            flagDownResults.Location = new Point(408, 421);
+            flagDownResults.Location = new Point(405, 420);
             flagDownResults.Name = "flagDownResults";
-            flagDownResults.Size = new Size(27, 15);
+            flagDownResults.Size = new Size(33, 20);
             flagDownResults.TabIndex = 69;
             flagDownResults.Text = "null";
             // 
@@ -568,10 +580,11 @@
             // 
             durationResults.AutoSize = true;
             durationResults.BackColor = Color.Gainsboro;
+            durationResults.Font = new Font("Segoe UI", 11F);
             durationResults.ForeColor = Color.FromArgb(32, 105, 158);
-            durationResults.Location = new Point(400, 396);
+            durationResults.Location = new Point(397, 394);
             durationResults.Name = "durationResults";
-            durationResults.Size = new Size(27, 15);
+            durationResults.Size = new Size(33, 20);
             durationResults.TabIndex = 70;
             durationResults.Text = "null";
             // 
@@ -638,6 +651,7 @@
             Text = "MainForm";
             Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)vehicleDataGrid).EndInit();
+            ((System.ComponentModel.ISupportInitialize)parkingRepositoryBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -687,6 +701,7 @@
         private Label flagDownResults;
         private Label durationResults;
         private Button confirmResultsButton;
+        private BindingSource parkingRepositoryBindingSource;
         //private Button parkoutBackButton;
     }
 }
