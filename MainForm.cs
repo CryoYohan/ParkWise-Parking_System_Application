@@ -184,22 +184,7 @@ namespace ParkingSystemGUI
             vehicleDataGrid.DataSource = ds.Tables[0];
             con.Close();
         }
-
-        private string idGenerator()
-        {
-            int randInt;
-            string id = "PRKWS-";
-            Random random = new Random();
-            char[] arrChar = { 'A', 'B', 'C', 'X', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
-            for (int i = 0; i < 5; i++)
-            {
-                randInt = random.Next(arrChar.Length);
-                id += arrChar[randInt];
-            }
-            return id;
-        }
-
-
+ 
         // ADD VEHICLE FUNCTION
         private void parkAgainButton_Click(object sender, EventArgs e)
         {
