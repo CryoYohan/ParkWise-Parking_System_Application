@@ -57,13 +57,7 @@
             dataRegistered1 = new DataRegistered();
             dataGridForm1 = new DataGridForm();
             vehicleDataGrid = new DataGridView();
-            customerIDGridVar = new DataGridViewTextBoxColumn();
-            plateNoGridVar = new DataGridViewTextBoxColumn();
-            vehicleTypeGridVar = new DataGridViewTextBoxColumn();
-            vehicleBrandGridVar = new DataGridViewTextBoxColumn();
-            parkinDateTimeGridVar = new DataGridViewTextBoxColumn();
             parkingRepositoryBindingSource = new BindingSource(components);
-            resultsForm1 = new ResultsForm();
             customerIDResults = new Label();
             parkinResults = new Label();
             vehicleBrandResults = new Label();
@@ -74,6 +68,8 @@
             flagDownResults = new Label();
             durationResults = new Label();
             confirmResultsButton = new Button();
+            searchBox = new TextBox();
+            resultsForm1 = new ResultsForm();
             ((System.ComponentModel.ISupportInitialize)vehicleDataGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)parkingRepositoryBindingSource).BeginInit();
             SuspendLayout();
@@ -427,59 +423,19 @@
             vehicleDataGrid.AllowUserToDeleteRows = false;
             vehicleDataGrid.AllowUserToResizeColumns = false;
             vehicleDataGrid.AllowUserToResizeRows = false;
+            vehicleDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             vehicleDataGrid.BackgroundColor = Color.FromArgb(32, 105, 158);
             vehicleDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            vehicleDataGrid.Columns.AddRange(new DataGridViewColumn[] { customerIDGridVar, plateNoGridVar, vehicleTypeGridVar, vehicleBrandGridVar, parkinDateTimeGridVar });
-            vehicleDataGrid.Location = new Point(104, 232);
+            vehicleDataGrid.Location = new Point(153, 258);
             vehicleDataGrid.Name = "vehicleDataGrid";
             vehicleDataGrid.ReadOnly = true;
             vehicleDataGrid.RowHeadersWidth = 150;
-            vehicleDataGrid.Size = new Size(701, 267);
+            vehicleDataGrid.Size = new Size(622, 267);
             vehicleDataGrid.TabIndex = 60;
-            // 
-            // customerIDGridVar
-            // 
-            customerIDGridVar.HeaderText = "Customer ID";
-            customerIDGridVar.Name = "customerIDGridVar";
-            customerIDGridVar.ReadOnly = true;
-            // 
-            // plateNoGridVar
-            // 
-            plateNoGridVar.HeaderText = "Plate No.";
-            plateNoGridVar.Name = "plateNoGridVar";
-            plateNoGridVar.ReadOnly = true;
-            // 
-            // vehicleTypeGridVar
-            // 
-            vehicleTypeGridVar.HeaderText = "Vehicle Type";
-            vehicleTypeGridVar.Name = "vehicleTypeGridVar";
-            vehicleTypeGridVar.ReadOnly = true;
-            // 
-            // vehicleBrandGridVar
-            // 
-            vehicleBrandGridVar.HeaderText = "Vehicle Brand";
-            vehicleBrandGridVar.Name = "vehicleBrandGridVar";
-            vehicleBrandGridVar.ReadOnly = true;
-            // 
-            // parkinDateTimeGridVar
-            // 
-            parkinDateTimeGridVar.HeaderText = "Park-in Date/Time";
-            parkinDateTimeGridVar.Name = "parkinDateTimeGridVar";
-            parkinDateTimeGridVar.ReadOnly = true;
-            parkinDateTimeGridVar.Width = 150;
             // 
             // parkingRepositoryBindingSource
             // 
             parkingRepositoryBindingSource.DataSource = typeof(DataRepository.ParkingRepository);
-            // 
-            // resultsForm1
-            // 
-            resultsForm1.BackColor = Color.FromArgb(126, 216, 253);
-            resultsForm1.ForeColor = SystemColors.ControlText;
-            resultsForm1.Location = new Point(-17, 15);
-            resultsForm1.Name = "resultsForm1";
-            resultsForm1.Size = new Size(933, 692);
-            resultsForm1.TabIndex = 61;
             // 
             // customerIDResults
             // 
@@ -487,7 +443,7 @@
             customerIDResults.BackColor = Color.Gainsboro;
             customerIDResults.Font = new Font("Segoe UI", 11F);
             customerIDResults.ForeColor = Color.FromArgb(32, 105, 158);
-            customerIDResults.Location = new Point(291, 285);
+            customerIDResults.Location = new Point(312, 284);
             customerIDResults.Name = "customerIDResults";
             customerIDResults.Size = new Size(33, 20);
             customerIDResults.TabIndex = 62;
@@ -601,6 +557,24 @@
             confirmResultsButton.UseVisualStyleBackColor = false;
             confirmResultsButton.Click += confirmResultsButton_Click;
             // 
+            // searchBox
+            // 
+            searchBox.Location = new Point(153, 229);
+            searchBox.Name = "searchBox";
+            searchBox.PlaceholderText = "Search ID or Plate No.";
+            searchBox.Size = new Size(154, 23);
+            searchBox.TabIndex = 72;
+            searchBox.TextChanged += textBox1_TextChanged;
+            // 
+            // resultsForm1
+            // 
+            resultsForm1.BackColor = Color.FromArgb(126, 216, 253);
+            resultsForm1.ForeColor = SystemColors.ControlText;
+            resultsForm1.Location = new Point(-17, 15);
+            resultsForm1.Name = "resultsForm1";
+            resultsForm1.Size = new Size(933, 692);
+            resultsForm1.TabIndex = 73;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -608,16 +582,17 @@
             BackColor = Color.FromArgb(126, 216, 253);
             ClientSize = new Size(919, 656);
             Controls.Add(confirmResultsButton);
-            Controls.Add(durationResults);
-            Controls.Add(flagDownResults);
             Controls.Add(totalAmountResults);
+            Controls.Add(flagDownResults);
+            Controls.Add(durationResults);
             Controls.Add(parkoutResults);
-            Controls.Add(plateNoResults);
-            Controls.Add(vehicleTypeResults);
-            Controls.Add(vehicleBrandResults);
             Controls.Add(parkinResults);
+            Controls.Add(vehicleBrandResults);
+            Controls.Add(vehicleTypeResults);
+            Controls.Add(plateNoResults);
             Controls.Add(customerIDResults);
             Controls.Add(resultsForm1);
+            Controls.Add(searchBox);
             Controls.Add(vehicleDataGrid);
             Controls.Add(Home);
             Controls.Add(logoutButton);
@@ -685,12 +660,6 @@
         private DataRegistered dataRegistered1;
         private DataGridForm dataGridForm1;
         private DataGridView vehicleDataGrid;
-        private DataGridViewTextBoxColumn customerIDGridVar;
-        private DataGridViewTextBoxColumn plateNoGridVar;
-        private DataGridViewTextBoxColumn vehicleTypeGridVar;
-        private DataGridViewTextBoxColumn vehicleBrandGridVar;
-        private DataGridViewTextBoxColumn parkinDateTimeGridVar;
-        private ResultsForm resultsForm1;
         private Label customerIDResults;
         private Label parkinResults;
         private Label vehicleBrandResults;
@@ -702,6 +671,8 @@
         private Label durationResults;
         private Button confirmResultsButton;
         private BindingSource parkingRepositoryBindingSource;
+        private TextBox searchBox;
+        private ResultsForm resultsForm1;
         //private Button parkoutBackButton;
     }
 }

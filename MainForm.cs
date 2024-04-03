@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -14,8 +15,10 @@ namespace ParkingSystemGUI
 {
     public partial class MainForm : Form
     {
-        private string username = "LeoBermudez";
-        private string password = "leogwapo123";
+        SqlCommand cmd;
+        SqlConnection con;
+        private string username = "Admin";
+        private string password = "admin123";
         private string idGeneratedVar;
         DateTime parkin = DateTime.Now;
         double days, hours, minutes, totalAmount;
@@ -36,11 +39,13 @@ namespace ParkingSystemGUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            showAllVehicles();
             showMainMenu();
             hideParkin();
             hideDataRegister();
             hideDataGridForm();
             hideResultsForm();
+
         }
 
         private void parkinForm1_Load(object sender, EventArgs e)
@@ -128,11 +133,56 @@ namespace ParkingSystemGUI
         // Confirm Button in Data Registered
         private void parkoutButton_Click(object sender, EventArgs e)
         {
-            hideDataRegister();
             idGeneratedVar = idGenerator();
-            vehicleDataGrid.Rows.Add(idGeneratedVar, pn, vt, vb, parkin);
-            showDataGridForm();
+            //vehicleDataGrid.Rows.Add(idGeneratedVar, pn, vt, vb, parkin);        
+            string command = "INSERT INTO parkwiseDBS(plate_no,vehicle_type, vehicle_brand,parkin_datetime)" +
+                "VALUES('" + pn + "', '" + vt + "', '" + vb + "', '" + parkin + "')";
+            bool duplicatePlateNo = false;
+            try
+            {
+                exeCommands(command);
+            }
+            catch (Exception)
+            {
+                duplicatePlateNo = true;
+            }
+            if (duplicatePlateNo == true)
+            {
+                MessageBox.Show("Plate No. already exist!", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                con.Close();
+                hideDataRegister();
+                showParkin();
+            }
+            else
+            {
+                hideDataRegister();
+                showAllVehicles();
+                showDataGridForm();
+            }
 
+
+        }
+
+        private void exeCommands(string command)
+        {
+            con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ParkWiseDBS;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+            con.Open();
+            cmd = new SqlCommand(command, con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        private void showAllVehicles()
+        {
+            con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ParkWiseDBS;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+            con.Open();
+            cmd = new SqlCommand("SELECT user_id as [Customer ID], plate_no as [Plate Number], vehicle_type as [Vehicle Type], vehicle_brand as [Vehicle Brand], parkin_datetime as [Park-in Date/Time] from parkwiseDBS");
+            cmd.Connection = con;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds, "ParkWiseDBS");
+            vehicleDataGrid.DataSource = ds.Tables[0];
+            con.Close();
         }
 
         private string idGenerator()
@@ -232,30 +282,37 @@ namespace ParkingSystemGUI
                         days = calcDate.Days;
                         hours = calcDate.Hours;
                         minutes = calcDate.Minutes;
-                        if (parkoutDateTime < parkin)
+                        DialogResult dg = MessageBox.Show("Confirm Parkout", "ParkWise", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dg == DialogResult.Yes)
                         {
-                            MessageBox.Show("Invalid Date. Park-out Date cannot be before the Park-in Date.", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            if (parkoutDateTime < parkin)
+                            {
+                                MessageBox.Show("Invalid Date. Park-out Date cannot be before the Park-in Date.", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                break;
+                            }
+                            else
+                            {
+                                totalAmount = IdentifyVehicleType(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower(), hours, days, minutes); // if any of these objects are null, set trappings for this
+                                customerIDResults.Text = vehicleDataGrid.CurrentRow.Cells[0].Value.ToString();
+                                plateNoResults.Text = vehicleDataGrid.CurrentRow.Cells[1].Value.ToString();
+                                vehicleTypeResults.Text = vehicleDataGrid.CurrentRow.Cells[2].Value.ToString();
+                                vehicleBrandResults.Text = vehicleDataGrid.CurrentRow.Cells[3].Value.ToString();
+                                parkinResults.Text = vehicleDataGrid.CurrentRow.Cells[4].Value.ToString();
+                                parkoutResults.Text = parkoutDateTime.ToString();
+                                durationResults.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
+                                flagDownResults.Text = $"₱{getFlagDown(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower())}.00";
+                                totalAmountResults.Text = $"₱{totalAmount}.00";
+                                showResultsForm();
+                            }
                             break;
                         }
                         else
-                        {
-                            totalAmount = IdentifyVehicleType(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower(), hours, days, minutes); // if any of these objects are null, set trappings for this
-                            customerIDResults.Text = vehicleDataGrid.CurrentRow.Cells[0].Value.ToString();
-                            plateNoResults.Text = vehicleDataGrid.CurrentRow.Cells[1].Value.ToString();
-                            vehicleTypeResults.Text = vehicleDataGrid.CurrentRow.Cells[2].Value.ToString();
-                            vehicleBrandResults.Text = vehicleDataGrid.CurrentRow.Cells[3].Value.ToString();
-                            parkinResults.Text = vehicleDataGrid.CurrentRow.Cells[4].Value.ToString();
-                            parkoutResults.Text = parkoutDateTime.ToString();
-                            durationResults.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
-                            flagDownResults.Text = $"₱{getFlagDown(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower())}.00";
-                            totalAmountResults.Text = $"₱{totalAmount}.00";
-                            showResultsForm();
-                        }
+                            break;
                     }
                 }
 
             }
-            else if(vehicleDataGrid.Rows.Count == 0)
+            else if (vehicleDataGrid.Rows.Count == 0)
                 MessageBox.Show("No Vehicles to Park-out");
             else
                 MessageBox.Show("Select Vehicles to Park-out");
@@ -297,7 +354,10 @@ namespace ParkingSystemGUI
             foreach (DataGridViewRow row in vehicleDataGrid.SelectedRows)
             {
                 // Remove the entire row from the DataGridView
+                string command = "DELETE FROM parkwiseDBS WHERE user_id = '" + vehicleDataGrid.CurrentRow.Cells[0].Value.ToString() + "'";
+                exeCommands(command);
                 vehicleDataGrid.Rows.Remove(row);
+
             }
             customerIDResults.Text = "";
             plateNoResults.Text = "";
@@ -455,6 +515,7 @@ namespace ParkingSystemGUI
             logoutButton.Show();
             Home.Show();
             parkoutButtonGrid.Show();
+            searchBox.Show();
         }
         private void hideDataGridForm()
         {
@@ -464,6 +525,7 @@ namespace ParkingSystemGUI
             logoutButton.Hide();
             Home.Hide();
             parkoutButtonGrid.Hide();
+            searchBox.Hide();
         }
 
         private void hideResultsForm()
@@ -479,7 +541,6 @@ namespace ParkingSystemGUI
             durationResults.Hide();
             flagDownResults.Hide();
             totalAmountResults.Hide();
-
         }
         private void showResultsForm()
         {
@@ -537,14 +598,16 @@ namespace ParkingSystemGUI
 
         }
 
-        private void vehicleDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        // Search BOX in DataGrid to show existing records by initials and numbers
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void vehicleDataGrid_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
+            con.Open();
+            cmd = new SqlCommand("SELECT user_id as [Customer ID], plate_no as [Plate No.], vehicle_type as [Vehicle Type], vehicle_brand as [Vehicle Brand], parkin_datetime as [Park-in Date/Time] FROM parkwiseDBS WHERE user_id like '" + searchBox.Text + "%' OR plate_no like '" + searchBox.Text + "%'", con);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds, "ParkWiseDBS");
+            vehicleDataGrid.DataSource = ds.Tables[0];
+            con.Close();
         }
     }
 
