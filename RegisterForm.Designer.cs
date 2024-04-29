@@ -1,6 +1,6 @@
 ﻿namespace ParkingSystemGUI
 {
-    partial class ResultsForm : UserControl
+    partial class RegisterForm
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultsForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegisterForm));
             pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -36,22 +36,20 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(-3, 0);
+            pictureBox1.Location = new Point(-39, -51);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(933, 692);
+            pictureBox1.Size = new Size(900, 710);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
-            // ResultsForm
+            // RegisterForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(126, 216, 253);
             Controls.Add(pictureBox1);
-            ForeColor = SystemColors.ControlText;
-            Name = "ResultsForm";
-            Size = new Size(933, 692);
+            Name = "RegisterForm";
+            Size = new Size(864, 680);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }

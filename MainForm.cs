@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Microsoft.VisualBasic.Logging;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Cryptography;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ParkingSystemGUI
 {
@@ -17,9 +13,9 @@ namespace ParkingSystemGUI
     {
         SqlCommand cmd;
         SqlConnection con;
+        SqlConnection conn;
         private string username = "Admin";
         private string password = "admin123";
-        private string idGeneratedVar;
         DateTime parkin = DateTime.Now;
         double days, hours, minutes, totalAmount;
         string plateNoVar = "", vehicleTypeVar = "", vehicleBrandVar = "", parkoutDateTimeVar = "", pn, vt, vb;
@@ -45,6 +41,10 @@ namespace ParkingSystemGUI
             hideDataRegister();
             hideDataGridForm();
             hideResultsForm();
+            editPanel.Hide();
+            userLogsDBPanel.Hide();
+            usersDBPanel.Hide();
+            editUsersPanel.Hide();
 
         }
 
@@ -73,6 +73,8 @@ namespace ParkingSystemGUI
 
         }
         //---- Changing Panels Functionality of Buttons-------
+        //
+        // Parkin Button
         private void parkinButton_Click(object sender, EventArgs e)
         {
             if (plateNoBox.Text.Trim() != "" && vehicleBrandBox.SelectedItem != null && vehicleTypeCBox.SelectedItem != null)
@@ -133,8 +135,6 @@ namespace ParkingSystemGUI
         // Confirm Button in Data Registered
         private void parkoutButton_Click(object sender, EventArgs e)
         {
-            idGeneratedVar = idGenerator();
-            //vehicleDataGrid.Rows.Add(idGeneratedVar, pn, vt, vb, parkin);        
             string command = "INSERT INTO parkwiseDBS(plate_no,vehicle_type, vehicle_brand,parkin_datetime)" +
                 "VALUES('" + pn + "', '" + vt + "', '" + vb + "', '" + parkin + "')";
             bool duplicatePlateNo = false;
@@ -171,6 +171,14 @@ namespace ParkingSystemGUI
             cmd.ExecuteNonQuery();
             con.Close();
         }
+        private void exeCommandsUsers(string command)
+        {
+            conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=UsersDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;");
+            conn.Open();
+            cmd = new SqlCommand(command, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
 
         private void showAllVehicles()
         {
@@ -184,8 +192,31 @@ namespace ParkingSystemGUI
             vehicleDataGrid.DataSource = ds.Tables[0];
             con.Close();
         }
- 
-        // ADD VEHICLE FUNCTION
+
+        private void showAllUsers()
+        {
+            conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=UsersDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;");
+            conn.Open();
+            cmd = new SqlCommand("SELECT usrID as [User ID], usrFN as [First Name], usrLN as [Last Name], usrMI as [Middle Initial], usrname as [Username], usrpw as [Password] FROM Users", conn);
+            SqlDataAdapter da1 = new SqlDataAdapter(cmd);
+            DataSet ds1 = new DataSet();
+            da1.Fill(ds1, "UsersDB");
+            usersDBGrid.DataSource = ds1.Tables[0];
+            conn.Close();
+        }
+        private void showAllUserLogs()
+        {
+            conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=UsersDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;");
+            conn.Open();
+            cmd = new SqlCommand("SELECT usrLogNo as [User Log No.], usrID as [User ID], usrname as [Username], usrLogDate as [Date/Time] FROM UserLogs", conn);
+            SqlDataAdapter da2 = new SqlDataAdapter(cmd);
+            DataSet ds2 = new DataSet();
+            da2.Fill(ds2, "UsersDB");
+            userLogsDBGrid.DataSource = ds2.Tables[0];
+            conn.Close();
+        }
+
+        // Register VEHICLE FUNCTION
         private void parkAgainButton_Click(object sender, EventArgs e)
         {
             removeCollectedData();
@@ -304,6 +335,81 @@ namespace ParkingSystemGUI
 
 
         }
+        // EDIT BUTTON IN DATAGRID
+        private void editBTN_Click(object sender, EventArgs e)
+        {
+            if (vehicleDataGrid.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewCell cell in vehicleDataGrid.SelectedRows[0].Cells)
+                {
+                    // Check if the cell value is not null and not empty
+                    if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
+                    {
+                        editPanel.Show();
+                        editPlateNo.Text = vehicleDataGrid.CurrentRow.Cells[1].Value.ToString();
+                        editVehicleType.Text = vehicleDataGrid.CurrentRow.Cells[2].Value.ToString();
+                        editVehicleBrand.Text = vehicleDataGrid.CurrentRow.Cells[3].Value.ToString();
+                    }
+                }
+
+            }
+            else
+                MessageBox.Show("Pick a vehicle to Edit", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+        }
+
+        // Items of vehicle brand in Combo Box Change in EditPanel depending on user's preferrred vehicle type
+        private void editVehicleType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (editVehicleType.SelectedItem == "Motorbike")
+            {
+                editVehicleBrand.Items.Clear();
+                editVehicleBrand.Items.AddRange(new object[] { "Kawasaki", "Yamaha", "Ducatti", "Suzuki", "Honda", "Rusi" });
+            }
+
+            else if (editVehicleType.SelectedItem == "SUV")
+            {
+                editVehicleBrand.Items.Clear();
+                editVehicleBrand.Items.AddRange(new object[] { "Toyota", "Nissan", "Volkswagen", "Mercedez", "Hyundai", "Ford" });
+            }
+            else if (editVehicleType.SelectedItem == "Van")
+            {
+                editVehicleBrand.Items.Clear();
+                editVehicleBrand.Items.AddRange(new object[] { "Toyota", "Nissan", "Volkswagen", "Mercedez", "Hyundai", "Ford" });
+            }
+
+            else if (editVehicleType.SelectedItem == "Sedan")
+            {
+                editVehicleBrand.Items.Clear();
+                editVehicleBrand.Items.AddRange(new object[] { "Porsche", "Nissan", "Volkswagen", "Mercedez", "Hyundai", "Toyota" });
+            }
+        }
+
+        // Done Button in Edit Panel
+        private void editDone_Click(object sender, EventArgs e)
+        {
+            string newPlateNo = editPlateNo.Text;
+            string newVehicleType = editVehicleType.Text;
+            string newVehicleBrand = editVehicleBrand.Text;
+            con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ParkWiseDBS;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+            con.Open();
+            cmd = new SqlCommand("UPDATE parkwiseDBS SET plate_no = @newPlateNo, vehicle_type = @newVehicleType, vehicle_brand = @newVehicleBrand WHERE plate_no = @oldPN", con);
+            cmd.Parameters.AddWithValue("@newPlateNo", newPlateNo);
+            cmd.Parameters.AddWithValue("@newVehicleType", newVehicleType);
+            cmd.Parameters.AddWithValue("@newVehicleBrand", newVehicleBrand);
+            cmd.Parameters.AddWithValue("@oldPN", vehicleDataGrid.CurrentRow.Cells[1].Value.ToString());
+            cmd.ExecuteNonQuery();
+            con.Close();
+            MessageBox.Show("Data Succesfully Edited!", "ParkWise Edit", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            editPanel.Hide();
+            showAllVehicles();
+        }
+
+        private void editCancel_Click(object sender, EventArgs e)
+        {
+            editPanel.Hide();
+        }
+
         private double getFlagDown(string vehicle)
         {
             switch (vehicle)
@@ -341,7 +447,7 @@ namespace ParkingSystemGUI
                 // Remove the entire row from the DataGridView
                 string command = "DELETE FROM parkwiseDBS WHERE user_id = '" + vehicleDataGrid.CurrentRow.Cells[0].Value.ToString() + "'";
                 exeCommands(command);
-                vehicleDataGrid.Rows.Remove(row);
+                showAllVehicles();
 
             }
             customerIDResults.Text = "";
@@ -355,7 +461,6 @@ namespace ParkingSystemGUI
             hideResultsForm();
             showDataGridForm();
         }
-
 
         // Switch for Chosen Vehicle Type
         public double IdentifyVehicleType(string vehicle, double hours, double days, double minutes)
@@ -443,16 +548,19 @@ namespace ParkingSystemGUI
         // Methods for Showing and Hiding necesarry Pages
         private void hideMainMenu()
         {
-            mainMenu1.Hide();
+            DataGridButtonMenu.Hide();
+            mainMenu2.Hide();
             proceedButton.Hide();
         }
         private void showMainMenu()
         {
-            mainMenu1.Show();
+            DataGridButtonMenu.Show();
+            mainMenu2.Show();
             proceedButton.Show();
         }
         private void hideParkin()
         {
+            DataGridButtonParkin.Hide();
             parkinForm1.Hide();
             parkinButton.Hide();
             parkinBackButton.Hide();
@@ -462,6 +570,7 @@ namespace ParkingSystemGUI
         }
         private void showParkin()
         {
+            DataGridButtonParkin.Show();
             parkinButton.Show();
             parkinForm1.Show();
             parkinBackButton.Show();
@@ -472,6 +581,7 @@ namespace ParkingSystemGUI
 
         private void hideDataRegister()
         {
+            DataGridButtonParkout.Hide();
             dataRegistered1.Hide();
             userLabel.Hide();
             plateNoLabel.Hide();
@@ -483,6 +593,7 @@ namespace ParkingSystemGUI
         }
         private void showDataRegister()
         {
+            DataGridButtonParkout.Show();
             dataRegistered1.Show();
             userLabel.Show();
             plateNoLabel.Show();
@@ -494,6 +605,7 @@ namespace ParkingSystemGUI
         }
         private void showDataGridForm()
         {
+            editBTN.Show();
             dataGridForm1.Show();
             vehicleDataGrid.Show();
             parkAgainButton.Show();
@@ -501,9 +613,13 @@ namespace ParkingSystemGUI
             Home.Show();
             parkoutButtonGrid.Show();
             searchBox.Show();
+            accessDBVehicles.Show();
+            accessDBUsers.Show();
+            accessDBUserLogs.Show();
         }
         private void hideDataGridForm()
         {
+            editBTN.Hide();
             dataGridForm1.Hide();
             vehicleDataGrid.Hide();
             parkAgainButton.Hide();
@@ -511,6 +627,9 @@ namespace ParkingSystemGUI
             Home.Hide();
             parkoutButtonGrid.Hide();
             searchBox.Hide();
+            accessDBVehicles.Hide();
+            accessDBUsers.Hide();
+            accessDBUserLogs.Hide();
         }
 
         private void hideResultsForm()
@@ -583,16 +702,231 @@ namespace ParkingSystemGUI
 
         }
 
+
         // Search BOX in DataGrid to show existing records by initials and numbers
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+
+            SqlDataAdapter da;
+            DataSet ds = new DataSet();
             con.Open();
             cmd = new SqlCommand("SELECT user_id as [Customer ID], plate_no as [Plate No.], vehicle_type as [Vehicle Type], vehicle_brand as [Vehicle Brand], parkin_datetime as [Park-in Date/Time] FROM parkwiseDBS WHERE user_id like '" + searchBox.Text + "%' OR plate_no like '" + searchBox.Text + "%'", con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
+            da = new SqlDataAdapter(cmd);
             da.Fill(ds, "ParkWiseDBS");
             vehicleDataGrid.DataSource = ds.Tables[0];
             con.Close();
+
+        }
+
+        private void mainMenu2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void plateNoResults_Click(object sender, EventArgs e)
+        {
+
+        }
+        // Access Database Data for Vehicles
+        private void accessDBVehicles_Click(object sender, EventArgs e)
+        {
+            showAllVehicles();
+        }
+        // Access Database Data for Users
+        private void accessDBUsers_Click(object sender, EventArgs e)
+        {
+            usersDBPanel.Show();
+            showAllUsers();
+        }
+        // Access Database Data for User Logs
+        private void accessDBUserLogs_Click(object sender, EventArgs e)
+        {
+            userLogsDBPanel.Show();
+            showAllUserLogs();
+        }
+        // Search Box for Users DB Grid
+        private void searchBoxUsers_TextChanged(object sender, EventArgs e)
+        {
+            SqlDataAdapter da1;
+            DataSet ds1 = new DataSet();
+            conn.Open();
+            cmd = new SqlCommand("SELECT usrID as [User ID], usrFN as [First Name], usrLN as [Last Name], usrMI as [Middle Initial], usrname as [Username], usrpw as [Password] FROM Users WHERE usrFN like '" + searchBoxUsers.Text + "%' OR usrLN like '" + searchBoxUsers.Text + "%'", conn);
+            da1 = new SqlDataAdapter(cmd);
+            da1.Fill(ds1, "UsersDB");
+            usersDBGrid.DataSource = ds1.Tables[0];
+            conn.Close();
+        }
+        // Close Users DB Grid
+        private void closeUsersDBGrid_Click(object sender, EventArgs e)
+        {
+            usersDBPanel.Hide();
+        }
+        // Search Box for UserLogs DB Grid
+        private void searchUserLogsDB_TextChanged(object sender, EventArgs e)
+        {
+            SqlDataAdapter da2;
+            DataSet ds2 = new DataSet();
+            //conn = new SqlConnection("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = UsersDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False;");
+            conn.Open();
+            cmd = new SqlCommand("SELECT usrLogNo as [User Log No.], usrId as [User ID], usrname as [Username], usrLogDate as [Date/Time] FROM UserLogs WHERE usrId like '" + searchUserLogsDB.Text + "%' OR usrname like '" + searchUserLogsDB.Text + "%'", conn);
+            da2 = new SqlDataAdapter(cmd);
+            da2.Fill(ds2, "UsersDB");
+            userLogsDBGrid.DataSource = ds2.Tables[0];
+            conn.Close();
+        }
+        // Close UserLogs DB Grid
+        private void closeUserLogsDB_Click(object sender, EventArgs e)
+        {
+            userLogsDBPanel.Hide();
+        }
+
+
+        // Close Button Edit User Panel
+        private void closeEditUsersBTN_Click(object sender, EventArgs e)
+        {
+            editUsersPanel.Hide();
+        }
+        // Checkbox for Edit Users Panel Show Password
+        private void editUsersCB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (editUsersCB.Checked) {
+                editPassBox.UseSystemPasswordChar = false;
+            }
+            else if (editUsersCB.CheckState == CheckState.Unchecked)
+            {
+                editPassBox.UseSystemPasswordChar = true;
+            }
+        }
+        // Checkbox for Edit Users Panel Show Confirm Password
+        private void editUsersCB2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (editUsersCB2.Checked)
+            {
+                editConfirmPassBox.UseSystemPasswordChar = false;
+            }
+            else if (editUsersCB2.CheckState == CheckState.Unchecked)
+            {
+                editConfirmPassBox.UseSystemPasswordChar = true;
+            }
+        }
+        // Done Button in Edit Users Panel
+        private void editUsersDoneBTN_Click(object sender, EventArgs e)
+        {
+            if ((editFnameBox.Text == null || editFnameBox.Text == "") && (editLnameBox.Text == null || editLnameBox.Text == "") && (editMIBox.Text == null || editMIBox.Text == "") && (editUsernameBox.Text == null || editUsernameBox.Text == "") && (editPassBox.Text == null || editPassBox.Text == "") && (editConfirmPassBox.Text == null || editConfirmPassBox.Text == ""))
+            {
+                MessageBox.Show("Fields cannot be empty!", "ParkWise User Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if(editPassBox.Text != editConfirmPassBox.Text)
+                MessageBox.Show("Password do not match!", "ParkWise User Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+            {
+                string fname = editFnameBox.Text.Trim();
+                string lname = editLnameBox.Text.Trim();
+                string extractMI = editMIBox.Text.Trim();
+                string minitial = extractMI[0].ToString() + ".";
+                string usernameUsr = editUsernameBox.Text.Trim();
+                string password = editPassBox.Text.Trim();
+                try
+                {
+                    conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=UsersDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;");
+                    conn.Open();
+                    cmd = new SqlCommand("UPDATE Users SET usrFN = @fname, usrLN = @lname, usrMI = @minitial, usrname = @usernameUsr, usrpw = @password WHERE usrname = @oldPN", conn);
+                    cmd.Parameters.AddWithValue("@fname", fname);
+                    cmd.Parameters.AddWithValue("@lname", lname);
+                    cmd.Parameters.AddWithValue("@minitial", minitial);
+                    cmd.Parameters.AddWithValue("@usernameUsr", usernameUsr);
+                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@oldPN", usersDBGrid.CurrentRow.Cells[4].Value.ToString());
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    MessageBox.Show("User Succesfully Updated!", "ParkWise Update User", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    editUsersPanel.Hide();
+                    showAllUsers();
+                }catch (Exception)
+                {
+                    MessageBox.Show($"Username already exist! \"{usernameUsr}\"", "ParkWise Update User", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }
+        }
+        // Update user button from Users Panel, this opens the Edit Users Panel
+        private void updateUserBTN_Click(object sender, EventArgs e)
+        {
+            if (usersDBGrid.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewCell cell in usersDBGrid.SelectedRows[0].Cells)
+                {
+                    // Check if the cell value is not null and not empty
+                    if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
+                    {
+                        editUsersPanel.Show();
+                        editFnameBox.Text = usersDBGrid.CurrentRow.Cells[1].Value.ToString();
+                        editLnameBox.Text = usersDBGrid.CurrentRow.Cells[2].Value.ToString();
+                        editMIBox.Text = usersDBGrid.CurrentRow.Cells[3].Value.ToString();
+                        editUsernameBox.Text = usersDBGrid.CurrentRow.Cells[4].Value.ToString();
+                        editPassBox.Text = usersDBGrid.CurrentRow.Cells[5].Value.ToString();
+                        editConfirmPassBox.Text = usersDBGrid.CurrentRow.Cells[5].Value.ToString();
+                    }
+                }
+
+            }
+            else
+                MessageBox.Show("Pick a User to Update", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+        }
+        // Delete a User Button from Users Panel
+        private void deleteUserBTN_Click(object sender, EventArgs e)
+        {
+            if (usersDBGrid.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewCell cell in usersDBGrid.SelectedRows[0].Cells)
+                {
+                    // Check if the cell value is not null and not empty
+                    if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
+                    {
+                        string username = usersDBGrid.CurrentRow.Cells[4].Value.ToString();
+                        string command = "DELETE FROM Users WHERE usrname = '"+ username +"'";
+                        exeCommandsUsers(command);
+                        MessageBox.Show("User successfully deleted!", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        showAllUsers();
+                    }
+                }
+
+            }
+            else
+                MessageBox.Show("Pick a User to Delete", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        // Delete a single user log in User Logs
+        private void deleteUserLogsBTN_Click(object sender, EventArgs e)
+        {
+            if (userLogsDBGrid.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewCell cell in userLogsDBGrid.SelectedRows[0].Cells)
+                {
+                    // Check if the cell value is not null and not empty
+                    if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
+                    {
+                        string extractLogNo = userLogsDBGrid.CurrentRow.Cells[0].Value.ToString();
+                        int logNo = Convert.ToInt32(extractLogNo);
+                        string command = $"DELETE FROM UserLogs WHERE usrLogNo = {logNo}";
+                        exeCommandsUsers(command);
+                        MessageBox.Show("User Logs successfully deleted!", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        showAllUserLogs();
+                    }
+                }
+
+            }
+            else
+                MessageBox.Show("Pick User Logs to Delete", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        // Delete all user logs in User Logs
+        private void deleteAllUserLogsBTN_Click(object sender, EventArgs e)
+        {
+            string command = "DELETE FROM UserLogs";
+            exeCommandsUsers(command);
+            MessageBox.Show("All User Logs successfully deleted!", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            showAllUserLogs();
         }
     }
 
@@ -623,9 +957,9 @@ namespace ParkingSystemGUI
         public override double chargingFee(double hours, double minutes)
         {
             const double addHour = 5.00;
-            return vehicleChargeConditions(hours, minutes, addHour,motorbikeFee);
+            return vehicleChargeConditions(hours, minutes, addHour, motorbikeFee);
 
-        }     
+        }
     }
     public class SUVan : Charge
     {

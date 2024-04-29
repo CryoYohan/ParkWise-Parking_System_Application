@@ -36,7 +36,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(3, 3);
+            pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(933, 665);
             pictureBox1.TabIndex = 0;
@@ -50,6 +50,7 @@
             Controls.Add(pictureBox1);
             Name = "DataGridForm";
             Size = new Size(939, 695);
+            Load += DataGridForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }

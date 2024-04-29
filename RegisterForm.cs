@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace ParkingSystemGUI
 {
-    public partial class DataGridForm : UserControl
+    public partial class RegisterForm : UserControl
     {
-        public DataGridForm()
+        public RegisterForm()
         {
             InitializeComponent();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void DataGridForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

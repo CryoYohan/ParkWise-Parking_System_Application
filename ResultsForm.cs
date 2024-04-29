@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace ParkingSystemGUI
+﻿namespace ParkingSystemGUI
 {
-    public partial class ResultsForm : UserControl
+    public partial class ResultsForm
     {
         public ResultsForm()
         {
@@ -18,6 +8,11 @@ namespace ParkingSystemGUI
         }
 
         private void parkoutButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }

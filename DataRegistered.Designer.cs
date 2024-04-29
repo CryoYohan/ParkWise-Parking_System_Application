@@ -41,6 +41,7 @@
             pictureBox1.Size = new Size(933, 692);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // DataRegistered
             // 
@@ -49,7 +50,7 @@
             BackColor = Color.FromArgb(126, 216, 253);
             Controls.Add(pictureBox1);
             Name = "DataRegistered";
-            Size = new Size(939, 695);
+            Size = new Size(939, 708);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }

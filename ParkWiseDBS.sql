@@ -12,7 +12,7 @@ CREATE TABLE parkwiseDBS(
 INSERT INTO parkwiseDBS(plate_no, vehicle_type, vehicle_brand, parkin_datetime)
 VALUES('YDU-353', 'Motorbike', 'Yamaha Aerox', '03/24/24 11:59PM');
 
-DELETE FROM parkwiseDBS;
+DELETE  FROM parkwiseDBS WHERE plate_no = 'KAIJU-08';
 
 ALTER TABLE parkwiseDBS NOCHECK CONSTRAINT ALL;
 ALTER TABLE parkwiseDBS WITH CHECK CHECK CONSTRAINT ALL;
