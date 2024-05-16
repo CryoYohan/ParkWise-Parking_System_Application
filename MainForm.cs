@@ -14,22 +14,14 @@ namespace ParkingSystemGUI
         SqlCommand cmd;
         SqlConnection con;
         SqlConnection conn;
-        private string username = "Admin";
-        private string password = "admin123";
         DateTime parkin = DateTime.Now;
         double days, hours, minutes, totalAmount;
         string plateNoVar = "", vehicleTypeVar = "", vehicleBrandVar = "", parkoutDateTimeVar = "", pn, vt, vb;
-        public MainForm()
+        string userLog = "";
+        public MainForm(string userLog)
         {
             InitializeComponent();
-
-        }
-
-        public string GetUser() { return username; }
-        public string GetPassword() { return password; }
-
-        private void mainMenu1_Load(object sender, EventArgs e)
-        {
+            this.userLog = userLog;
 
         }
 
@@ -84,7 +76,7 @@ namespace ParkingSystemGUI
                 vehicleBrandVar = vehicleBrandBox.Text;
                 Blueprint bluePrint = new Blueprint(plateNoVar, vehicleTypeVar, vehicleBrandVar);
                 bluePrint.GetPoint(out pn, out vt, out vb);
-                userLabel.Text = username;
+                userLabel.Text = "Admin Cyril Gwapo";
                 plateNoLabel.Text = pn;
                 vehicleTLabel.Text = vt;
                 vehicleBLabel.Text = vb;
@@ -135,7 +127,20 @@ namespace ParkingSystemGUI
         // Confirm Button in Data Registered
         private void parkoutButton_Click(object sender, EventArgs e)
         {
-            string command = "INSERT INTO parkwiseDBS(plate_no,vehicle_type, vehicle_brand,parkin_datetime)" +
+            hideDataRegister();
+            showAllVehicles();
+            showDataGridForm();
+            Hide();
+            using (ParkingSlotForm parkingSlotForm = new ParkingSlotForm(userLog, pn, vt, vb, parkin))
+            {
+                parkingSlotForm.ShowDialog();
+
+            }
+            Show();
+            showAllVehicles();
+
+        }
+        /* string command = "INSERT INTO parkwiseDBS(plate_no,vehicle_type, vehicle_brand,parkin_datetime)" +
                 "VALUES('" + pn + "', '" + vt + "', '" + vb + "', '" + parkin + "')";
             bool duplicatePlateNo = false;
             try
@@ -157,11 +162,8 @@ namespace ParkingSystemGUI
             {
                 hideDataRegister();
                 showAllVehicles();
-                showDataGridForm();
-            }
-
-
-        }
+                showDataGridForMain();
+            }*/
 
         private void exeCommands(string command)
         {
@@ -789,7 +791,8 @@ namespace ParkingSystemGUI
         // Checkbox for Edit Users Panel Show Password
         private void editUsersCB_CheckedChanged(object sender, EventArgs e)
         {
-            if (editUsersCB.Checked) {
+            if (editUsersCB.Checked)
+            {
                 editPassBox.UseSystemPasswordChar = false;
             }
             else if (editUsersCB.CheckState == CheckState.Unchecked)
@@ -816,7 +819,7 @@ namespace ParkingSystemGUI
             {
                 MessageBox.Show("Fields cannot be empty!", "ParkWise User Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if(editPassBox.Text != editConfirmPassBox.Text)
+            else if (editPassBox.Text != editConfirmPassBox.Text)
                 MessageBox.Show("Password do not match!", "ParkWise User Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
@@ -842,11 +845,12 @@ namespace ParkingSystemGUI
                     MessageBox.Show("User Succesfully Updated!", "ParkWise Update User", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     editUsersPanel.Hide();
                     showAllUsers();
-                }catch (Exception)
+                }
+                catch (Exception)
                 {
                     MessageBox.Show($"Username already exist! \"{usernameUsr}\"", "ParkWise Update User", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
             }
         }
         // Update user button from Users Panel, this opens the Edit Users Panel
@@ -885,7 +889,7 @@ namespace ParkingSystemGUI
                     if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
                     {
                         string username = usersDBGrid.CurrentRow.Cells[4].Value.ToString();
-                        string command = "DELETE FROM Users WHERE usrname = '"+ username +"'";
+                        string command = "DELETE FROM Users WHERE usrname = '" + username + "'";
                         exeCommandsUsers(command);
                         MessageBox.Show("User successfully deleted!", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         showAllUsers();
@@ -927,6 +931,27 @@ namespace ParkingSystemGUI
             exeCommandsUsers(command);
             MessageBox.Show("All User Logs successfully deleted!", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Information);
             showAllUserLogs();
+        }
+        // Dialog for Closing the form
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dg = MessageBox.Show("Are you sure you want to close the application?", "ParkWise Parking System", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (dg == DialogResult.Yes)
+            {
+                Dispose();
+            }
+            else
+                e.Cancel = true;
+        }
+
+        private void resultsForm1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridForm1_Load_1(object sender, EventArgs e)
+        {
+            showAllVehicles();
         }
     }
 

@@ -9,6 +9,28 @@ CREATE TABLE parkwiseDBS(
 	parkin_datetime DATETIME not null
 )
 
+CREATE TABLE p_trans(
+	p_id int primary key identity not null,
+	p_usrlog nvarchar(100),
+	p_plateNo nvarchar(100),
+	p_loc nvarchar(100) null,
+	p_date datetime
+)
+
+CREATE TABLE payments(
+	t_idprm int primary key identity not null,
+	t_id int references p_trans(p_id),
+	t_usrlog nvarchar(100),
+	t_pn nvarchar(20),
+	t_vt nvarchar(100),
+	t_date datetime,
+	t_payment decimal(10,2) 
+)
+
+drop table p_trans
+drop table payments
+
+
 INSERT INTO parkwiseDBS(plate_no, vehicle_type, vehicle_brand, parkin_datetime)
 VALUES('YDU-353', 'Motorbike', 'Yamaha Aerox', '03/24/24 11:59PM');
 
@@ -22,5 +44,13 @@ FROM parkwiseDBS
 WHERE plate_no = 'YDU-353';
 
 SELECT * FROM parkwiseDBS
+SELECT * FROM p_trans
+SELECT * FROM payments
+
+DELETE FROM parkwiseDBS;
+DELETE FROM p_trans
+DELETE FROM payments
+
+dbcc checkident('parkwiseDBS',reseed,0);
 
 SELECT user_id, plate_no FROM parkwiseDBS WHERE user_id like 15 AND plate_no like 'YDU-353'

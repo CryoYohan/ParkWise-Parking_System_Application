@@ -763,6 +763,7 @@ namespace ParkingSystemGUI
             resultsForm1.Name = "resultsForm1";
             resultsForm1.Size = new Size(933, 692);
             resultsForm1.TabIndex = 84;
+            resultsForm1.Load += resultsForm1_Load;
             // 
             // usersDBPanel
             // 
@@ -1166,7 +1167,8 @@ namespace ParkingSystemGUI
             MaximizeBox = false;
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "MainForm";
+            Text = "ParkWise Parking System";
+            FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)vehicleDataGrid).EndInit();
             ((System.ComponentModel.ISupportInitialize)parkingRepositoryBindingSource).EndInit();

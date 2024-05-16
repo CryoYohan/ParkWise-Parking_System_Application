@@ -8,7 +8,9 @@ namespace ParkingSystemGUI
         SqlConnection conn;
         SqlCommand cmd;
         string storedPassword = "";
-        MainForm mainForm = new MainForm();
+        string userLog = "";
+        private string usernameAdmin = "Admin";
+        private string passwordAdmin = "admin123";
         public Form1()
         {
             InitializeComponent();
@@ -39,13 +41,13 @@ namespace ParkingSystemGUI
         {
             promptUser = userTextbox.Text;
             promptPass = passwordTextbox.Text;
-            if (promptUser == mainForm.GetUser() && promptPass == mainForm.GetPassword())
+            if (promptUser == usernameAdmin && promptPass == passwordAdmin)
             {
                 MessageBox.Show("Login Succesful", "LOGIN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 userTextbox.Text = "";
                 passwordTextbox.Text = "";
                 Hide();
-                using (MainForm mainForm = new MainForm())
+                using (MainForm mainForm = new MainForm(promptUser))
                 {
                     mainForm.ShowDialog();
                 }
@@ -280,7 +282,7 @@ namespace ParkingSystemGUI
             {
                 passwordBox.UseSystemPasswordChar = false;
             }
-            else if (showPassCheckBox.CheckState == CheckState.Unchecked)
+            else if (checkBox1.CheckState == CheckState.Unchecked)
                 passwordBox.UseSystemPasswordChar = true;
         }
 
@@ -290,7 +292,8 @@ namespace ParkingSystemGUI
             {
                 confirmPassBox.UseSystemPasswordChar = false;
             }
-            else if (showPassCheckBox.CheckState == CheckState.Unchecked)
+            else if (checkBox2
+                .CheckState == CheckState.Unchecked)
                 confirmPassBox.UseSystemPasswordChar = true;
         }
 
