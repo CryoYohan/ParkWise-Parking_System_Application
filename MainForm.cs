@@ -140,30 +140,7 @@ namespace ParkingSystemGUI
             showAllVehicles();
 
         }
-        /* string command = "INSERT INTO parkwiseDBS(plate_no,vehicle_type, vehicle_brand,parkin_datetime)" +
-                "VALUES('" + pn + "', '" + vt + "', '" + vb + "', '" + parkin + "')";
-            bool duplicatePlateNo = false;
-            try
-            {
-                exeCommands(command);
-            }
-            catch (Exception)
-            {
-                duplicatePlateNo = true;
-            }
-            if (duplicatePlateNo == true)
-            {
-                MessageBox.Show("Plate No. already exist!", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                con.Close();
-                hideDataRegister();
-                showParkin();
-            }
-            else
-            {
-                hideDataRegister();
-                showAllVehicles();
-                showDataGridForMain();
-            }*/
+
 
         private void exeCommands(string command)
         {
@@ -186,7 +163,7 @@ namespace ParkingSystemGUI
         {
             con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ParkWiseDBS;Integrated Security=True;Connect Timeout=30;Encrypt=False");
             con.Open();
-            cmd = new SqlCommand("SELECT user_id as [Customer ID], plate_no as [Plate Number], vehicle_type as [Vehicle Type], vehicle_brand as [Vehicle Brand], parkin_datetime as [Park-in Date/Time] from parkwiseDBS");
+            cmd = new SqlCommand("SELECT user_id as [Customer ID], plate_no as [Plate Number], vehicle_type as [Vehicle Type], vehicle_brand as [Vehicle Brand],parking_slot as [Parking Slot], parkin_datetime as [Park-in Date/Time] from parkwiseDBS");
             cmd.Connection = con;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
@@ -283,7 +260,7 @@ namespace ParkingSystemGUI
 
         }
 
-        // PARKOUT Button
+        // PARKOUT Button // Design in Figma for Parking Slots in Results Form
         private void parkoutButtonGrid_Click(object sender, EventArgs e)
         {
 
@@ -618,6 +595,7 @@ namespace ParkingSystemGUI
             accessDBVehicles.Show();
             accessDBUsers.Show();
             accessDBUserLogs.Show();
+            transactionBTN.Show();
         }
         private void hideDataGridForm()
         {
@@ -632,6 +610,7 @@ namespace ParkingSystemGUI
             accessDBVehicles.Hide();
             accessDBUsers.Hide();
             accessDBUserLogs.Hide();
+            transactionBTN.Hide();
         }
 
         private void hideResultsForm()
@@ -729,10 +708,15 @@ namespace ParkingSystemGUI
         {
 
         }
-        // Access Database Data for Vehicles
+        // Access Database Data for Parking Slots
         private void accessDBVehicles_Click(object sender, EventArgs e)
         {
-            showAllVehicles();
+            Hide();
+            using (ParkingSlotForm parkingSlotForm = new ParkingSlotForm())
+            {
+                parkingSlotForm.ShowDialog();
+            }
+            Show();
         }
         // Access Database Data for Users
         private void accessDBUsers_Click(object sender, EventArgs e)
@@ -952,6 +936,11 @@ namespace ParkingSystemGUI
         private void dataGridForm1_Load_1(object sender, EventArgs e)
         {
             showAllVehicles();
+        }
+        // Transactions Form
+        private void transactionBTN_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

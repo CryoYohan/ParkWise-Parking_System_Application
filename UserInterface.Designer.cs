@@ -80,6 +80,8 @@
             editPlateNo = new TextBox();
             editCloseBTN = new Button();
             dataGridBTN = new Button();
+            button2 = new Button();
+            parkingSlotText = new Label();
             receiptPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)vehicleDataGrid).BeginInit();
             editPanel.SuspendLayout();
@@ -257,6 +259,7 @@
             // receiptPanel
             // 
             receiptPanel.BackColor = Color.FromArgb(255, 255, 192);
+            receiptPanel.Controls.Add(parkingSlotText);
             receiptPanel.Controls.Add(closeReceiptButton);
             receiptPanel.Controls.Add(totalAmountResults);
             receiptPanel.Controls.Add(flagDownResults);
@@ -273,7 +276,7 @@
             receiptPanel.Controls.Add(label2);
             receiptPanel.Controls.Add(label1);
             receiptPanel.Font = new Font("SimSun", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            receiptPanel.Location = new Point(161, 130);
+            receiptPanel.Location = new Point(228, 117);
             receiptPanel.Name = "receiptPanel";
             receiptPanel.Size = new Size(467, 478);
             receiptPanel.TabIndex = 15;
@@ -338,7 +341,7 @@
             // 
             parkinResults.AutoSize = true;
             parkinResults.Font = new Font("SimSun-ExtB", 12F);
-            parkinResults.Location = new Point(67, 320);
+            parkinResults.Location = new Point(67, 324);
             parkinResults.Name = "parkinResults";
             parkinResults.Size = new Size(151, 16);
             parkinResults.TabIndex = 9;
@@ -348,7 +351,7 @@
             // 
             vehicleBrandResults.AutoSize = true;
             vehicleBrandResults.Font = new Font("SimSun-ExtB", 12F);
-            vehicleBrandResults.Location = new Point(67, 293);
+            vehicleBrandResults.Location = new Point(67, 279);
             vehicleBrandResults.Name = "vehicleBrandResults";
             vehicleBrandResults.Size = new Size(119, 16);
             vehicleBrandResults.TabIndex = 8;
@@ -358,7 +361,7 @@
             // 
             vehicleTypeResults.AutoSize = true;
             vehicleTypeResults.Font = new Font("SimSun-ExtB", 12F);
-            vehicleTypeResults.Location = new Point(67, 264);
+            vehicleTypeResults.Location = new Point(67, 253);
             vehicleTypeResults.Name = "vehicleTypeResults";
             vehicleTypeResults.Size = new Size(111, 16);
             vehicleTypeResults.TabIndex = 7;
@@ -368,7 +371,7 @@
             // 
             plateNoResults.AutoSize = true;
             plateNoResults.Font = new Font("SimSun-ExtB", 12F);
-            plateNoResults.Location = new Point(67, 236);
+            plateNoResults.Location = new Point(67, 228);
             plateNoResults.Name = "plateNoResults";
             plateNoResults.Size = new Size(87, 16);
             plateNoResults.TabIndex = 6;
@@ -576,7 +579,7 @@
             editPanel.Controls.Add(label5);
             editPanel.Controls.Add(editPlateNo);
             editPanel.Controls.Add(editCloseBTN);
-            editPanel.Location = new Point(634, 236);
+            editPanel.Location = new Point(340, 277);
             editPanel.Name = "editPanel";
             editPanel.Size = new Size(263, 329);
             editPanel.TabIndex = 26;
@@ -692,15 +695,42 @@
             dataGridBTN.UseVisualStyleBackColor = false;
             dataGridBTN.Click += dataGridBTN_Click;
             // 
+            // button2
+            // 
+            button2.BackColor = Color.FromArgb(32, 105, 158);
+            button2.Cursor = Cursors.Hand;
+            button2.FlatAppearance.BorderColor = Color.FromArgb(204, 211, 214);
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI", 8F);
+            button2.ForeColor = SystemColors.ButtonFace;
+            button2.Location = new Point(371, 224);
+            button2.Name = "button2";
+            button2.Size = new Size(59, 23);
+            button2.TabIndex = 28;
+            button2.Text = "Slots";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click_1;
+            // 
+            // parkingSlotText
+            // 
+            parkingSlotText.AutoSize = true;
+            parkingSlotText.Font = new Font("SimSun-ExtB", 12F);
+            parkingSlotText.Location = new Point(68, 300);
+            parkingSlotText.Name = "parkingSlotText";
+            parkingSlotText.Size = new Size(111, 16);
+            parkingSlotText.TabIndex = 15;
+            parkingSlotText.Text = "Parking Slot:";
+            // 
             // UserInterface
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(126, 216, 253);
             ClientSize = new Size(923, 656);
+            Controls.Add(receiptPanel);
+            Controls.Add(button2);
             Controls.Add(dataGridBTN);
             Controls.Add(editPanel);
-            Controls.Add(receiptPanel);
             Controls.Add(menuBTN);
             Controls.Add(parkoutBTN);
             Controls.Add(addVehicleBTN);
@@ -792,5 +822,7 @@
         private ComboBox editVehicleBrand;
         private ComboBox editVehicleType;
         private Button dataGridBTN;
+        private Button button2;
+        private Label parkingSlotText;
     }
 }

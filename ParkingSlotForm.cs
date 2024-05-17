@@ -20,6 +20,7 @@ namespace ParkingSystemGUI
         SqlConnection conn;
         const int maxSlots = 25;
         string userLog = "", pn ="", vt = "", vb = "";
+        int checkParkingSlotsOnly = 0;
         DateTime parkin;
         public ParkingSlotForm(string userLog, string pn, string vt, string vb, DateTime parkin)
         {
@@ -29,6 +30,13 @@ namespace ParkingSystemGUI
             this.vt = vt;
             this.vb = vb;
             this.parkin = parkin;
+            this.checkParkingSlotsOnly = 1;
+
+        }
+        public ParkingSlotForm()
+        {
+            InitializeComponent();
+            this.checkParkingSlotsOnly = 2;
         }
         // Return button back to MainForm
         private void button29_Click(object sender, EventArgs e)
@@ -54,53 +62,107 @@ namespace ParkingSystemGUI
         // Generate the buttons parking slots for Ground Floor
         private void loadGroundFloorParkingSlots()
         {
-
-            for (int i = 1; i <= maxSlots; i++)
+            if(checkParkingSlotsOnly == 1)
             {
-                Button button = new Button();
-                button.SetBounds(0, 0, 69, 69);
-                button.Cursor = Cursors.Hand;
-                button.BackColor = Color.MediumSeaGreen;
-                button.Click += groundFloorButtons_Click;
-                button.Enabled = true;
-                button.Text = $"GF{i}";
-                parkingSlotsPanel.Controls.Add(button);
-                groundFloorButtons.Add(button);
+                for (int i = 1; i <= maxSlots; i++)
+                {
+                    Button button = new Button();
+                    button.SetBounds(0, 0, 69, 69);
+                    button.Cursor = Cursors.Hand;
+                    button.BackColor = Color.MediumSeaGreen;
+                    button.Click += groundFloorButtons_Click;
+                    button.Enabled = true;
+                    button.Text = $"GF{i}";
+                    parkingSlotsPanel.Controls.Add(button);
+                    groundFloorButtons.Add(button);
+                }
             }
+            else
+            {
+                for (int i = 1; i <= maxSlots; i++)
+                {
+                    Button button = new Button();
+                    button.SetBounds(0, 0, 69, 69);
+                    button.Cursor = Cursors.Hand;
+                    button.BackColor = Color.MediumSeaGreen;
+                    button.Click += groundFloorButtons_Click;
+                    button.Enabled = false;
+                    button.Text = $"GF{i}";
+                    parkingSlotsPanel.Controls.Add(button);
+                    groundFloorButtons.Add(button);
+                }
+            }
+           
         }
         // Generate the buttons parking slots for Floor 1
         private void loadFloor1ParkingSlots()
         {
-
-            for (int i = 1; i <= maxSlots; i++)
+            if(checkParkingSlotsOnly == 1)
             {
-                Button button = new Button();
-                button.SetBounds(0, 0, 69, 69);
-                button.Cursor = Cursors.Hand;
-                button.BackColor = Color.MediumSeaGreen;
-                button.Click += groundFloorButtons_Click;
-                button.Enabled = true;
-                button.Text = $"A{i}";
-                parkingSlotsPanel.Controls.Add(button);
-                floor1Buttons.Add(button);
+                for (int i = 1; i <= maxSlots; i++)
+                {
+                    Button button = new Button();
+                    button.SetBounds(0, 0, 69, 69);
+                    button.Cursor = Cursors.Hand;
+                    button.BackColor = Color.MediumSeaGreen;
+                    button.Click += groundFloorButtons_Click;
+                    button.Enabled = true;
+                    button.Text = $"A{i}";
+                    parkingSlotsPanel.Controls.Add(button);
+                    floor1Buttons.Add(button);
+                }
             }
+            else
+            {
+                for (int i = 1; i <= maxSlots; i++)
+                {
+                    Button button = new Button();
+                    button.SetBounds(0, 0, 69, 69);
+                    button.Cursor = Cursors.Hand;
+                    button.BackColor = Color.MediumSeaGreen;
+                    button.Click += groundFloorButtons_Click;
+                    button.Enabled = false;
+                    button.Text = $"A{i}";
+                    parkingSlotsPanel.Controls.Add(button);
+                    floor1Buttons.Add(button);
+                }
+            }
+            
         }
         // Generate the buttons parking slots for Floor 2
         private void loadFloor2ParkingSlots()
         {
-
-            for (int i = 1; i <= maxSlots; i++)
+            if(checkParkingSlotsOnly == 1)
             {
-                Button button = new Button();
-                button.SetBounds(0, 0, 69, 69);
-                button.Cursor = Cursors.Hand;
-                button.BackColor = Color.MediumSeaGreen;
-                button.Click += groundFloorButtons_Click;
-                button.Enabled = true;
-                button.Text = $"B{i}";
-                parkingSlotsPanel.Controls.Add(button);
-                floor2Buttons.Add(button);
+                for (int i = 1; i <= maxSlots; i++)
+                {
+                    Button button = new Button();
+                    button.SetBounds(0, 0, 69, 69);
+                    button.Cursor = Cursors.Hand;
+                    button.BackColor = Color.MediumSeaGreen;
+                    button.Click += groundFloorButtons_Click;
+                    button.Enabled = true;
+                    button.Text = $"B{i}";
+                    parkingSlotsPanel.Controls.Add(button);
+                    floor2Buttons.Add(button);
+                }
             }
+            else
+            {
+                for (int i = 1; i <= maxSlots; i++)
+                {
+                    Button button = new Button();
+                    button.SetBounds(0, 0, 69, 69);
+                    button.Cursor = Cursors.Hand;
+                    button.BackColor = Color.MediumSeaGreen;
+                    button.Click += groundFloorButtons_Click;
+                    button.Enabled = false;
+                    button.Text = $"B{i}";
+                    parkingSlotsPanel.Controls.Add(button);
+                    floor2Buttons.Add(button);
+                }
+            }
+            
         }
         // Hide Ground Floor Buttons
         private void hideGFSlot()
@@ -202,8 +264,8 @@ namespace ParkingSystemGUI
                 string command1 = "INSERT INTO p_trans(p_usrlog, p_plateNo, p_loc, p_date)" +
                "VALUES('" + userLog + "', '" + pn + "','" + slotLocation + "', '" + parkin + "')";
                 exeCommands(command1);
-                string command2 = "INSERT INTO parkwiseDBS(plate_no,vehicle_type, vehicle_brand,parkin_datetime)" +
-                "VALUES('" + pn + "', '" + vt + "', '" + vb + "', '" + parkin + "')";
+                string command2 = "INSERT INTO parkwiseDBS(plate_no,vehicle_type, vehicle_brand, parking_slot,parkin_datetime)" +
+                "VALUES('" + pn + "', '" + vt + "', '" + vb + "','"+ slotLocation + "', '" + parkin + "')";
                 bool duplicatePlateNo = false;
                 try
                 {
@@ -265,7 +327,7 @@ namespace ParkingSystemGUI
         private void searchPSlot(Button buttons)
         {
             string slot = buttons.Text;
-            string command = $"SELECT p_loc FROM p_trans WHERE  p_loc = '{slot}'";
+            string command = $"SELECT parking_slot FROM parkwiseDBS WHERE  parking_slot = '{slot}'";
             string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ParkWiseDBS;Integrated Security=True;Connect Timeout=30;Encrypt=False;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

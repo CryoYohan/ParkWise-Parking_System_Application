@@ -114,6 +114,7 @@ namespace ParkingSystemGUI
             editMIBox = new TextBox();
             editLnameBox = new TextBox();
             editFnameBox = new TextBox();
+            transactionBTN = new Button();
             ((System.ComponentModel.ISupportInitialize)vehicleDataGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)parkingRepositoryBindingSource).BeginInit();
             editPanel.SuspendLayout();
@@ -638,7 +639,7 @@ namespace ParkingSystemGUI
             editPanel.Controls.Add(editVehicleBrand);
             editPanel.Controls.Add(editVehicleType);
             editPanel.Controls.Add(editPlateNo);
-            editPanel.Location = new Point(305, 236);
+            editPanel.Location = new Point(311, 163);
             editPanel.Name = "editPanel";
             editPanel.Size = new Size(297, 318);
             editPanel.TabIndex = 80;
@@ -727,7 +728,7 @@ namespace ParkingSystemGUI
             accessDBVehicles.Name = "accessDBVehicles";
             accessDBVehicles.Size = new Size(74, 23);
             accessDBVehicles.TabIndex = 81;
-            accessDBVehicles.Text = "Vehicles";
+            accessDBVehicles.Text = "Slots";
             accessDBVehicles.UseVisualStyleBackColor = false;
             accessDBVehicles.Click += accessDBVehicles_Click;
             // 
@@ -735,7 +736,7 @@ namespace ParkingSystemGUI
             // 
             accessDBUsers.BackColor = Color.FromArgb(32, 105, 158);
             accessDBUsers.ForeColor = Color.Snow;
-            accessDBUsers.Location = new Point(422, 236);
+            accessDBUsers.Location = new Point(518, 236);
             accessDBUsers.Name = "accessDBUsers";
             accessDBUsers.Size = new Size(74, 23);
             accessDBUsers.TabIndex = 82;
@@ -747,7 +748,7 @@ namespace ParkingSystemGUI
             // 
             accessDBUserLogs.BackColor = Color.FromArgb(32, 105, 158);
             accessDBUserLogs.ForeColor = Color.Snow;
-            accessDBUserLogs.Location = new Point(512, 236);
+            accessDBUserLogs.Location = new Point(431, 236);
             accessDBUserLogs.Name = "accessDBUserLogs";
             accessDBUserLogs.Size = new Size(74, 23);
             accessDBUserLogs.TabIndex = 83;
@@ -773,7 +774,7 @@ namespace ParkingSystemGUI
             usersDBPanel.Controls.Add(closeUsersDBGrid);
             usersDBPanel.Controls.Add(usersDBGrid);
             usersDBPanel.Controls.Add(searchBoxUsers);
-            usersDBPanel.Location = new Point(474, 46);
+            usersDBPanel.Location = new Point(466, 25);
             usersDBPanel.Name = "usersDBPanel";
             usersDBPanel.Size = new Size(437, 568);
             usersDBPanel.TabIndex = 85;
@@ -850,7 +851,7 @@ namespace ParkingSystemGUI
             userLogsDBPanel.Controls.Add(closeUserLogsDB);
             userLogsDBPanel.Controls.Add(userLogsDBGrid);
             userLogsDBPanel.Controls.Add(searchUserLogsDB);
-            userLogsDBPanel.Location = new Point(12, 46);
+            userLogsDBPanel.Location = new Point(12, 15);
             userLogsDBPanel.Name = "userLogsDBPanel";
             userLogsDBPanel.Size = new Size(440, 568);
             userLogsDBPanel.TabIndex = 86;
@@ -938,7 +939,7 @@ namespace ParkingSystemGUI
             editUsersPanel.Controls.Add(editMIBox);
             editUsersPanel.Controls.Add(editLnameBox);
             editUsersPanel.Controls.Add(editFnameBox);
-            editUsersPanel.Location = new Point(324, 109);
+            editUsersPanel.Location = new Point(569, 87);
             editUsersPanel.Name = "editUsersPanel";
             editUsersPanel.Size = new Size(262, 266);
             editUsersPanel.TabIndex = 87;
@@ -1111,6 +1112,18 @@ namespace ParkingSystemGUI
             editFnameBox.Size = new Size(111, 23);
             editFnameBox.TabIndex = 0;
             // 
+            // transactionBTN
+            // 
+            transactionBTN.BackColor = Color.FromArgb(32, 105, 158);
+            transactionBTN.Font = new Font("Segoe UI", 7F);
+            transactionBTN.ForeColor = Color.Snow;
+            transactionBTN.Location = new Point(608, 236);
+            transactionBTN.Name = "transactionBTN";
+            transactionBTN.Size = new Size(74, 23);
+            transactionBTN.TabIndex = 88;
+            transactionBTN.Text = "Transactions";
+            transactionBTN.UseVisualStyleBackColor = false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1118,9 +1131,10 @@ namespace ParkingSystemGUI
             BackColor = Color.FromArgb(126, 216, 253);
             ClientSize = new Size(923, 656);
             Controls.Add(editUsersPanel);
-            Controls.Add(userLogsDBPanel);
-            Controls.Add(usersDBPanel);
             Controls.Add(editPanel);
+            Controls.Add(usersDBPanel);
+            Controls.Add(transactionBTN);
+            Controls.Add(userLogsDBPanel);
             Controls.Add(flagDownResults);
             Controls.Add(durationResults);
             Controls.Add(vehicleTypeResults);
@@ -1273,6 +1287,7 @@ namespace ParkingSystemGUI
         private Label label5;
         private Button deleteUserBTN;
         private Button updateUserBTN;
+        private Button transactionBTN;
         //private Button parkoutBackButton;
     }
 }

@@ -6,6 +6,7 @@ CREATE TABLE parkwiseDBS(
 	plate_no nvarchar(50) unique not null,
 	vehicle_type nvarchar(50) not null,
 	vehicle_brand nvarchar(50) not null,
+	parking_slot nvarchar(20) not null,
 	parkin_datetime DATETIME not null
 )
 
@@ -27,6 +28,7 @@ CREATE TABLE payments(
 	t_payment decimal(10,2) 
 )
 
+drop table parkwiseDBS
 drop table p_trans
 drop table payments
 

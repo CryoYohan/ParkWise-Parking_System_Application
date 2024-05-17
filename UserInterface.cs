@@ -96,11 +96,18 @@ namespace ParkingSystemGUI
             conn.Close();
         }
         // Register vehicle details in DB and this method is used in the confirm button function in DataRegistered Form
-        private void registerVehicleToDB(string pn, string vt, string vb, string parkin)
+        private void registerVehicleToDB(string pn, string vt, string vb, DateTime parkin)
         {
-            string command = "INSERT INTO parkwiseDBS(plate_no,vehicle_type, vehicle_brand,parkin_datetime)" +
-               "VALUES('" + pn + "', '" + vt + "', '" + vb + "', '" + parkin + "')";
-            exeCommands(command);
+            showAllVehicles();
+            showDataGridForm();
+            Hide();
+            using (ParkingSlotForm parkingSlotForm = new ParkingSlotForm(username, pn, vt, vb, parkin))
+            {
+                parkingSlotForm.ShowDialog();
+
+            }
+            Show();
+            showAllVehicles();
         }
 
         // Proceed Button in Main Menu Form
@@ -119,10 +126,10 @@ namespace ParkingSystemGUI
             vehicleBrandVar = vehicleBrandCBox.Text;
             Blueprint bluePrint = new Blueprint(plateNoVar, vehicleTypeVar, vehicleBrandVar);
             bluePrint.GetPoint(out pn, out vt, out vb);
-             bool duplicatePlateNo = false;
+            bool duplicatePlateNo = false;
             try
             {
-                registerVehicleToDB(pn, vt, vb, parkin.ToString());
+                registerVehicleToDB(pn, vt, vb, parkin);
             }
             catch (Exception)
             {
@@ -237,6 +244,7 @@ namespace ParkingSystemGUI
             logoutBTN.Show();
             menuBTN.Show();
             dataGridBTN.Hide();
+            button2.Show(); // view parking slots button
             showAllVehicles();
         }
         private void hideDataGridForm()
@@ -249,6 +257,7 @@ namespace ParkingSystemGUI
             editBTN.Hide();
             logoutBTN.Hide();
             menuBTN.Hide();
+            button2.Hide(); // view parking slots button
         }
 
         private void UserInterface_Load(object sender, EventArgs e)
@@ -514,7 +523,8 @@ namespace ParkingSystemGUI
                                 plateNoResults.Text = $"Plate No.: {pn}";
                                 vehicleTypeResults.Text = $"Vehicle Type: {vehicleDataGrid.CurrentRow.Cells[2].Value.ToString()}";
                                 vehicleBrandResults.Text = $"Vehicle Brand: {vehicleDataGrid.CurrentRow.Cells[3].Value.ToString()}";
-                                parkinResults.Text = $"Park-in Date/Time: {vehicleDataGrid.CurrentRow.Cells[4].Value.ToString()}";
+                                parkingSlotText.Text = $"Parking Slot: {vehicleDataGrid.CurrentRow.Cells[4].Value.ToString()}";
+                                parkinResults.Text = $"Park-in Date/Time: {vehicleDataGrid.CurrentRow.Cells[5].Value.ToString()}";
                                 parkoutResults.Text = $"Park-out Date/Time: {parkoutDateTime.ToString()}";
                                 durationResults.Text = $"Duration: {days} day(s) {hours} hour(s) {minutes} minute(s)";
                                 flagDownResults.Text = $"Flagdown: ₱{getFlagDown(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower())}.00";
@@ -572,7 +582,7 @@ namespace ParkingSystemGUI
         {
             conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ParkWiseDBS;Integrated Security=True;Connect Timeout=30;Encrypt=False");
             conn.Open();
-            cmd = new SqlCommand("SELECT user_id as [Customer ID], plate_no as [Plate Number], vehicle_type as [Vehicle Type], vehicle_brand as [Vehicle Brand], parkin_datetime as [Park-in Date/Time] from parkwiseDBS");
+            cmd = new SqlCommand("SELECT user_id as [Customer ID], plate_no as [Plate Number], vehicle_type as [Vehicle Type], vehicle_brand as [Vehicle Brand],parking_slot as [Parking Slot], parkin_datetime as [Park-in Date/Time] from parkwiseDBS");
             cmd.Connection = conn;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
@@ -648,6 +658,16 @@ namespace ParkingSystemGUI
             hideMainMenu();
             hideParkinForm();
             hideDataRegisteredForm();
+        }
+        // Parking Slots View Only
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Hide();
+            using (ParkingSlotForm parkingSlotForm = new ParkingSlotForm())
+            {
+                parkingSlotForm.ShowDialog();
+            }
+            Show();
         }
     }
 }
