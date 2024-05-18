@@ -53,6 +53,7 @@ namespace ParkingSystemGUI
                 }
                 Show();
             }
+            
             else if (promptUser == "" || promptPass == "")
             {
                 MessageBox.Show("Field cannot be empty!", "LOGIN");
@@ -89,6 +90,8 @@ namespace ParkingSystemGUI
                                 if (promptPass == storedPassword)
                                 {
                                     MessageBox.Show("Login Successful!", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    userTextbox.Text = "";
+                                    passwordTextbox.Text = "";
                                     registerUserToLogs(promptUser, getUserID(promptUser)); // If sign-in successful, log users to User Logs
                                     Hide();
                                     using (UserInterface userGUI = new UserInterface(promptUser))
@@ -101,11 +104,14 @@ namespace ParkingSystemGUI
                                 else
                                 {
                                     MessageBox.Show("Incorrect Password!", "Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    passwordTextbox.Text = "";
                                 }
                             }
                             else
                             {
                                 MessageBox.Show("User does not exist!", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                userTextbox.Text = "";
+                                passwordTextbox.Text = "";
                             }
                         }
                     }

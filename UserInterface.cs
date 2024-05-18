@@ -486,6 +486,7 @@ namespace ParkingSystemGUI
         {
             removeCollectedData();
             hideDataGridForm();
+            hideDataRegisteredForm();
             showParkinForm();
         }
 

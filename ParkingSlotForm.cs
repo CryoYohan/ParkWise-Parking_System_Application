@@ -59,6 +59,29 @@ namespace ParkingSystemGUI
         List<Button> floor1Buttons = new List<Button>();
         List<Button> floor2Buttons = new List<Button>();
 
+        // Get Flagdown
+        private double getFlagDown(string vehicle)
+        {
+            switch (vehicle)
+            {
+
+                case "motorbike":
+                    return 20.00;
+                    break;
+                case "suv":
+                case "van":
+                    return 40.00;
+                    break;
+                case "sedan":
+                    return 30.00;
+                    break;
+                default:
+                    return 0;
+                    break;
+            }
+
+        }
+
         // Generate the buttons parking slots for Ground Floor
         private void loadGroundFloorParkingSlots()
         {
@@ -261,11 +284,11 @@ namespace ParkingSystemGUI
                         counter++;
                 }
 
-                string command1 = "INSERT INTO p_trans(p_usrlog, p_plateNo, p_loc, p_date)" +
-               "VALUES('" + userLog + "', '" + pn + "','" + slotLocation + "', '" + parkin + "')";
+                string command1 = "INSERT INTO p_trans(p_usrlog, p_plateNo, p_loc, p_flagdown, p_date)" +
+               "VALUES('" + userLog + "', '" + pn + "','" + slotLocation + "'," + getFlagDown(vt.ToLower())+ ",'" + parkin + "')";
                 exeCommands(command1);
                 string command2 = "INSERT INTO parkwiseDBS(plate_no,vehicle_type, vehicle_brand, parking_slot,parkin_datetime)" +
-                "VALUES('" + pn + "', '" + vt + "', '" + vb + "','"+ slotLocation + "', '" + parkin + "')";
+                "VALUES('" + pn + "', '" + vt + "', '" + vb + "','"+ slotLocation + "','" + parkin + "')";
                 bool duplicatePlateNo = false;
                 try
                 {

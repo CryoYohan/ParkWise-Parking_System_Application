@@ -15,7 +15,8 @@ CREATE TABLE p_trans(
 	p_usrlog nvarchar(100),
 	p_plateNo nvarchar(100),
 	p_loc nvarchar(100) null,
-	p_date datetime
+	p_date datetime,
+	p_flagdown decimal(10,2)
 )
 
 CREATE TABLE payments(
@@ -24,6 +25,7 @@ CREATE TABLE payments(
 	t_usrlog nvarchar(100),
 	t_pn nvarchar(20),
 	t_vt nvarchar(100),
+	t_loc nvarchar(100),
 	t_date datetime,
 	t_payment decimal(10,2) 
 )
@@ -53,6 +55,6 @@ DELETE FROM parkwiseDBS;
 DELETE FROM p_trans
 DELETE FROM payments
 
-dbcc checkident('parkwiseDBS',reseed,0);
+dbcc checkident('p_trans',reseed,0);
 
 SELECT user_id, plate_no FROM parkwiseDBS WHERE user_id like 15 AND plate_no like 'YDU-353'

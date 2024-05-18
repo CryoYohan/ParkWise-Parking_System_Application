@@ -640,7 +640,7 @@ namespace ParkingSystemGUI
             editPanel.Controls.Add(editVehicleBrand);
             editPanel.Controls.Add(editVehicleType);
             editPanel.Controls.Add(editPlateNo);
-            editPanel.Location = new Point(314, 164);
+            editPanel.Location = new Point(359, 173);
             editPanel.Name = "editPanel";
             editPanel.Size = new Size(297, 318);
             editPanel.TabIndex = 80;
@@ -761,7 +761,7 @@ namespace ParkingSystemGUI
             // 
             resultsForm1.BackColor = Color.FromArgb(126, 216, 253);
             resultsForm1.ForeColor = SystemColors.ControlText;
-            resultsForm1.Location = new Point(-8, 15);
+            resultsForm1.Location = new Point(-12, 16);
             resultsForm1.Name = "resultsForm1";
             resultsForm1.Size = new Size(933, 692);
             resultsForm1.TabIndex = 84;
@@ -775,7 +775,7 @@ namespace ParkingSystemGUI
             usersDBPanel.Controls.Add(closeUsersDBGrid);
             usersDBPanel.Controls.Add(usersDBGrid);
             usersDBPanel.Controls.Add(searchBoxUsers);
-            usersDBPanel.Location = new Point(471, 15);
+            usersDBPanel.Location = new Point(474, 9);
             usersDBPanel.Name = "usersDBPanel";
             usersDBPanel.Size = new Size(437, 568);
             usersDBPanel.TabIndex = 85;
@@ -940,7 +940,7 @@ namespace ParkingSystemGUI
             editUsersPanel.Controls.Add(editMIBox);
             editUsersPanel.Controls.Add(editLnameBox);
             editUsersPanel.Controls.Add(editFnameBox);
-            editUsersPanel.Location = new Point(617, 99);
+            editUsersPanel.Location = new Point(558, 129);
             editUsersPanel.Name = "editUsersPanel";
             editUsersPanel.Size = new Size(262, 266);
             editUsersPanel.TabIndex = 87;
@@ -1124,6 +1124,7 @@ namespace ParkingSystemGUI
             transactionBTN.TabIndex = 88;
             transactionBTN.Text = "Transactions";
             transactionBTN.UseVisualStyleBackColor = false;
+            transactionBTN.Click += transactionBTN_Click_1;
             // 
             // parkingSlotLabel
             // 

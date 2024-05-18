@@ -260,7 +260,7 @@ namespace ParkingSystemGUI
 
         }
 
-        // PARKOUT Button // Design in Figma for Parking Slots in Results Form
+        // PARKOUT Button // 
         private void parkoutButtonGrid_Click(object sender, EventArgs e)
         {
 
@@ -418,15 +418,60 @@ namespace ParkingSystemGUI
             showMainMenu();
             removeCollectedData();
         }
+        // Get Transaction ID
+        private int getTransactionID(string parkingSlot)
+        {
+            string command = "SELECT p_id FROM p_trans WHERE p_loc = @parkingSlot";
+            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ParkWiseDBS;Integrated Security=True;Connect Timeout=30;Encrypt=False";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Open the connection
+                connection.Open();
 
+                // Create a command object with the query and connection
+                using (SqlCommand cmd2 = new SqlCommand(command, connection))
+                {
+                    // Add parameter to the command
+                    cmd2.Parameters.AddWithValue("@parkingSlot", parkingSlot);
+
+                    // Execute the query and get the result
+                    using (SqlDataReader reader = cmd2.ExecuteReader())
+                    {
+                        // Check if there are any rows in the result
+                        if (reader.HasRows)
+                        {
+                            // Read the first row
+                            reader.Read();
+
+                            // Retrieve the stored password from the reader
+                            int usrID = reader.GetInt32(0);
+                            return usrID;
+                        }
+                        else
+                        {
+                            MessageBox.Show("User does not exist!", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
         // Confirm button in Results Form
         private void confirmResultsButton_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in vehicleDataGrid.SelectedRows)
             {
-                // Remove the entire row from the DataGridView
-                string command = "DELETE FROM parkwiseDBS WHERE user_id = '" + vehicleDataGrid.CurrentRow.Cells[0].Value.ToString() + "'";
-                exeCommands(command);
+                string currentPN = vehicleDataGrid.CurrentRow.Cells[1].Value.ToString();
+                string currentVT = vehicleDataGrid.CurrentRow.Cells[2].Value.ToString();
+                string currentDT = vehicleDataGrid.CurrentRow.Cells[5].Value.ToString();
+                string currentParkingSlot = vehicleDataGrid.CurrentRow.Cells[4].Value.ToString();
+                // Add to Payment History
+                string command1 = "INSERT INTO payments(t_id, t_usrlog, t_pn, t_vt, t_loc, t_date, t_payment)" +
+                    "VALUES(" + getTransactionID(currentParkingSlot) +", '"+ userLog+"', '"+ currentPN + "','"+currentVT+"', '"+currentParkingSlot+"', '"+currentDT+"', "+totalAmount+")";
+                exeCommands(command1);
+
+                string command2 = "DELETE FROM parkwiseDBS WHERE user_id = '" + vehicleDataGrid.CurrentRow.Cells[0].Value.ToString() + "'";
+                exeCommands(command2);
                 showAllVehicles();
 
             }
@@ -940,10 +985,16 @@ namespace ParkingSystemGUI
         {
             showAllVehicles();
         }
+      
         // Transactions Form
-        private void transactionBTN_Click(object sender, EventArgs e)
+        private void transactionBTN_Click_1(object sender, EventArgs e)
         {
-
+            Hide();
+            using (TransactionsForm transactionsForm = new TransactionsForm(userLog))
+            {
+                transactionsForm.ShowDialog();
+            }
+            Show();
         }
     }
 
