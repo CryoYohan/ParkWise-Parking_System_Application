@@ -292,7 +292,8 @@ namespace ParkingSystemGUI
                                 plateNoResults.Text = vehicleDataGrid.CurrentRow.Cells[1].Value.ToString();
                                 vehicleTypeResults.Text = vehicleDataGrid.CurrentRow.Cells[2].Value.ToString();
                                 vehicleBrandResults.Text = vehicleDataGrid.CurrentRow.Cells[3].Value.ToString();
-                                parkinResults.Text = vehicleDataGrid.CurrentRow.Cells[4].Value.ToString();
+                                parkingSlotLabel.Text = vehicleDataGrid.CurrentRow.Cells[4].Value.ToString();
+                                parkinResults.Text = vehicleDataGrid.CurrentRow.Cells[5].Value.ToString();
                                 parkoutResults.Text = parkoutDateTime.ToString();
                                 durationResults.Text = $"{days} day(s) {hours} hour(s) {minutes} minute(s)";
                                 flagDownResults.Text = $"₱{getFlagDown(vehicleDataGrid.CurrentRow.Cells[2].Value.ToString().ToLower())}.00";
@@ -626,6 +627,7 @@ namespace ParkingSystemGUI
             durationResults.Hide();
             flagDownResults.Hide();
             totalAmountResults.Hide();
+            parkingSlotLabel.Hide();
         }
         private void showResultsForm()
         {
@@ -640,6 +642,7 @@ namespace ParkingSystemGUI
             durationResults.Show();
             flagDownResults.Show();
             totalAmountResults.Show();
+            parkingSlotLabel.Show();
         }
 
 
@@ -691,7 +694,7 @@ namespace ParkingSystemGUI
             SqlDataAdapter da;
             DataSet ds = new DataSet();
             con.Open();
-            cmd = new SqlCommand("SELECT user_id as [Customer ID], plate_no as [Plate No.], vehicle_type as [Vehicle Type], vehicle_brand as [Vehicle Brand], parkin_datetime as [Park-in Date/Time] FROM parkwiseDBS WHERE user_id like '" + searchBox.Text + "%' OR plate_no like '" + searchBox.Text + "%'", con);
+            cmd = new SqlCommand("SELECT user_id as [Customer ID], plate_no as [Plate No.], vehicle_type as [Vehicle Type], vehicle_brand as [Vehicle Brand], parking_slot as [Parking Slot], parkin_datetime as [Park-in Date/Time] FROM parkwiseDBS WHERE user_id like '" + searchBox.Text + "%' OR plate_no like '" + searchBox.Text + "%'", con);
             da = new SqlDataAdapter(cmd);
             da.Fill(ds, "ParkWiseDBS");
             vehicleDataGrid.DataSource = ds.Tables[0];

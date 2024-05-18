@@ -279,6 +279,7 @@ namespace ParkingSystemGUI
                 {
                     MessageBox.Show("Plate No. already exist!", "ParkWise", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     con.Close();
+                    Dispose();
                 }
                 else
                 {

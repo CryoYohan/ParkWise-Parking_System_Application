@@ -115,6 +115,7 @@ namespace ParkingSystemGUI
             editLnameBox = new TextBox();
             editFnameBox = new TextBox();
             transactionBTN = new Button();
+            parkingSlotLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)vehicleDataGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)parkingRepositoryBindingSource).BeginInit();
             editPanel.SuspendLayout();
@@ -540,7 +541,7 @@ namespace ParkingSystemGUI
             flagDownResults.BackColor = Color.Gainsboro;
             flagDownResults.Font = new Font("Segoe UI", 11F);
             flagDownResults.ForeColor = Color.FromArgb(32, 105, 158);
-            flagDownResults.Location = new Point(411, 420);
+            flagDownResults.Location = new Point(412, 428);
             flagDownResults.Name = "flagDownResults";
             flagDownResults.Size = new Size(33, 20);
             flagDownResults.TabIndex = 69;
@@ -552,7 +553,7 @@ namespace ParkingSystemGUI
             durationResults.BackColor = Color.Gainsboro;
             durationResults.Font = new Font("Segoe UI", 11F);
             durationResults.ForeColor = Color.FromArgb(32, 105, 158);
-            durationResults.Location = new Point(402, 394);
+            durationResults.Location = new Point(402, 401);
             durationResults.Name = "durationResults";
             durationResults.Size = new Size(33, 20);
             durationResults.TabIndex = 70;
@@ -639,7 +640,7 @@ namespace ParkingSystemGUI
             editPanel.Controls.Add(editVehicleBrand);
             editPanel.Controls.Add(editVehicleType);
             editPanel.Controls.Add(editPlateNo);
-            editPanel.Location = new Point(311, 163);
+            editPanel.Location = new Point(314, 164);
             editPanel.Name = "editPanel";
             editPanel.Size = new Size(297, 318);
             editPanel.TabIndex = 80;
@@ -774,7 +775,7 @@ namespace ParkingSystemGUI
             usersDBPanel.Controls.Add(closeUsersDBGrid);
             usersDBPanel.Controls.Add(usersDBGrid);
             usersDBPanel.Controls.Add(searchBoxUsers);
-            usersDBPanel.Location = new Point(466, 25);
+            usersDBPanel.Location = new Point(471, 15);
             usersDBPanel.Name = "usersDBPanel";
             usersDBPanel.Size = new Size(437, 568);
             usersDBPanel.TabIndex = 85;
@@ -851,7 +852,7 @@ namespace ParkingSystemGUI
             userLogsDBPanel.Controls.Add(closeUserLogsDB);
             userLogsDBPanel.Controls.Add(userLogsDBGrid);
             userLogsDBPanel.Controls.Add(searchUserLogsDB);
-            userLogsDBPanel.Location = new Point(12, 15);
+            userLogsDBPanel.Location = new Point(9, 12);
             userLogsDBPanel.Name = "userLogsDBPanel";
             userLogsDBPanel.Size = new Size(440, 568);
             userLogsDBPanel.TabIndex = 86;
@@ -939,7 +940,7 @@ namespace ParkingSystemGUI
             editUsersPanel.Controls.Add(editMIBox);
             editUsersPanel.Controls.Add(editLnameBox);
             editUsersPanel.Controls.Add(editFnameBox);
-            editUsersPanel.Location = new Point(569, 87);
+            editUsersPanel.Location = new Point(617, 99);
             editUsersPanel.Name = "editUsersPanel";
             editUsersPanel.Size = new Size(262, 266);
             editUsersPanel.TabIndex = 87;
@@ -1124,28 +1125,41 @@ namespace ParkingSystemGUI
             transactionBTN.Text = "Transactions";
             transactionBTN.UseVisualStyleBackColor = false;
             // 
+            // parkingSlotLabel
+            // 
+            parkingSlotLabel.AutoSize = true;
+            parkingSlotLabel.BackColor = Color.Gainsboro;
+            parkingSlotLabel.Font = new Font("Segoe UI", 11F);
+            parkingSlotLabel.ForeColor = Color.FromArgb(32, 105, 158);
+            parkingSlotLabel.Location = new Point(427, 377);
+            parkingSlotLabel.Name = "parkingSlotLabel";
+            parkingSlotLabel.Size = new Size(33, 20);
+            parkingSlotLabel.TabIndex = 89;
+            parkingSlotLabel.Text = "null";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(126, 216, 253);
             ClientSize = new Size(923, 656);
-            Controls.Add(editUsersPanel);
             Controls.Add(editPanel);
+            Controls.Add(editUsersPanel);
             Controls.Add(usersDBPanel);
-            Controls.Add(transactionBTN);
             Controls.Add(userLogsDBPanel);
+            Controls.Add(totalAmountResults);
             Controls.Add(flagDownResults);
             Controls.Add(durationResults);
+            Controls.Add(parkingSlotLabel);
+            Controls.Add(parkoutResults);
+            Controls.Add(parkinResults);
+            Controls.Add(vehicleBrandResults);
             Controls.Add(vehicleTypeResults);
             Controls.Add(plateNoResults);
             Controls.Add(customerIDResults);
-            Controls.Add(vehicleBrandResults);
-            Controls.Add(parkinResults);
-            Controls.Add(parkoutResults);
-            Controls.Add(totalAmountResults);
             Controls.Add(confirmResultsButton);
             Controls.Add(resultsForm1);
+            Controls.Add(transactionBTN);
             Controls.Add(accessDBUserLogs);
             Controls.Add(accessDBUsers);
             Controls.Add(accessDBVehicles);
@@ -1288,6 +1302,7 @@ namespace ParkingSystemGUI
         private Button deleteUserBTN;
         private Button updateUserBTN;
         private Button transactionBTN;
+        private Label parkingSlotLabel;
         //private Button parkoutBackButton;
     }
 }
